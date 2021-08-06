@@ -29,6 +29,7 @@ def multimodel():
     print("========== Create Learning Assignments ==========")
     sample_x, sample_y, x_names, perf_data, test_data, train_data = get_input() # 现在的sample_y只有p50
 
+    # record service dependencies
     extra_names = {
         "adservice":[],
         "cartservice":["get", "set"], 
@@ -63,7 +64,8 @@ def multimodel():
     add_list = []
     for f in finals:
         try:
-            fluxion.add_service(f, "0.50", la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+["0.50"]*len(extra_names[f]))
+            for p in eval_metric:
+                fluxion.add_service(f, p, la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+eval_metric*len(extra_names[f]))
         except:
             add_list.append(f)
             continue
@@ -71,7 +73,8 @@ def multimodel():
         new_add_list = []
         for f in add_list:
             try:
-                fluxion.add_service(f, "0.50", la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+["0.50"]*len(extra_names[f]))
+                for p in eval_metric:
+                    fluxion.add_service(f, p, la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+[p]*len(extra_names[f]))
             except:
                 new_add_list.append(f)
                 continue
@@ -153,6 +156,7 @@ def singlemodel():
 if __name__ == "__main__":
     print("train size is", train_size)
     print("test size is", test_size)
-
-    multimodel()
-    singlemodel()
+    l = [1,2,3,4]
+    print(l*4)
+    # multimodel()
+    # singlemodel()
