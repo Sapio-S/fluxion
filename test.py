@@ -43,77 +43,41 @@ def multimodel():
         "get":[], 
         "set":[]
     }
+
+    la_map = {}
+
+    for f in finals:
+        f_input = combine_data(extra_names[f], "0.50", perf_data, sample_x[f])
+        la = LearningAssignment(zoo, x_names[f]+extra_names[f])
+        la.create_and_add_model(f_input, sample_y[f], GaussianProcess)
+        la_map[f] = la
+        # prediction
+        errs = []
+        for i, s in enumerate(f_input):
+            pre = la.predict(s)["val"]
+            real = sample_y[f][i]
+            errs.append(abs(pre-real))
+        print("la error for ", f, np.mean(errs))
     
-    recommendation_extra_names = ["productcatalogservice"]
-    cart_extra_names = ["get", "set"]
-    checkout_extra_names = ["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"]
-    frontend_extra_names = ["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"]
-    
-    f = "cartservice"
-    cart_input = combine_data(cart_extra_names, "0.50", perf_data, sample_x["cartservice"])
-    cart = LearningAssignment(zoo, x_names["cartservice"]+cart_extra_names)
-    cart.create_and_add_model(cart_input, sample_y["cartservice"], GaussianProcess)
-    errs = []
-    for i, s in enumerate(cart_input):
-        pre = cart.predict(s)["val"]
-        real = sample_y["cartservice"][i]
-        errs.append(abs(pre-real))
-    print("la error for ", f, np.mean(errs))
-
-
-    recommendation_input = combine_data(recommendation_extra_names, "0.50", perf_data, sample_x["recommendationservice"])
-    recommendation = LearningAssignment(zoo, x_names["recommendationservice"]+recommendation_extra_names)
-    recommendation.create_and_add_model(recommendation_input, sample_y["recommendationservice"], GaussianProcess)
-    
-    frontend_input = combine_data(frontend_extra_names, "0.50", perf_data, sample_x["frontend"])
-    frontend = LearningAssignment(zoo, x_names["frontend"]+frontend_extra_names)
-    frontend.create_and_add_model(frontend_input, sample_y["frontend"], GaussianProcess)
-
-    checkout_input = combine_data(checkout_extra_names, "0.50", perf_data, sample_x["checkoutservice"])
-    checkout = LearningAssignment(zoo, x_names["checkoutservice"]+checkout_extra_names)
-    checkout.create_and_add_model(checkout_input, sample_y["checkoutservice"], GaussianProcess)
-
-    ad = LearningAssignment(zoo, x_names["adservice"])
-    ad.create_and_add_model(sample_x["adservice"], sample_y["adservice"], GaussianProcess)
-    email = LearningAssignment(zoo, x_names["emailservice"])
-    email.create_and_add_model(sample_x["emailservice"], sample_y["emailservice"], GaussianProcess)
-    payment = LearningAssignment(zoo, x_names["paymentservice"])
-    payment.create_and_add_model(sample_x["paymentservice"], sample_y["paymentservice"], GaussianProcess)
-    shipping = LearningAssignment(zoo, x_names["shippingservice"])
-    shipping.create_and_add_model(sample_x["shippingservice"], sample_y["shippingservice"], GaussianProcess)
-    currency = LearningAssignment(zoo, x_names["currencyservice"])
-    currency.create_and_add_model(sample_x["currencyservice"], sample_y["currencyservice"], GaussianProcess)
-    catalog = LearningAssignment(zoo, x_names["productcatalogservice"])
-    catalog.create_and_add_model(sample_x["productcatalogservice"], sample_y["productcatalogservice"], GaussianProcess)
-    get = LearningAssignment(zoo, x_names["get"])
-    get.create_and_add_model(sample_x["get"], sample_y["get"], GaussianProcess)
-    set = LearningAssignment(zoo, x_names["set"])
-    set.create_and_add_model(sample_x["set"], sample_y["set"], GaussianProcess)
-
     print("========== Add Services ==========")
-    fluxion.add_service("emailservice", "0.50", email, [None]*len(x_names["emailservice"]), [None]*len(x_names["emailservice"]))
-    fluxion.add_service("paymentservice", "0.50", payment, [None]*len(x_names["paymentservice"]), [None]*len(x_names["paymentservice"]))
-    fluxion.add_service("shippingservice", "0.50", shipping, [None]*len(x_names["shippingservice"]), [None]*len(x_names["shippingservice"]))
-    fluxion.add_service("currencyservice", "0.50", currency, [None]*len(x_names["currencyservice"]), [None]*len(x_names["currencyservice"]))
-    fluxion.add_service("productcatalogservice", "0.50", catalog, [None]*len(x_names["productcatalogservice"]), [None]*len(x_names["productcatalogservice"]))
-    fluxion.add_service("get", "0.50", get, [None]*len(x_names["get"]), [None]*len(x_names["get"]))
-    fluxion.add_service("set", "0.50", set, [None]*len(x_names["set"]), [None]*len(x_names["set"]))
-    fluxion.add_service("adservice", "0.50", ad, [None]*len(x_names["adservice"]), [None]*len(x_names["adservice"]))
-    fluxion.add_service("cartservice", "0.50", cart, [None]*len(x_names["cartservice"])+["get", "set"], [None]*len(x_names["cartservice"])+["0.50", "0.50"])
-    fluxion.add_service("checkoutservice", "0.50", checkout, [None]*len(x_names["checkoutservice"])+["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], [None]*len(x_names["checkoutservice"])+["0.50", "0.50", "0.50", "0.50", "0.50", "0.50"])
-    fluxion.add_service("recommendationservice", "0.50", recommendation, [None]*len(x_names["recommendationservice"])+["productcatalogservice"], [None]*len(x_names["recommendationservice"])+["0.50"])
-    fluxion.add_service("frontend", "0.50", frontend, [None, None, None, None, None, "adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], [None, None, None, None, None, "0.50", "0.50", "0.50", "0.50", "0.50", "0.50", "0.50"])
+    add_list = []
+    for f in finals:
+        try:
+            fluxion.add_service(f, "0.50", la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+["0.50"]*len(extra_names[f]))
+        except:
+            add_list.append(f)
+            continue
+    while(len(add_list) > 0):
+        new_add_list = []
+        for f in add_list:
+            try:
+                fluxion.add_service(f, "0.50", la_map[f], [None]*len(x_names[f])+extra_names[f], [None]*len(x_names[f])+["0.50"]*len(extra_names[f]))
+            except:
+                new_add_list.append(f)
+                continue
+        add_list = new_add_list
 
-    # for f in finals:
-    #     errs = []
-    #     for i in range(train_size):
-    #         prediction = fluxion.predict(f, "0.50", train_data[i])
-    #         v1 = prediction[f]["0.50"]["val"]
-    #         v2 = perf_data[f+":0.50"][i+test_size]
-    #         errs.append(abs(v1-v2))
-    #     print(f, "avg error for multimodel", np.mean(errs))
-    
-    # get train error
+    # get whole train error
     errs = []
     f = "frontend"
     for i in range(train_size):
@@ -182,7 +146,7 @@ def singlemodel():
         prediction = fluxion.predict("e2e", "0.50", {"e2e":{"0.50":[minimap]}})
         v1 = prediction["e2e"]["0.50"]["val"]
         v2 = perf_data["frontend:0.50"][i]
-        print(v1, v2)
+        # print(v1, v2)
         errs.append(abs(v1-v2))
     print("avg test error for single model",np.mean(errs))
 
