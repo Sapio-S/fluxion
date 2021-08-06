@@ -1,5 +1,5 @@
 route = "res/"
-train_size = 100
+train_size = 10
 test_size = 130
 services = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "redis"]
 quantile = ["0.50", '0.90', '0.95', '0.99']

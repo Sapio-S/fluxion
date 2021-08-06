@@ -36,6 +36,7 @@ input_names = {"service": ["para name", "para name"], ...}
 output = {"service": [...], ...}
 f_input = {'Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * test_size}}
 f_input2 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * test_size
+f_input3 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * train_size
 '''
 def la_input(para, csv_onedic):
     data_dic = {}
@@ -74,8 +75,11 @@ def la_input(para, csv_onedic):
     output = {}
     # f_input = {}
     f_input2 = []
+    f_input3 = []
     for i in range(test_size):
         f_input2.append({})
+    for i in range(train_size):
+        f_input3.append({})
     input_names = {}
     for f in finals:
         input[f] = []
@@ -84,6 +88,8 @@ def la_input(para, csv_onedic):
 
         for i in range(test_size):
             f_input2[i][f] = {}
+        for i in range(train_size):
+            f_input3[i][f] = {}
         output[f] = csv_onedic[f+":0.50"][test_size:test_size+train_size] # TODO: change performance metric
         # add names
         for k, v in data_dic[f][0].items():
@@ -105,12 +111,18 @@ def la_input(para, csv_onedic):
         #     f_input[f][perf] = tmp_fluxion_instance
 
         # add parameter settings & rps values for f_input2
+        for i in range(test_size):
+            tmp_list = [data_dic[f][i]] # TODO: add copy()
+            tmp_list[0][f+":rps"] = csv_onedic[f+":rps"][i]
+            for perf in eval_metric:
+                f_input2[i][f][perf] = tmp_list
+
+        # add parameter settings & rps values for f_input3
         for i in range(train_size):
-            '''changed'''
             tmp_list = [data_dic[f][i+test_size]] # TODO: add copy()
             tmp_list[0][f+":rps"] = csv_onedic[f+":rps"][i+test_size]
             for perf in eval_metric:
-                f_input2[i][f][perf] = tmp_list
+                f_input3[i][f][perf] = tmp_list
 
         # add rps values for input [test_size, test_size+train_size]
         for i in range(train_size):
@@ -123,7 +135,7 @@ def la_input(para, csv_onedic):
         #         x[f+":rps"] = csv_onedic[f+":rps"][sub]
         #         sub += 1
     # print(f_input2)
-    return input, output, input_names, f_input2
+    return input, output, input_names, f_input2, f_input3
 
 # don't use. 
 def fluxion_input(para): 
@@ -182,5 +194,5 @@ def get_input():
     para = read_para()
     # print(para["adservice"][:4])
     csvs = combine_csv()
-    a, b, c, d = la_input(para, csvs)
-    return a, b, c, csvs, d
+    a, b, c, d, e = la_input(para, csvs)
+    return a, b, c, csvs, d, e
