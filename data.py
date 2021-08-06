@@ -22,7 +22,10 @@ def combine_csv():
             if r["service"] == "redis" or r["service"] == "total":
                 continue
             for p in perf:
-                csv_onedic[r["service"]+":"+p].append(float(r[p]))
+                if p != "rps":
+                    csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) # change to ms
+                else:
+                    csv_onedic[r["service"]+":"+p].append(float(r[p]))
     return csv_onedic
 
 '''
@@ -69,7 +72,7 @@ def la_input(para, csv_onedic):
     # generate inputs
     input = {}
     output = {}
-    f_input = {}
+    # f_input = {}
     f_input2 = []
     for i in range(test_size):
         f_input2.append({})
@@ -77,7 +80,7 @@ def la_input(para, csv_onedic):
     for f in finals:
         input[f] = []
         input_names[f] = []
-        f_input[f] = {}
+        # f_input[f] = {}
 
         for i in range(test_size):
             f_input2[i][f] = {}
@@ -94,18 +97,18 @@ def la_input(para, csv_onedic):
                 small_instance.append(v)
             input[f].append(small_instance)
         
-        # add parameter settings for f_input
-        tmp_fluxion_instance = []
-        for p_ in data_dic[f][:test_size]:
-            tmp_fluxion_instance.append(p_)
-        for perf in eval_metric:
-            f_input[f][perf] = tmp_fluxion_instance
+        # # add parameter settings for f_input
+        # tmp_fluxion_instance = []
+        # for p_ in data_dic[f][:test_size]:
+        #     tmp_fluxion_instance.append(p_)
+        # for perf in eval_metric:
+        #     f_input[f][perf] = tmp_fluxion_instance
 
         # add parameter settings & rps values for f_input2
-        for i in range(test_size):
+        for i in range(train_size):
             '''changed'''
             tmp_list = [data_dic[f][i+test_size]] # TODO: add copy()
-            tmp_list[0][f+":rps"] = csv_onedic[f+":rps"][i]
+            tmp_list[0][f+":rps"] = csv_onedic[f+":rps"][i+test_size]
             for perf in eval_metric:
                 f_input2[i][f][perf] = tmp_list
 
@@ -113,12 +116,12 @@ def la_input(para, csv_onedic):
         for i in range(train_size):
             input[f][i].append(csv_onedic[f+":rps"][test_size+i])
 
-        # add rps values for f_input(for prediction) [0, test_size]
-        for perf in eval_metric:
-            sub = 0
-            for x in f_input[f][perf]:
-                x[f+":rps"] = csv_onedic[f+":rps"][sub]
-                sub += 1
+        # # add rps values for f_input(for prediction) [0, test_size]
+        # for perf in eval_metric:
+        #     sub = 0
+        #     for x in f_input[f][perf]:
+        #         x[f+":rps"] = csv_onedic[f+":rps"][sub]
+        #         sub += 1
     # print(f_input2)
     return input, output, input_names, f_input2
 
@@ -159,7 +162,7 @@ def fluxion_input(para):
                     print(data_dic[r["service"]][p][set])
 
 def read_para():
-    return np.load(route+"new_param300.npy", allow_pickle=True).item()
+    return np.load(route+"param300.npy", allow_pickle=True).item()
     
 def read_res():
     data_dic = {}

@@ -96,13 +96,14 @@ def multimodel():
     fluxion.add_service("recommendationservice", "0.50", recommendation, [None]*len(x_names["recommendationservice"])+["productcatalogservice"], [None]*len(x_names["recommendationservice"])+["0.50"])
     fluxion.add_service("frontend", "0.50", frontend, [None, None, None, None, None, "adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], [None, None, None, None, None, "0.50", "0.50", "0.50", "0.50", "0.50", "0.50", "0.50"])
 
-    errs = []
-    for i in range(test_size):
-        prediction = fluxion.predict("frontend", "0.50", test_data[i])
-        v1 = prediction["frontend"]["0.50"]["val"]
-        v2 = perf_data["frontend:0.50"][i]
-        errs.append(abs(v1-v2))
-    print("avg error for multimodel",np.mean(errs))
+    for f in finals:
+        errs = []
+        for i in range(train_size):
+            prediction = fluxion.predict(f, "0.50", test_data[i])
+            v1 = prediction[f]["0.50"]["val"]
+            v2 = perf_data[f+":0.50"][i+test_size]
+            errs.append(abs(v1-v2))
+        print(f, "avg error for multimodel", np.mean(errs))
 
     # visualize graph
     # fluxion.visualize_graph_engine_diagrams("frontend", "0.50", output_filename="frontend-multi")
@@ -131,14 +132,14 @@ def singlemodel():
 
     # fluxion.visualize_graph_engine_diagrams("e2e", "0.50", output_filename="e2e-single")
     errs = []
-    for i in range(test_size):
+    for i in range(train_size):
         minimap = {}
         for f in finals:
             for k, v in test_data[i][f]["0.50"][0].items():
                 minimap[f+":"+k] = v
         prediction = fluxion.predict("e2e", "0.50", {"e2e":{"0.50":[minimap]}})
         v1 = prediction["e2e"]["0.50"]["val"]
-        v2 = perf_data["frontend:0.50"][i]
+        v2 = perf_data["frontend:0.50"][i+test_size]
         errs.append(abs(v1-v2))
     print("avg error for single model",np.mean(errs))
 
