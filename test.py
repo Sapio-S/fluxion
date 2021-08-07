@@ -156,7 +156,5 @@ def singlemodel():
 if __name__ == "__main__":
     print("train size is", train_size)
     print("test size is", test_size)
-    l = [1,2,3,4]
-    print(l*4)
-    # multimodel()
-    # singlemodel()
+    multimodel()
+    singlemodel()
