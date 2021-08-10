@@ -17,7 +17,7 @@ if __name__ == "__main__":
     
     print("========== Create Learning Assignments ==========")
     sample_x_names = ["CacheType", "BPS", "InsertThreshold"]
-    samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile(["datasamples_mlft.csv"], sample_x_names, ["Latency_99"], [1])
+    samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile(["datasamples_mlft.csv"], sample_x_names, ["Latency_99", "Latency_50"], [1,1])
     print(samples_x)
     print(samples_y_aggregation)
     la1 = LearningAssignment(zoo, sample_x_names)
