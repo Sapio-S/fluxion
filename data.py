@@ -3,13 +3,14 @@ import pandas as pd
 import numpy as np
 import os
 from consts import *
+from const_dic import const_dic
 
 '''
 将所有csv数据拼成大表读出
 csvs = {"service": {"perf": [...], ...}, ...}
 csv_onedic = {"service:perf":[...], ...}
 '''
-def combine_csv():
+def combine_csv(train_size, test_size, sub_map):
     csv_onedic = {}
     for f in finals:
         for p in perf:
@@ -23,7 +24,8 @@ def combine_csv():
                 continue
             for p in perf:
                 if p != "rps":
-                    csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) # change to ms
+                    # scale data. used to be ms
+                    csv_onedic[r["service"]+":"+p].append(float(r[p])/scale_para[r["service"]]) 
                 else:
                     csv_onedic[r["service"]+":"+p].append(float(r[p]))
     return csv_onedic
@@ -38,7 +40,7 @@ f_input = {'Service Name': {'Performance Name': [{'Input Name': Input Val, ...},
 f_input2 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * test_size
 f_input3 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * train_size
 '''
-def la_input(para, csv_onedic):
+def la_input(para, csv_onedic, train_size, test_size, sub_map):
     data_dic = {}
     for s in services:
         # deal with redis and cartservice
@@ -82,10 +84,10 @@ def la_input(para, csv_onedic):
         f_input3.append({})
     for p in eval_metric:
         output[p] = {}
-        for f in finals:
+        for f in finals2:
             output[p][f] = csv_onedic[f+":"+p][test_size:test_size+train_size]
     input_names = {}
-    for f in finals:
+    for f in finals2:
         input[f] = []
         input_names[f] = []
 
@@ -163,7 +165,15 @@ def fluxion_input(para):
                     print(data_dic[r["service"]][p][set])
 
 def read_para():
-    return np.load(route+"param300.npy", allow_pickle=True).item()
+    para = np.load(route+"param.npy", allow_pickle=True).item()
+
+    # scale data
+    for s in services:
+        for i in range(len(para[s])):
+            for p in para[s][i]:
+                para[s][i][p] /= (const_dic[s][p]["MAX"] - const_dic[s][p]["MIN"])/2
+
+    return para
     
 def read_res():
     data_dic = {}
@@ -179,9 +189,9 @@ def read_res():
             print(data)
             break
             
-def get_input():
+def get_input(train_size, test_size, sub_map):
     para = read_para()
     # print(para["adservice"][:4])
-    csvs = combine_csv()
-    a, b, c, d, e = la_input(para, csvs)
+    csvs = combine_csv(train_size, test_size, sub_map)
+    a, b, c, d, e = la_input(para, csvs, train_size, test_size, sub_map)
     return a, b, c, csvs, d, e
