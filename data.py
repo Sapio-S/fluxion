@@ -26,22 +26,71 @@ def combine_csv(train_size, test_size, sub_map):
                 if p != "rps":
                     # scale data. used to be ms
                     csv_onedic[r["service"]+":"+p].append(float(r[p])/scale_para[r["service"]]) 
+                    # csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) 
                 else:
                     csv_onedic[r["service"]+":"+p].append(float(r[p]))
-    return csv_onedic
+    return csv_onedic, {}
+
+def combine_csv_normalize(train_size, test_size, sub_map):
+    '''
+    add normalize
+    '''
+    csv_onedic = {}
+    csv_m = {}
+    for f in finals:
+        for p in perf:
+            csv_onedic[f+":"+p] = []
+            csv_m[f+":"+p+":MAX"] = 0
+            csv_m[f+":"+p+":MIN"] = 10000000
+    
+    # record max & min value for train data only
+    for i in range(test_size, test_size+train_size): 
+        data = pd.read_csv(route+"data"+str(sub_map[i])+".csv")
+        for row in range(14):
+            # data.loc[row]用来取出一个service对应的行
+            r = data.loc[row]
+            if r["service"] == "redis" or r["service"] == "total":
+                continue
+            for p in perf:
+                min_ = csv_m[r["service"]+":"+p+":MIN"]
+                max_ = csv_m[r["service"]+":"+p+":MAX"]
+                val = float(r[p])
+                if val > max_:
+                    csv_m[r["service"]+":"+p+":MAX"] = val
+                if val < min_:
+                    csv_m[r["service"]+":"+p+":MIN"] = val
+
+    # normalize all data
+    for i in range(train_size+test_size):
+        data = pd.read_csv(route+"data"+str(sub_map[i])+".csv")
+        for row in range(14):
+            # data.loc[row]用来取出一个service对应的行
+            r = data.loc[row]
+            if r["service"] == "redis" or r["service"] == "total":
+                continue
+            for p in perf:
+                val = 0
+                try:
+                    val = (float(r[p]) - csv_m[r["service"]+":"+p+":MIN"]) / ( csv_m[r["service"]+":"+p+":MAX"] - csv_m[r["service"]+":"+p+":MIN"])
+                except:
+                    val = 0.5
+                csv_onedic[r["service"]+":"+p].append(val)
+    return csv_onedic, csv_m
 
 '''
 input for learning_assignment
+restructure data into desired shapes
 
 input = {"service": [[para value] * 300], ...}
 input_names = {"service": ["para name", "para name"], ...}
 output = {"p90":{"service": [...], ...}, ...}
 f_input = {'Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * test_size}}
-f_input2 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * test_size
-f_input3 = ['Service Name': {'Performance Name': [{'Input Name': Input Val, ...}, ...] * 1}] * train_size
+f_input2 = [{'Service Name': {'Performance Name': [{'Input Name': Input Val, ...}] }}] * test_size
+f_input3 = [{'Service Name': {'Performance Name': [{'Input Name': Input Val, ...}] }}] * train_size
 '''
 def la_input(para, csv_onedic, train_size, test_size, sub_map):
     data_dic = {}
+    length = test_size+train_size
     for s in services:
         # deal with redis and cartservice
         if s == "redis":
@@ -67,7 +116,6 @@ def la_input(para, csv_onedic, train_size, test_size, sub_map):
                 })
         else:
             data_dic[s] = []
-            length = test_size+train_size
             for i in range(length):
                 data_dic[s].append(para[s][sub_map[i]]) 
             # para[s][i] = {'MAX_ADS_TO_SERVE': 3, 'CPU_LIMIT': 364, 'MEMORY_LIMIT': 414, 'IPV4_RMEM': 1376265, 'IPV4_WMEM': 3236110}  
@@ -128,70 +176,71 @@ def la_input(para, csv_onedic, train_size, test_size, sub_map):
 
     return input, output, input_names, f_input2, f_input3
 
-# don't use. 
-def fluxion_input(para): 
-    data_dic = {}
-    file_list = os.listdir(route)
-    for s in services:
-        if s == "redis":
-            data_dic["get"] = {}
-            data_dic["set"] = {}
-            for p in perf:
-                data_dic["get"][p] = []
-                data_dic["set"][p] = []
-                for i in range(length):
-                    data_dic["get"][p].append(para[s][i])
-                    data_dic["set"][p].append(para[s][i])
-        for p in perf:
-            data_dic[s][p] = []
-            length = len(para[s])
-            for i in range(length):
-                # para[s][i] = {'MAX_ADS_TO_SERVE': 3, 'CPU_LIMIT': 364, 'MEMORY_LIMIT': 414, 'IPV4_RMEM': 1376265, 'IPV4_WMEM': 3236110}
-                data_dic[s][p].append(para[s][i])
-            
-                
-    # add rps as input
-    for file in file_list:
-        if file[:4] == "data": # dataxx.csv
-            name = file.split('.')
-            set = int(name[0][4:]) # 第几组参数获取的数据
-            data = pd.read_csv(route+file)
-
-            for row in range(14):
-                # data.loc[row]用来取出一个service对应的行
-                r = data.loc[row]
-                for p in perf:
-                    data_dic[r["service"]][p][set]["rps"] = r["rps"]
-                    print(data_dic[r["service"]][p][set])
 
 def read_para():
     para = np.load(route+"param.npy", allow_pickle=True).item()
+    para_m = {}
+    for s in services:
+        for p in para[s][0]:
+            para_m[s+":"+p+":MAX"] = 0
+            para_m[s+":"+p+":MIN"] = 10000000
 
-    # scale data
+    # record the max & min of training data
     for s in services:
         for i in range(len(para[s])):
             for p in para[s][i]:
-                para[s][i][p] /= (const_dic[s][p]["MAX"] - const_dic[s][p]["MIN"])/2
+                val = para[s][i][p]
+                min_ = para_m[s+":"+p+":MIN"]
+                max_ = para_m[s+":"+p+":MAX"]
+                if val < min_:
+                    para_m[s+":"+p+":MIN"] = val
+                if val > max_:
+                    para_m[s+":"+p+":MAX"] = val
 
-    return para
-    
-def read_res():
-    data_dic = {}
+    # scale data, normalize
     for s in services:
-        data_dic[s] = {}
-    for p in perf:
-        data_dic[s][p] = []
-    file_list = os.listdir(route)
-    # print(file_list)
-    for file in file_list:
-        if file[:4] == "data": # dataxx.csv
-            data = pd.read_csv(route+file)
-            print(data)
-            break
-            
-def get_input(train_size, test_size, sub_map):
-    para = read_para()
-    # print(para["adservice"][:4])
-    csvs = combine_csv(train_size, test_size, sub_map)
+        for i in range(len(para[s])):
+            for p in para[s][i]:
+                para[s][i][p] = (para[s][i][p]-para_m[s+":"+p+":MIN"])/(para_m[s+":"+p+":MAX"]-para_m[s+":"+p+":MIN"])
+                # para[s][i][p] = para[s][i][p] / const_dic[s][p]["MAX"]
+
+    return para, para_m
+
+def get_input_original(train_size, test_size, sub_map):
+    para, para_m = read_para()
+    csvs, csv_m = combine_csv_normalize(train_size, test_size, sub_map)
     a, b, c, d, e = la_input(para, csvs, train_size, test_size, sub_map)
     return a, b, c, csvs, d, e
+
+def get_input(i):
+    a = np.load("tmp_data/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data/"+str(i)+"_train_data.npy", allow_pickle=True)
+    return a, b, c, d, e, f # samples_x, samples_y, x_names, perf_data, test_data, train_data
+
+def store_input(sub_map, i, train_size=550, test_size=118):
+    para, para_m = read_para()
+    csvs, csv_m = combine_csv_normalize(train_size, test_size, sub_map)
+    a, b, c, d, e = la_input(para, csvs, train_size, test_size, sub_map)
+    np.save("tmp_data/"+str(i)+"_sample_x", a)
+    np.save("tmp_data/"+str(i)+"_sample_y", b)
+    np.save("tmp_data/names", c)
+    np.save("tmp_data/"+str(i)+"_perf_data", csvs)
+    np.save("tmp_data/"+str(i)+"_test_data", d)
+    np.save("tmp_data/"+str(i)+"_train_data", e)
+    np.save("tmp_data/"+str(i)+"_csv_scale", csv_m)
+    np.save("tmp_data/"+str(i)+"_para_scale", para_m)
+
+def generate_tmp_data():
+    print("generatring data. stored in tmp_data/ folder.")
+    for i in range(10):
+        sub_map = np.arange(668)
+        np.random.seed(i)
+        np.random.shuffle(sub_map)
+        store_input(sub_map, i)
+
+if __name__ == "__main__":
+    generate_tmp_data()

@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-route = "res_clean/"
+route = "res_rm_outlier/"
 services = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "redis"]
 quantile = ["0.50", '0.90', '0.95', '0.99']
 headers = ["service", "rps","avg", "0.50", '0.90', '0.95', '0.99']
@@ -10,13 +10,10 @@ perf = ["rps", "avg", "0.50", '0.90', '0.95', '0.99']
 # record service dependencies
 extra_names = {
     "adservice":[],
-    # "cartservice": [],
     "cartservice":["get", "set"], 
-    # "checkoutservice": [],
     "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
     "currencyservice":[], 
     "emailservice":[], 
-    # "frontend":["checkoutservice"],
     "frontend":["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], 
     "paymentservice":[], 
     "productcatalogservice":[], 
