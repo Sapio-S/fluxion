@@ -25,8 +25,7 @@ def combine_csv(train_size, test_size, sub_map):
             for p in perf:
                 if p != "rps":
                     # scale data. used to be ms
-                    csv_onedic[r["service"]+":"+p].append(float(r[p])/scale_para[r["service"]]) 
-                    # csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) 
+                    csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) 
                 else:
                     csv_onedic[r["service"]+":"+p].append(float(r[p]))
     return csv_onedic, {}
@@ -179,32 +178,13 @@ def la_input(para, csv_onedic, train_size, test_size, sub_map):
 
 def read_para():
     para = np.load(route+"param.npy", allow_pickle=True).item()
-    para_m = {}
-    for s in services:
-        for p in para[s][0]:
-            para_m[s+":"+p+":MAX"] = 0
-            para_m[s+":"+p+":MIN"] = 10000000
-
-    # record the max & min of training data
+    # scale data
     for s in services:
         for i in range(len(para[s])):
             for p in para[s][i]:
-                val = para[s][i][p]
-                min_ = para_m[s+":"+p+":MIN"]
-                max_ = para_m[s+":"+p+":MAX"]
-                if val < min_:
-                    para_m[s+":"+p+":MIN"] = val
-                if val > max_:
-                    para_m[s+":"+p+":MAX"] = val
+                para[s][i][p] = para[s][i][p] / const_dic[s][p]["MAX"]
 
-    # scale data, normalize
-    for s in services:
-        for i in range(len(para[s])):
-            for p in para[s][i]:
-                para[s][i][p] = (para[s][i][p]-para_m[s+":"+p+":MIN"])/(para_m[s+":"+p+":MAX"]-para_m[s+":"+p+":MIN"])
-                # para[s][i][p] = para[s][i][p] / const_dic[s][p]["MAX"]
-
-    return para, para_m
+    return para, {}
 
 def get_input_original(train_size, test_size, sub_map):
     para, para_m = read_para()
@@ -223,7 +203,7 @@ def get_input(i):
 
 def store_input(sub_map, i, train_size=550, test_size=118):
     para, para_m = read_para()
-    csvs, csv_m = combine_csv_normalize(train_size, test_size, sub_map)
+    csvs, csv_m = combine_csv(train_size, test_size, sub_map)
     a, b, c, d, e = la_input(para, csvs, train_size, test_size, sub_map)
     np.save("tmp_data/"+str(i)+"_sample_x", a)
     np.save("tmp_data/"+str(i)+"_sample_y", b)
