@@ -97,7 +97,7 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, train_data, test_data,
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 300, 400, 500]
-    train_size = train_list[7]
+    train_size = train_list[8]
     test_size = 84
     valid_size = 84
     print("train size is", train_size)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     test_errs = []
 
     params = nni.get_next_parameter()
-    for i in range(1): # TODO
+    for i in range(10): # TODO
         samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
         t1, t2, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, train_data, test_data, valid_data, params)
         train_errs.append(t1)
