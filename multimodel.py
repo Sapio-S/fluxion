@@ -8,7 +8,7 @@ from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
 
 from consts import *
-from data import get_input
+from data import get_input, get_input_without_valid
 import numpy as np
 
 def combine_list(list1, list2):
@@ -75,16 +75,18 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i]
             errs.append(abs(v1-v2))
+            if f == "frontend":
+                print(v1, v2)
         test_err[f] = np.mean(errs) # calculate MAE for every service
 
     return train_err, test_err
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 350, 450, 550]
-    f = open("log/graph0814/multi_"+str(len(eval_metric))+'_log4(7-9)',"w")
-    sys.stdout = f
+    # f = open("log/multi_"+str(len(eval_metric))+'_log3(6-9)',"w")
+    # sys.stdout = f
 
-    for train_sub in range(7, 10):
+    for train_sub in range(1):
         train_errs = []
         test_errs = {}
         for f in finals2:
@@ -94,9 +96,8 @@ if __name__ == "__main__":
         test_size = 118
         print("train size is", train_size)
         print("test size is", test_size)
-        
-        for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data = get_input(i)
+        for i in range(1):
+            samples_x, samples_y, x_names, perf_data, test_data, train_data = get_input_without_valid(i)
             train_err, test_err = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             train_errs.append(train_err)
             for f in finals2:
