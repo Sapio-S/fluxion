@@ -28,32 +28,38 @@ import heapq
 # combine_parameters()
 
 '''
-combine results & parameter sets
-'''
-def merge_paras():
-    para1 = np.load("res300_1/param300.npy", allow_pickle=True).item()
-    para2 = np.load("res300_2/param_300.npy", allow_pickle=True).item()
-    para = {}
-    for s in services:
-        para[s] = para1[s]+para2[s]
-    np.save("res_merged/param.npy", para)
-
-def move_csvs():
-    for i in range(300):
-        shutil.move("res300_1/data"+str(i)+".csv", "res_merged/data"+str(i)+".csv")
-    for i in range(300):
-        shutil.move("res300_2/data"+str(i)+".csv", "res_merged/data"+str(i+300)+".csv")
-
-def move_wrk_table():
-    for i in range(300):
-        shutil.move("wrk_table_300_1/"+str(i), "wrk_table_merged/"+str(i))
-    for i in range(300):
-        shutil.move("wrk_table_300_2/"+str(i), "wrk_table_merged/"+str(i+300))
-
-'''
 merged+new -> clean -> remove outlier
 '''
 
+
+
+'''
+combine results & parameter sets
+'''
+def merge_paras():
+    para1 = np.load("res0813/param_50.npy", allow_pickle=True).item()
+    para2 = np.load("res0814/param_100.npy", allow_pickle=True).item()
+    para3 = np.load("res0816/param_500.npy", allow_pickle=True).item()
+    para = {}
+    for s in services:
+        para[s] = para1[s]+para2[s]+para3[s]
+    np.save("res_rps_merged/param.npy", para)
+
+def move_csvs():
+    for i in range(50):
+        shutil.move("res0813/data"+str(i)+".csv", "res_rps_merged/data"+str(i)+".csv")
+    for i in range(100):
+        shutil.move("res0814/data"+str(i)+".csv", "res_rps_merged/data"+str(i+50)+".csv")
+    for i in range(500):
+        shutil.move("res0816/data"+str(i)+".csv", "res_rps_merged/data"+str(i+150)+".csv")
+
+def move_wrk_table():
+    for i in range(50):
+        shutil.move("wrk_table0813/"+str(i), "wrk_rps_merged/"+str(i))
+    for i in range(100):
+        shutil.move("wrk_table0814/"+str(i), "wrk_rps_merged/"+str(i+50))
+    for i in range(500):
+        shutil.move("wrk_table0816/"+str(i), "wrk_rps_merged/"+str(i+150))
 
 '''
 check timeout & 500 errors
@@ -62,49 +68,30 @@ def check_quality():
     # invalid_list = []
     cnt = 0
     para = {}
-    para_ori = np.load("res_merged/param.npy", allow_pickle=True).item()
+    para_ori = np.load("res_rps_merged/param.npy", allow_pickle=True).item()
     for s in services:
         para[s] = []
-    for i in range (600):
-        with open("wrk_table_merged/"+str(i)) as f:
+    for i in range (650):
+        with open("wrk_rps_merged/"+str(i)) as f:
             text = f.read()
             timeout = re.search(r'.* (timeout \d*?)\s.*', str(text))
             response500 = re.search(r'.*Non-2xx or 3xx responses: (\d*?)\s.*', str(text))
             if response500:
                 num = int(response500.group(1))
                 if num > 300:
-                    continue
                     # invalid data
-                    # print(i, num)
+                    print(i, num)
                     # invalid_list.append(i)
+                    continue
             # merge data
             for s in services:
                 para[s].append(para_ori[s][i])
-            shutil.copy("res_merged/data"+str(i)+".csv", "res_clean/data"+str(cnt)+".csv")
-            cnt += 1
-    
-    para_ori = np.load("res/param_300.npy", allow_pickle=True).item()
-    for i in range (300):
-        with open("wrk_table/"+str(i)) as f:
-            text = f.read()
-            timeout = re.search(r'.* (timeout \d*?)\s.*', str(text))
-            response500 = re.search(r'.*Non-2xx or 3xx responses: (\d*?)\s.*', str(text))
-            if response500:
-                num = int(response500.group(1))
-                if num > 300:
-                    continue
-                    # invalid data
-                    # print(i, num)
-                    # invalid_list.append(i)
-            # merge data
-            for s in services:
-                para[s].append(para_ori[s][i])
-            shutil.copy("res/data"+str(i)+".csv", "res_clean/data"+str(cnt)+".csv")
+            shutil.copy("res_rps_merged/data"+str(i)+".csv", "res_clean_rps/data"+str(cnt)+".csv")
             cnt += 1
 
     print(cnt)
     print(len(para["frontend"]))
-    np.save("res_clean/param.npy", para)
+    np.save("res_clean_rps/param.npy", para)
     return cnt
 
 
@@ -112,7 +99,7 @@ def check_quality():
 def check_outlier(length):
     p90 = []
     for i in range(length):
-        data = pd.read_csv("res_clean/data"+str(i)+".csv")
+        data = pd.read_csv("res_clean_rps/data"+str(i)+".csv")
         for row in range(14):
             # data.loc[row]用来取出一个service对应的行
             r = data.loc[row]
@@ -134,7 +121,7 @@ def rm_outlier(length):
     '''
     cnt = 0
     para = {}
-    para_ori = np.load("res_clean/param.npy", allow_pickle=True).item()
+    para_ori = np.load("res_clean_rps/param.npy", allow_pickle=True).item()
     for s in services:
         para[s] = []
     for i in range (length):
@@ -143,18 +130,21 @@ def rm_outlier(length):
         else:
             for s in services:
                 para[s].append(para_ori[s][i])
-            shutil.copy("res_clean/data"+str(i)+".csv", "res_rm_outlier/data"+str(cnt)+".csv")
+            shutil.copy("res_clean_rps/data"+str(i)+".csv", "res_rm_outlier_rps/data"+str(cnt)+".csv")
             cnt += 1
             
     print(cnt)
     print(len(para["frontend"]))
-    np.save("res_rm_outlier/param.npy", para)
+    np.save("res_rm_outlier_rps/param.npy", para)
 
 
 # rm_outlier()
 # check_outlier()
 
 def run():
+    # merge_paras()
+    # move_csvs()
+    # move_wrk_table()
     length = check_quality()
     rm_outlier(length)
 

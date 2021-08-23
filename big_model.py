@@ -69,18 +69,18 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
 
 
 if __name__ == "__main__":
-    f = open('log/graph0814/big_model2',"w")
-    sys.stdout = f
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
-    for i in range(8, 13):
+    for i in range(3, 10):
+        f = open('log/0822rps/big_model'+str(i),"w")
+        sys.stdout = f
         train_size = train_list[i]
-        test_size = 118
+        test_size = 162
         print("train size is", train_size)
         print("test size is", test_size)
         train_errs = []
         test_errs = []
         for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data = get_input(i)
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
             t1, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             train_errs.append(t1)
             test_errs.append(t3)
