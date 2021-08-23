@@ -210,13 +210,33 @@ def get_input_original(train_size, test_size, sub_map):
     return a, b, c, csvs, d, e
 
 def get_input(i):
-    a = np.load("tmp_data_rps/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
-    b = np.load("tmp_data_rps/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
-    c = np.load("tmp_data_rps/names.npy", allow_pickle=True).item()
-    d = np.load("tmp_data_rps/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
-    e = np.load("tmp_data_rps/"+str(i)+"_test_data.npy", allow_pickle=True)
-    f = np.load("tmp_data_rps/"+str(i)+"_train_data.npy", allow_pickle=True)
-    g = np.load("tmp_data_rps/"+str(i)+"_valid_data.npy", allow_pickle=True)
+    a = np.load("tmp_data_scale/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data_scale/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data_scale/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data_scale/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data_scale/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data_scale/"+str(i)+"_train_data.npy", allow_pickle=True)
+    g = np.load("tmp_data_scale/"+str(i)+"_valid_data.npy", allow_pickle=True)
+    return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
+
+def get_input_ms(i):
+    a = np.load("tmp_data_ms/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data_ms/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data_ms/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data_ms/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data_ms/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data_ms/"+str(i)+"_train_data.npy", allow_pickle=True)
+    g = np.load("tmp_data_ms/"+str(i)+"_valid_data.npy", allow_pickle=True)
+    return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
+
+def get_input_norm(i):
+    a = np.load("tmp_data_norm/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data_norm/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data_norm/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data_norm/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data_norm/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data_norm/"+str(i)+"_train_data.npy", allow_pickle=True)
+    g = np.load("tmp_data_norm/"+str(i)+"_valid_data.npy", allow_pickle=True)
     return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
 
 def get_input_without_valid(i):
@@ -232,20 +252,20 @@ with validation tests
 '''
 def store_input_valid(sub_map, i, train_size=500, test_size=84, valid_size=84):
     para, para_m = read_para()
-    csvs, csv_m = combine_csv_normalize(train_size, valid_size+test_size, sub_map)
+    csvs, csv_m = combine_csv(train_size, valid_size+test_size, sub_map)
     a, b, c, d, e, f = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
-    np.save("tmp_data_rps/"+str(i)+"_sample_x", a)
-    np.save("tmp_data_rps/"+str(i)+"_sample_y", b)
-    np.save("tmp_data_rps/names", c)
-    np.save("tmp_data_rps/"+str(i)+"_perf_data", csvs)
-    np.save("tmp_data_rps/"+str(i)+"_test_data", d)
-    np.save("tmp_data_rps/"+str(i)+"_train_data", e)
-    np.save("tmp_data_rps/"+str(i)+"_valid_data", f)
-    np.save("tmp_data_rps/"+str(i)+"_csv_scale", csv_m)
-    np.save("tmp_data_rps/"+str(i)+"_para_scale", para_m)
+    np.save("tmp_data_scale/"+str(i)+"_sample_x", a)
+    np.save("tmp_data_scale/"+str(i)+"_sample_y", b)
+    np.save("tmp_data_scale/names", c)
+    np.save("tmp_data_scale/"+str(i)+"_perf_data", csvs)
+    np.save("tmp_data_scale/"+str(i)+"_test_data", d)
+    np.save("tmp_data_scale/"+str(i)+"_train_data", e)
+    np.save("tmp_data_scale/"+str(i)+"_valid_data", f)
+    np.save("tmp_data_scale/"+str(i)+"_csv_scale", csv_m)
+    np.save("tmp_data_scale/"+str(i)+"_para_scale", para_m)
 
-def generate_tmp_data_rps():
-    print("generatring data. stored in tmp_data_rps/ folder.")
+def generate_tmp_data_scale():
+    print("generatring data. stored in tmp_data_scale/ folder.")
     for i in range(10):
         sub_map = np.arange(562)
         np.random.seed(i)
@@ -253,4 +273,4 @@ def generate_tmp_data_rps():
         store_input_valid(sub_map, i, 400, 162, 0) # no validation
 
 if __name__ == "__main__":
-    generate_tmp_data_rps()
+    generate_tmp_data_scale()

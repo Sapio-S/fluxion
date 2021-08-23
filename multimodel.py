@@ -75,17 +75,15 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i]
             errs.append(abs(v1-v2))
-            if f == "frontend":
-                print(v1, v2)
         test_err[f] = np.mean(errs) # calculate MAE for every service
 
     return train_err, test_err
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
-    for train_sub in range(1):
-        # f = open("log/0822rps/multi_"+str(len(eval_metric))+'_log'+str(train_l2[train_sub]),"w")
-        # sys.stdout = f
+    for train_sub in range(9):
+        f = open("log/0823scale/multi_"+str(len(eval_metric))+'_log'+str(train_list[train_sub]),"w")
+        sys.stdout = f
         train_errs = []
         test_errs = {}
         for f in finals2:
