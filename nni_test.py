@@ -97,7 +97,7 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, train_data, test_data,
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 300, 400, 500]
-    train_size = train_list[8]
+    train_size = train_list[0]
     test_size = 84
     valid_size = 84
     print("train size is", train_size)
