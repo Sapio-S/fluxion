@@ -76,15 +76,9 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     
-<<<<<<< HEAD
-    for train_sub in range(3):
-        f = open("log/0823rps/baseline"+str(train_list[train_sub]),"w")
-        sys.stdout = f
-=======
     for train_sub in range(1):
         # f = open("log/log0819/train_size_"+str(train_sub)+'',"w")
         # sys.stdout = f
->>>>>>> 293477756c5ebc13d421636304ad4eaebc2cc074
         
         train_errs = {}
         test_errs = {}
