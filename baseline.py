@@ -36,9 +36,10 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         fluxion = Fluxion(zoo)
         names = [s1+":"+s2 for s1 in extra_names[f] for s2 in eval_metric]
         f_input = combine_data(extra_names[f], perf_data, sample_x[f])
-        for p in eval_metric:
-            la = LearningAssignment(zoo, x_names[f]+names)
-            la.create_and_add_model(f_input[:][:train_size], sample_y[p][f][:train_size], GaussianProcess)
+        p = "0.90"
+        la = LearningAssignment(zoo, x_names[f]+names)
+        print(x_names[f]+names)
+        la.create_and_add_model(f_input[:][:train_size], sample_y[p][f][:train_size], GaussianProcess)
         fluxion.add_service(f, p, la, [None]*(len(x_names[f])+len(names)), [None]*(len(x_names[f])+len(extra_names[f])))
 
     # get whole train error
@@ -71,6 +72,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             test_res[f].append(v1)
         test_errs[f] = np.mean(errs) # calculate MAE for every service
 
+        fluxion.visualize_graph_engine_diagrams(f, "0.90", output_filename="test")
     return train_errs, test_errs, train_res, test_res
 
 if __name__ == "__main__":
@@ -95,7 +97,7 @@ if __name__ == "__main__":
         print("train size is", train_size)
         print("test size is", test_size)
         
-        for i in range(10):
+        for i in range(1):
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
             train_err, test_err, train_data, test_data = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             for f in finals2:

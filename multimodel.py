@@ -83,15 +83,15 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
-    for train_sub in range(9):
-        f = open("log/0822rps/multi_"+str(len(eval_metric))+'_log'+str(train_l2[train_sub]),"w")
-        sys.stdout = f
+    for train_sub in range(1):
+        # f = open("log/0822rps/multi_"+str(len(eval_metric))+'_log'+str(train_l2[train_sub]),"w")
+        # sys.stdout = f
         train_errs = []
         test_errs = {}
         for f in finals2:
             test_errs[f] = []
 
-        train_size = train_l2[train_sub]
+        train_size = train_list[train_sub]
         test_size = 162
         print("train size is", train_size)
         print("test size is", test_size)

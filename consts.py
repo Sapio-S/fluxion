@@ -24,8 +24,8 @@ extra_names = {
 }
 
 finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
-# finals2 = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
-finals2 = ["frontend"]
+finals2 = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
+# finals2 = ["adservice"]
 collect = "frontend"
 
 eval_metric_map = {
@@ -36,7 +36,7 @@ eval_metric_map = {
     }
 
 # metrics = os.getenv("METRIC_NUM")
-metrics = "4"
+metrics = "1"
 eval_metric = eval_metric_map[metrics]
 # eval_metric = ["0.90", "0.50", "0.95", "0.99"]
 
