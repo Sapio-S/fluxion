@@ -8,7 +8,7 @@ from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
 
 from consts import *
-from data import get_input
+from data import get_input, get_input_without_valid
 import numpy as np
 
 def combine_list(list1, list2):
@@ -75,6 +75,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i]
             errs.append(abs(v1-v2))
+            if f == "frontend":
+                print(v1, v2)
         test_err[f] = np.mean(errs) # calculate MAE for every service
 
     return train_err, test_err

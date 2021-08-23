@@ -24,7 +24,8 @@ extra_names = {
 }
 
 finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
-finals2 = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
+# finals2 = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
+finals2 = ["frontend"]
 collect = "frontend"
 
 eval_metric_map = {

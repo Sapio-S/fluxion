@@ -219,12 +219,20 @@ def get_input(i):
     g = np.load("tmp_data_rps/"+str(i)+"_valid_data.npy", allow_pickle=True)
     return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
 
+def get_input_without_valid(i):
+    a = np.load("tmp_data/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data/"+str(i)+"_train_data.npy", allow_pickle=True)
+    return a, b, c, d, e, f # samples_x, samples_y, x_names, perf_data, test_data, train_data
 '''
 with validation tests
 '''
 def store_input_valid(sub_map, i, train_size=500, test_size=84, valid_size=84):
     para, para_m = read_para()
-    csvs, csv_m = combine_csv(train_size, valid_size+test_size, sub_map)
+    csvs, csv_m = combine_csv_normalize(train_size, valid_size+test_size, sub_map)
     a, b, c, d, e, f = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
     np.save("tmp_data_rps/"+str(i)+"_sample_x", a)
     np.save("tmp_data_rps/"+str(i)+"_sample_y", b)
