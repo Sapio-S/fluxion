@@ -96,7 +96,7 @@ if __name__ == "__main__":
         print("test size is", test_size)
         
         for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input_norm(i)
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
             train_err, test_err, train_data, test_data = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             for f in finals2:
                 train_errs[f] += train_err[f]
