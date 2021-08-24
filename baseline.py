@@ -76,7 +76,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     
-    for train_sub in range(1):
+    for train_sub in range(10):
         f = open("log/0824norm/baseline_"+str(train_sub)+'',"w")
         sys.stdout = f
         
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         print("train size is", train_size)
         print("test size is", test_size)
         
-        for i in range(1):
+        for i in range(10):
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
             train_err, test_err, train_data, test_data = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             

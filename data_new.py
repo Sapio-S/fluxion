@@ -23,12 +23,7 @@ def combine_csv(size, sub_map):
             if r["service"] == "redis" or r["service"] == "total":
                 continue
             for p in perf:
-                if p != "rps":
-                    # scale data. used to be ms
-                    # csv_onedic[r["service"]+":"+p].append(float(r[p])/1000) 
-                    csv_onedic[r["service"]+":"+p].append(float(r[p])/scale_para[r["service"]]) 
-                else:
-                    csv_onedic[r["service"]+":"+p].append(float(r[p]))
+                csv_onedic[r["service"]+":"+p].append(float(r[p]))
     return csv_onedic
 
 def normalize(csv):
@@ -38,7 +33,7 @@ def normalize(csv):
         maxi = np.max(csv[k])
         dic[k+":MAX"] = maxi
         dic[k+":MIN"] = mini
-        csv[k] = (csv[k] - mini) / (maxi - mini)
+        csv[k] = [(csv[k][i] - mini) / (maxi - mini) for i in range(len(csv[k]))]
     return csv, dic
 
 def standardize(csv):
@@ -48,7 +43,7 @@ def standardize(csv):
         avg = np.mean(csv[k])
         dic[k+":STD"] = std
         dic[k+":AVG"] = avg
-        csv[k] = (csv[k] - avg) / std
+        csv[k] = [(csv[k][i] - avg) / std for i in range(len(csv[k]))]
     return csv, dic
 
 '''
@@ -273,10 +268,16 @@ def generate_tmp_data_norm():
 
 if __name__ == "__main__":
     generate_tmp_data_norm()
-    generate_tmp_data_std()
+    # generate_tmp_data_std()
 
-def norm_scaler(y, min, max):
-    return y * (max - min) + min
+def norm_scaler(y, mini, maxi):
+    if type(y) is np.float64:
+        return y * (maxi - mini) + mini
+    else:
+        return [x * (maxi - mini) + mini for x in y]
 
 def std_scaler(y, avg, std):
-    return y * std + avg
+    if type(y) is np.float64:
+        return y * std + avg
+    else:
+        return [x * std + avg for x in y]

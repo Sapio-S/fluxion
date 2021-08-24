@@ -81,7 +81,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
-    for train_sub in range(9):
+    for train_sub in range(10):
         f = open("log/0824norm/multi_"+str(len(eval_metric))+'_log'+str(train_list[train_sub]),"w")
         sys.stdout = f
         train_errs = []
