@@ -7,7 +7,7 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 
 from consts import *
-from data import get_input
+from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
 
 
@@ -69,21 +69,22 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
 
 
 if __name__ == "__main__":
-    train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
-    for i in range(3, 10):
-        f = open('log/0822rps/big_model'+str(i),"w")
+    train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
+    for i in range(1):
+        f = open('log/0824norm/big_model'+str(i),"w")
         sys.stdout = f
+
         train_size = train_list[i]
         test_size = 162
         print("train size is", train_size)
         print("test size is", test_size)
         train_errs = []
         test_errs = []
-        for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
+        for i in range(1):
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
             t1, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
-            train_errs.append(t1)
-            test_errs.append(t3)
+            train_errs.append(norm_scaler(t1, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"]))
+            test_errs.append(norm_scaler(t3, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"]))
 
         print("avg training error",np.mean(train_errs))
         print("avg test error",np.mean(test_errs))

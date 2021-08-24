@@ -9,7 +9,7 @@ from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
 
 from consts import *
-from data import get_input, get_input_ms, get_input_norm
+from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
 
 def combine_list(list1, list2):
@@ -76,8 +76,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     
-    for train_sub in range(0, 9):
-        f = open("log/0823scale/baseline_"+str(train_sub)+'',"w")
+    for train_sub in range(1):
+        f = open("log/0824norm/baseline_"+str(train_sub)+'',"w")
         sys.stdout = f
         
         train_errs = {}
@@ -95,14 +95,15 @@ if __name__ == "__main__":
         print("train size is", train_size)
         print("test size is", test_size)
         
-        for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
+        for i in range(1):
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
             train_err, test_err, train_data, test_data = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
+            
             for f in finals2:
-                train_errs[f] += train_err[f]
-                test_errs[f] += test_err[f]
-                train_res[f] += train_data[f]
-                test_res[f] += test_data[f]
+                train_errs[f] += norm_scaler(train_err[f], scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
+                test_errs[f] += norm_scaler(test_err[f], scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
+                train_res[f] += norm_scaler(train_data[f], scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
+                test_res[f] += norm_scaler(test_data[f], scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
 
         for f in finals2:
             train_errs[f] = train_errs[f] / 10
@@ -112,5 +113,9 @@ if __name__ == "__main__":
                     "train std", np.std(train_res[f]), 
                     "test std", np.std(test_res[f]),
                 )
+
+        print("_______for collecting output______")
+        for f in finals2:
+            print(test_errs[f])
 
         print("")

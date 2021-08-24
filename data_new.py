@@ -10,12 +10,12 @@ from const_dic import const_dic
 csvs = {"service": {"perf": [...], ...}, ...}
 csv_onedic = {"service:perf":[...], ...}
 '''
-def combine_csv(train_size, test_size, sub_map):
+def combine_csv(size, sub_map):
     csv_onedic = {}
     for f in finals:
         for p in perf:
             csv_onedic[f+":"+p] = []
-    for i in range(train_size+test_size):
+    for i in range(size):
         data = pd.read_csv(route+"data"+str(sub_map[i])+".csv")
         for row in range(14):
             # data.loc[row]用来取出一个service对应的行
@@ -29,95 +29,27 @@ def combine_csv(train_size, test_size, sub_map):
                     csv_onedic[r["service"]+":"+p].append(float(r[p])/scale_para[r["service"]]) 
                 else:
                     csv_onedic[r["service"]+":"+p].append(float(r[p]))
-    return csv_onedic, {}
+    return csv_onedic
 
 def normalize(csv):
+    dic = {}
     for k in csv:
         mini = np.min(csv[k])
-        maxi = np/max(csv[k])
+        maxi = np.max(csv[k])
+        dic[k+":MAX"] = maxi
+        dic[k+":MIN"] = mini
         csv[k] = (csv[k] - mini) / (maxi - mini)
-    return csv
+    return csv, dic
 
 def standardize(csv):
+    dic = {}
     for k in csv:
         std = np.std(csv[k])
         avg = np.mean(csv[k])
+        dic[k+":STD"] = std
+        dic[k+":AVG"] = avg
         csv[k] = (csv[k] - avg) / std
-    return csv
-
-def combine_csv_normalize(train_size, test_size, sub_map):
-    '''
-    add normalize
-    '''
-    csv_onedic = {}
-    csv_m = {}
-    for f in finals:
-        for p in perf:
-            csv_onedic[f+":"+p] = []
-            csv_m[f+":"+p+":MAX"] = 0
-            csv_m[f+":"+p+":MIN"] = 10000000000
-    
-    # record max & min value for train data only
-    for i in range(test_size+train_size): 
-        data = pd.read_csv(route+"data"+str(sub_map[i])+".csv")
-        for row in range(14):
-            # data.loc[row]用来取出一个service对应的行
-            r = data.loc[row]
-            if r["service"] == "redis" or r["service"] == "total":
-                continue
-            for p in perf:
-                min_ = csv_m[r["service"]+":"+p+":MIN"]
-                max_ = csv_m[r["service"]+":"+p+":MAX"]
-                val = float(r[p])
-                if val > max_:
-                    csv_m[r["service"]+":"+p+":MAX"] = val
-                if val < min_:
-                    csv_m[r["service"]+":"+p+":MIN"] = val
-
-    # normalize all data
-    for i in range(train_size+test_size):
-        data = pd.read_csv(route+"data"+str(sub_map[i])+".csv")
-        for row in range(14):
-            # data.loc[row]用来取出一个service对应的行
-            r = data.loc[row]
-            if r["service"] == "redis" or r["service"] == "total":
-                continue
-            for p in perf:
-                val = 0
-                try:
-                    val = (float(r[p]) - csv_m[r["service"]+":"+p+":MIN"]) / ( csv_m[r["service"]+":"+p+":MAX"] - csv_m[r["service"]+":"+p+":MIN"])
-                except:
-                    val = 0.5
-                csv_onedic[r["service"]+":"+p].append(val)
-    return csv_onedic, csv_m
-
-def check_latency_scale(size):
-    csv_onedic = {}
-    csv_m = {}
-    for f in finals:
-        p = "0.90"
-        csv_onedic[f+":"+p] = []
-        csv_m[f+":"+p+":MAX"] = 0
-        csv_m[f+":"+p+":MIN"] = 10000000000
-    
-    # record max & min value for train data only
-    for i in range(size): 
-        data = pd.read_csv(route+"data"+str(i)+".csv")
-        for row in range(14):
-            # data.loc[row]用来取出一个service对应的行
-            r = data.loc[row]
-            if r["service"] == "redis" or r["service"] == "total":
-                continue
-            p = "0.90"
-            min_ = csv_m[r["service"]+":"+p+":MIN"]
-            max_ = csv_m[r["service"]+":"+p+":MAX"]
-            val = float(r[p])
-            if val > max_:
-                csv_m[r["service"]+":"+p+":MAX"] = val
-            if val < min_:
-                csv_m[r["service"]+":"+p+":MIN"] = val
-    for k in csv_m:
-        print(k, csv_m[k])
+    return csv, dic
 
 '''
 input for learning_assignment
@@ -230,11 +162,6 @@ def la_input(para, csv_onedic, train_size, test_size, valid_size, sub_map):
 
     return input, output, input_names, f_input2, f_input3, f_input4
 
-def read_para_original():
-    para = np.load(route+"param.npy", allow_pickle=True).item()
-    para_m = {}
-    return para, para_m
-
 def read_para():
     para = np.load(route+"param.npy", allow_pickle=True).item()
     # scale data
@@ -243,13 +170,7 @@ def read_para():
             for p in para[s][i]:
                 para[s][i][p] = (para[s][i][p] - const_dic[s][p]["MIN"]) / (const_dic[s][p]["MAX"] - const_dic[s][p]["MIN"])
 
-    return para, {}
-
-def get_input_original(train_size, test_size, sub_map):
-    para, para_m = read_para()
-    csvs, csv_m = combine_csv(train_size, test_size, sub_map)
-    a, b, c, d, e = la_input(para, csvs, train_size, test_size, sub_map)
-    return a, b, c, csvs, d, e
+    return para
 
 def get_input(i):
     a = np.load("tmp_data_scale/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
@@ -261,39 +182,34 @@ def get_input(i):
     g = np.load("tmp_data_scale/"+str(i)+"_valid_data.npy", allow_pickle=True)
     return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
 
-def get_input_ms(i):
-    a = np.load("tmp_data_ms/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
-    b = np.load("tmp_data_ms/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
-    c = np.load("tmp_data_ms/names.npy", allow_pickle=True).item()
-    d = np.load("tmp_data_ms/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
-    e = np.load("tmp_data_ms/"+str(i)+"_test_data.npy", allow_pickle=True)
-    f = np.load("tmp_data_ms/"+str(i)+"_train_data.npy", allow_pickle=True)
-    g = np.load("tmp_data_ms/"+str(i)+"_valid_data.npy", allow_pickle=True)
-    return a, b, c, d, e, f, g # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data
+def get_input_norm(i):
+    a = np.load("tmp_data_norm/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data_norm/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data_norm/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data_norm/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data_norm/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data_norm/"+str(i)+"_train_data.npy", allow_pickle=True)
+    g = np.load("tmp_data_norm/"+str(i)+"_valid_data.npy", allow_pickle=True)
+    h = np.load("tmp_data_norm/"+str(i)+"_csv_scale.npy", allow_pickle=True).item()
+    return a, b, c, d, e, f, g, h # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale
 
-def get_input_norm(i, train_size, test_size, valid_size=0):
-    sub_map = np.arange(562)
-    np.random.seed(i)
-    np.random.shuffle(sub_map)
-    para, para_m = read_para()
-    csvs, csv_m = combine_csv_normalize(train_size, valid_size+test_size, sub_map)
-    sample_x, sample_y, names, test_data, train_data, valid_data = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
-    return sample_x, sample_y, names, csvs, test_data, train_data, valid_data, csv_m # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, latency_scale
+def get_input_std(i):
+    a = np.load("tmp_data_std/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
+    b = np.load("tmp_data_std/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
+    c = np.load("tmp_data_std/names.npy", allow_pickle=True).item()
+    d = np.load("tmp_data_std/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
+    e = np.load("tmp_data_std/"+str(i)+"_test_data.npy", allow_pickle=True)
+    f = np.load("tmp_data_std/"+str(i)+"_train_data.npy", allow_pickle=True)
+    g = np.load("tmp_data_std/"+str(i)+"_valid_data.npy", allow_pickle=True)
+    h = np.load("tmp_data_std/"+str(i)+"_csv_scale.npy", allow_pickle=True).item()
+    return a, b, c, d, e, f, g, h # samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale
 
-def get_input_without_valid(i):
-    a = np.load("tmp_data/"+str(i)+"_sample_x.npy", allow_pickle=True).item()
-    b = np.load("tmp_data/"+str(i)+"_sample_y.npy", allow_pickle=True).item()
-    c = np.load("tmp_data/names.npy", allow_pickle=True).item()
-    d = np.load("tmp_data/"+str(i)+"_perf_data.npy", allow_pickle=True).item()
-    e = np.load("tmp_data/"+str(i)+"_test_data.npy", allow_pickle=True)
-    f = np.load("tmp_data/"+str(i)+"_train_data.npy", allow_pickle=True)
-    return a, b, c, d, e, f # samples_x, samples_y, x_names, perf_data, test_data, train_data
 '''
 with validation tests
 '''
-def store_input_valid(sub_map, i, train_size=500, test_size=84, valid_size=84):
-    para, para_m = read_para()
-    csvs, csv_m = combine_csv(train_size, valid_size+test_size, sub_map)
+def store_input_scale(sub_map, i, train_size=500, test_size=84, valid_size=84):
+    para = read_para()
+    csvs = combine_csv(train_size+valid_size+test_size, sub_map)
     a, b, c, d, e, f = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
     np.save("tmp_data_scale/"+str(i)+"_sample_x", a)
     np.save("tmp_data_scale/"+str(i)+"_sample_y", b)
@@ -302,8 +218,34 @@ def store_input_valid(sub_map, i, train_size=500, test_size=84, valid_size=84):
     np.save("tmp_data_scale/"+str(i)+"_test_data", d)
     np.save("tmp_data_scale/"+str(i)+"_train_data", e)
     np.save("tmp_data_scale/"+str(i)+"_valid_data", f)
-    np.save("tmp_data_scale/"+str(i)+"_csv_scale", csv_m)
-    np.save("tmp_data_scale/"+str(i)+"_para_scale", para_m)
+
+def store_input_std(sub_map, i, train_size=500, test_size=84, valid_size=84):
+    para = read_para()
+    csvs = combine_csv(train_size+valid_size+test_size, sub_map)
+    csvs, csv_m = standardize(csvs)
+    a, b, c, d, e, f = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
+    np.save("tmp_data_std/"+str(i)+"_sample_x", a)
+    np.save("tmp_data_std/"+str(i)+"_sample_y", b)
+    np.save("tmp_data_std/names", c)
+    np.save("tmp_data_std/"+str(i)+"_perf_data", csvs)
+    np.save("tmp_data_std/"+str(i)+"_test_data", d)
+    np.save("tmp_data_std/"+str(i)+"_train_data", e)
+    np.save("tmp_data_std/"+str(i)+"_valid_data", f)
+    np.save("tmp_data_std/"+str(i)+"_csv_scale", csv_m)
+
+def store_input_norm(sub_map, i, train_size=500, test_size=84, valid_size=84):
+    para = read_para()
+    csvs = combine_csv(train_size+valid_size+test_size, sub_map)
+    csvs, csv_m = normalize(csvs)
+    a, b, c, d, e, f = la_input(para, csvs, train_size, test_size, valid_size, sub_map)
+    np.save("tmp_data_norm/"+str(i)+"_sample_x", a)
+    np.save("tmp_data_norm/"+str(i)+"_sample_y", b)
+    np.save("tmp_data_norm/names", c)
+    np.save("tmp_data_norm/"+str(i)+"_perf_data", csvs)
+    np.save("tmp_data_norm/"+str(i)+"_test_data", d)
+    np.save("tmp_data_norm/"+str(i)+"_train_data", e)
+    np.save("tmp_data_norm/"+str(i)+"_valid_data", f)
+    np.save("tmp_data_norm/"+str(i)+"_csv_scale", csv_m)
 
 def generate_tmp_data_scale():
     print("generatring data. stored in tmp_data_scale/ folder.")
@@ -311,8 +253,30 @@ def generate_tmp_data_scale():
         sub_map = np.arange(562)
         np.random.seed(i)
         np.random.shuffle(sub_map)
-        store_input_valid(sub_map, i, 400, 162, 0) # no validation
+        store_input_scale(sub_map, i, 400, 162, 0) # no validation
+
+def generate_tmp_data_std():
+    print("generatring data. stored in tmp_data_std/ folder.")
+    for i in range(10):
+        sub_map = np.arange(562)
+        np.random.seed(i)
+        np.random.shuffle(sub_map)
+        store_input_std(sub_map, i, 400, 162, 0) # no validation
+
+def generate_tmp_data_norm():
+    print("generatring data. stored in tmp_data_norm/ folder.")
+    for i in range(10):
+        sub_map = np.arange(562)
+        np.random.seed(i)
+        np.random.shuffle(sub_map)
+        store_input_norm(sub_map, i, 400, 162, 0) # no validation
 
 if __name__ == "__main__":
-    generate_tmp_data_scale()
-    # check_latency_scale(668)
+    generate_tmp_data_norm()
+    generate_tmp_data_std()
+
+def norm_scaler(y, min, max):
+    return y * (max - min) + min
+
+def std_scaler(y, avg, std):
+    return y * std + avg
