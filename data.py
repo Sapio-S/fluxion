@@ -77,6 +77,34 @@ def combine_csv_normalize(train_size, test_size, sub_map):
                 csv_onedic[r["service"]+":"+p].append(val)
     return csv_onedic, csv_m
 
+def check_latency_scale(size):
+    csv_onedic = {}
+    csv_m = {}
+    for f in finals:
+        p = "0.90"
+        csv_onedic[f+":"+p] = []
+        csv_m[f+":"+p+":MAX"] = 0
+        csv_m[f+":"+p+":MIN"] = 10000000000
+    
+    # record max & min value for train data only
+    for i in range(size): 
+        data = pd.read_csv(route+"data"+str(i)+".csv")
+        for row in range(14):
+            # data.loc[row]用来取出一个service对应的行
+            r = data.loc[row]
+            if r["service"] == "redis" or r["service"] == "total":
+                continue
+            p = "0.90"
+            min_ = csv_m[r["service"]+":"+p+":MIN"]
+            max_ = csv_m[r["service"]+":"+p+":MAX"]
+            val = float(r[p])
+            if val > max_:
+                csv_m[r["service"]+":"+p+":MAX"] = val
+            if val < min_:
+                csv_m[r["service"]+":"+p+":MIN"] = val
+    for k in csv_m:
+        print(k, csv_m[k])
+
 '''
 input for learning_assignment
 restructure data into desired shapes
@@ -274,3 +302,4 @@ def generate_tmp_data_scale():
 
 if __name__ == "__main__":
     generate_tmp_data_scale()
+    # check_latency_scale(668)

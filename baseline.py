@@ -39,7 +39,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         p = "0.90"
         la = LearningAssignment(zoo, x_names[f]+names)
         la.create_and_add_model(f_input[:][:train_size], sample_y[p][f][:train_size], GaussianProcess)
-        fluxion.add_service(f, p, la, [None]*(len(x_names[f])+len(names)), [None]*(len(x_names[f])+len(extra_names[f])))
+        fluxion.add_service(f, p, la, [None]*len(x_names[f]+names), [None]*len(x_names[f]+names))
 
     # get whole train error
         errs = []
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     
     for train_sub in range(0, 9):
-        f = open("log/0823norm/train_size_"+str(train_sub)+'',"w")
+        f = open("log/0823scale/baseline_"+str(train_sub)+'',"w")
         sys.stdout = f
         
         train_errs = {}
