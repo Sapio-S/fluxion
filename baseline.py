@@ -9,7 +9,7 @@ from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
 
 from consts import *
-from data import get_input
+from data import get_input, get_input_ms, get_input_norm
 import numpy as np
 
 def combine_list(list1, list2):
@@ -38,7 +38,6 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         f_input = combine_data(extra_names[f], perf_data, sample_x[f])
         p = "0.90"
         la = LearningAssignment(zoo, x_names[f]+names)
-        print(x_names[f]+names)
         la.create_and_add_model(f_input[:][:train_size], sample_y[p][f][:train_size], GaussianProcess)
         fluxion.add_service(f, p, la, [None]*(len(x_names[f])+len(names)), [None]*(len(x_names[f])+len(extra_names[f])))
 
@@ -62,7 +61,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         for i in range(test_size):
             minimap = {}
             for n in x_names[f]:
-                minimap[n] = train_data[i][f]["0.90"][0][n]
+                minimap[n] = test_data[i][f]["0.90"][0][n]
             for n in names:
                 minimap[n] = perf_data[n][i]
             prediction = fluxion.predict(f, "0.90", {f:{"0.90":[minimap]}})
@@ -72,15 +71,14 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             test_res[f].append(v1)
         test_errs[f] = np.mean(errs) # calculate MAE for every service
 
-        fluxion.visualize_graph_engine_diagrams(f, "0.90", output_filename="test")
     return train_errs, test_errs, train_res, test_res
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     
-    for train_sub in range(1):
-        # f = open("log/log0819/train_size_"+str(train_sub)+'',"w")
-        # sys.stdout = f
+    for train_sub in range(0, 9):
+        f = open("log/0823norm/train_size_"+str(train_sub)+'',"w")
+        sys.stdout = f
         
         train_errs = {}
         test_errs = {}
@@ -97,7 +95,7 @@ if __name__ == "__main__":
         print("train size is", train_size)
         print("test size is", test_size)
         
-        for i in range(1):
+        for i in range(10):
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
             train_err, test_err, train_data, test_data = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             for f in finals2:

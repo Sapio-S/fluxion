@@ -69,9 +69,9 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
 
 
 if __name__ == "__main__":
-    train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
-    for i in range(3, 10):
-        f = open('log/0822rps/big_model'+str(i),"w")
+    train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
+    for i in range(9,10):
+        f = open('log/0823scale/big_model_'+str(i),"w")
         sys.stdout = f
         train_size = train_list[i]
         test_size = 162
