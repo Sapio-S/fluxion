@@ -63,6 +63,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             prediction = fluxion.predict(f, "0.90", train_data[i])
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i+test_size]
+            v1 = norm_scaler(v1, scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
+            v2 = norm_scaler(v2, scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
             errs.append(abs(v1-v2))
         train_err = np.mean(errs)
 
@@ -74,6 +76,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             prediction = fluxion.predict(f, "0.90", test_data[i])
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i]
+            v1 = norm_scaler(v1, scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
+            v2 = norm_scaler(v2, scale[f+":0.90:MIN"], scale[f+":0.90:MAX"])
             errs.append(abs(v1-v2))
         test_err[f] = np.mean(errs) # calculate MAE for every service
 
@@ -96,9 +100,9 @@ if __name__ == "__main__":
         for i in range(10):
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
             train_err, test_err = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
-            train_errs.append(norm_scaler(train_err, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"]))
+            train_errs.append(train_err)
             for f in finals2:
-                test_errs[f].append(norm_scaler(test_err[f], scale[f+":0.90:MIN"], scale[f+":0.90:MAX"]))
+                test_errs[f].append(test_err[f])
 
         print("avg train err for 10 times", np.mean(train_errs))
         print("avg test err for 10 times", np.mean(test_errs["frontend"]))

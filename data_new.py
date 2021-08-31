@@ -266,10 +266,6 @@ def generate_tmp_data_norm():
         np.random.shuffle(sub_map)
         store_input_norm(sub_map, i, 400, 162, 0) # no validation
 
-if __name__ == "__main__":
-    generate_tmp_data_norm()
-    # generate_tmp_data_std()
-
 def norm_scaler(y, mini, maxi):
     if type(y) is np.float64:
         return y * (maxi - mini) + mini
@@ -281,3 +277,17 @@ def std_scaler(y, avg, std):
         return y * std + avg
     else:
         return [x * std + avg for x in y]
+
+def test():
+    l = {"1":np.arange(100)}
+    l,a = normalize(l)
+    print(norm_scaler(l["1"], a["1:MIN"], a["1:MAX"]))
+    l = {"1":np.arange(100)}
+    l,a = standardize(l)
+    print(std_scaler(l["1"], a["1:AVG"], a["1:STD"]))
+
+if __name__ == "__main__":
+    generate_tmp_data_norm()
+    generate_tmp_data_std()
+    # test()
+

@@ -48,6 +48,8 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             prediction = fluxion.predict("e2e", "0.90", {"e2e":{"0.90":[minimap]}})
             v1 = prediction["e2e"]["0.90"]["val"]
             v2 = perf_data["frontend:0.90"][i+test_size]
+            v1 = norm_scaler(v1, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"])
+            v2 = norm_scaler(v2, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"])
             errs.append(abs(v1-v2))
             pred.append(v1)
         train_errs.append(np.mean(errs))
@@ -63,6 +65,8 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             prediction = fluxion.predict("e2e", "0.90", {"e2e":{"0.90":[minimap]}})
             v1 = prediction["e2e"]["0.90"]["val"]
             v2 = perf_data["frontend:0.90"][i]
+            v1 = norm_scaler(v1, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"])
+            v2 = norm_scaler(v2, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"])
             errs.append(abs(v1-v2))
         test_errs.append(np.mean(errs))
     return np.mean(train_errs),np.mean(test_errs)
@@ -83,8 +87,8 @@ if __name__ == "__main__":
         for i in range(10):
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
             t1, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
-            train_errs.append(norm_scaler(t1, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"]))
-            test_errs.append(norm_scaler(t3, scale["frontend:0.90:MIN"], scale["frontend:0.90:MAX"]))
+            train_errs.append(t1)
+            test_errs.append(t3)
 
         print("avg training error",np.mean(train_errs))
         print("avg test error",np.mean(test_errs))
