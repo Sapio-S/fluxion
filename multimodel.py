@@ -8,7 +8,7 @@ from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
 
 from consts import *
-from data import get_input, get_input_without_valid
+from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
 
 def combine_list(list1, list2):
@@ -63,6 +63,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             prediction = fluxion.predict(f, "0.90", train_data[i])
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i+test_size]
+            v1 = std_scaler(v1, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
+            v2 = std_scaler(v2, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
             errs.append(abs(v1-v2))
         train_err = np.mean(errs)
 
@@ -74,6 +76,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             prediction = fluxion.predict(f, "0.90", test_data[i])
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i]
+            v1 = std_scaler(v1, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
+            v2 = std_scaler(v2, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
             errs.append(abs(v1-v2))
         test_err[f] = np.mean(errs) # calculate MAE for every service
 
@@ -81,8 +85,8 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
-    for train_sub in range(9, 10):
-        f = open("log/0823scale/multi_"+str(len(eval_metric))+'_log'+str(train_list[train_sub]),"w")
+    for train_sub in range(10):
+        f = open("log/0824std/multi_"+str(len(eval_metric))+'_log'+str(train_list[train_sub]),"w")
         sys.stdout = f
         train_errs = []
         test_errs = {}
@@ -94,7 +98,7 @@ if __name__ == "__main__":
         print("train size is", train_size)
         print("test size is", test_size)
         for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_std(i)
             train_err, test_err = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             train_errs.append(train_err)
             for f in finals2:
@@ -103,5 +107,5 @@ if __name__ == "__main__":
         print("avg train err for 10 times", np.mean(train_errs))
         print("avg test err for 10 times", np.mean(test_errs["frontend"]))
         for f in finals2:
-            print(f, np.mean(test_errs[f]))
+            print(np.mean(test_errs[f]))
         print("")

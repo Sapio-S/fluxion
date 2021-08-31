@@ -7,7 +7,7 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 
 from consts import *
-from data import get_input
+from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
 
 
@@ -48,6 +48,8 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             prediction = fluxion.predict("e2e", "0.90", {"e2e":{"0.90":[minimap]}})
             v1 = prediction["e2e"]["0.90"]["val"]
             v2 = perf_data["frontend:0.90"][i+test_size]
+            v1 = std_scaler(v1, scale["frontend:0.90:AVG"], scale["frontend:0.90:STD"])
+            v2 = std_scaler(v2, scale["frontend:0.90:AVG"], scale["frontend:0.90:STD"])
             errs.append(abs(v1-v2))
             pred.append(v1)
         train_errs.append(np.mean(errs))
@@ -63,6 +65,8 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             prediction = fluxion.predict("e2e", "0.90", {"e2e":{"0.90":[minimap]}})
             v1 = prediction["e2e"]["0.90"]["val"]
             v2 = perf_data["frontend:0.90"][i]
+            v1 = std_scaler(v1, scale["frontend:0.90:AVG"], scale["frontend:0.90:STD"])
+            v2 = std_scaler(v2, scale["frontend:0.90:AVG"], scale["frontend:0.90:STD"])
             errs.append(abs(v1-v2))
         test_errs.append(np.mean(errs))
     return np.mean(train_errs),np.mean(test_errs)
@@ -70,9 +74,10 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
-    for i in range(9,10):
-        f = open('log/0823scale/big_model_'+str(i),"w")
+    for i in range(10):
+        f = open('log/0824std/big_model'+str(i),"w")
         sys.stdout = f
+
         train_size = train_list[i]
         test_size = 162
         print("train size is", train_size)
@@ -80,7 +85,7 @@ if __name__ == "__main__":
         train_errs = []
         test_errs = []
         for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data = get_input(i)
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_std(i)
             t1, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             train_errs.append(t1)
             test_errs.append(t3)
