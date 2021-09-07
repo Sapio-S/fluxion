@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-route = "res_rm_outlier_rps/"
+route = "res_rm_outlier_new/"
 services = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "redis"]
 quantile = ["0.50", '0.90', '0.95', '0.99']
 headers = ["service", "rps","avg", "0.50", '0.90', '0.95', '0.99']
@@ -12,12 +12,12 @@ extra_names = {
     "adservice":[],
     "cartservice":["get", "set"], 
     "checkoutservice":["paymentservice"],
-    "checkoutservice":[],
-    # "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
+    # "checkoutservice":[],
+    "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
     "currencyservice":[], 
     "emailservice":[], 
-    "frontend":["checkoutservice"],
-    # "frontend":["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], 
+    # "frontend":["checkoutservice"],
+    "frontend":["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], 
     "paymentservice":[], 
     "productcatalogservice":[], 
     "recommendationservice":["productcatalogservice"], 
