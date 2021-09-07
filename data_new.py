@@ -104,10 +104,10 @@ def la_input(para, csv_onedic, train_size, test_size, valid_size, sub_map):
         f_input4.append({})
     for p in eval_metric:
         output[p] = {}
-        for f in finals2:
+        for f in finals:
             output[p][f] = csv_onedic[f+":"+p][test_size:test_size+train_size]
     input_names = {}
-    for f in finals2:
+    for f in finals:
         input[f] = []
         input_names[f] = []
 
@@ -124,7 +124,7 @@ def la_input(para, csv_onedic, train_size, test_size, valid_size, sub_map):
         input_names[f].append(f+":rps")
 
         # add parameter settings for input
-        for p_ in data_dic[f][test_size:test_size+train_size]:
+        for p_ in data_dic[f][test_size+valid_size:test_size+valid_size+train_size]:
             small_instance = []
             for k, v in p_.items():
                 small_instance.append(v)
@@ -153,7 +153,7 @@ def la_input(para, csv_onedic, train_size, test_size, valid_size, sub_map):
 
         # add rps values for input [test_size, test_size+train_size]
         for i in range(train_size):
-            input[f][i].append(csv_onedic[f+":rps"][test_size+i])
+            input[f][i].append(csv_onedic[f+":rps"][i+test_size+valid_size])
 
     return input, output, input_names, f_input2, f_input3, f_input4
 
@@ -256,7 +256,7 @@ def generate_tmp_data_std():
         sub_map = np.arange(562)
         np.random.seed(i)
         np.random.shuffle(sub_map)
-        store_input_std(sub_map, i, 400, 162, 0) # no validation
+        store_input_std(sub_map, i, 300, 131, 131) # no validation
 
 def generate_tmp_data_norm():
     print("generatring data. stored in tmp_data_norm/ folder.")
@@ -264,7 +264,7 @@ def generate_tmp_data_norm():
         sub_map = np.arange(562)
         np.random.seed(i)
         np.random.shuffle(sub_map)
-        store_input_norm(sub_map, i, 400, 162, 0) # no validation
+        store_input_norm(sub_map, i, 300, 131, 131) # no validation
 
 def norm_scaler(y, mini, maxi):
     if type(y) is np.float64:
@@ -287,7 +287,7 @@ def test():
     print(std_scaler(l["1"], a["1:AVG"], a["1:STD"]))
 
 if __name__ == "__main__":
-    generate_tmp_data_norm()
+    # generate_tmp_data_norm()
     generate_tmp_data_std()
     # test()
 

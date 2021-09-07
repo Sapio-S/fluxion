@@ -75,7 +75,7 @@ def singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 250, 300, 350, 400]
     for i in range(10):
-        f = open('log/0824norm/big_model'+str(i),"w")
+        f = open('log/0824std/big_model'+str(i),"w")
         sys.stdout = f
 
         train_size = train_list[i]
@@ -85,7 +85,7 @@ if __name__ == "__main__":
         train_errs = []
         test_errs = []
         for i in range(10):
-            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_norm(i)
+            samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_std(i)
             t1, t3 = singlemodel(samples_x, samples_y, x_names, perf_data, test_data, train_data)
             train_errs.append(t1)
             test_errs.append(t3)

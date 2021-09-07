@@ -11,10 +11,13 @@ perf = ["rps", "avg", "0.50", '0.90', '0.95', '0.99']
 extra_names = {
     "adservice":[],
     "cartservice":["get", "set"], 
-    "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
+    "checkoutservice":["paymentservice"],
+    "checkoutservice":[],
+    # "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
     "currencyservice":[], 
     "emailservice":[], 
-    "frontend":["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], 
+    "frontend":["checkoutservice"],
+    # "frontend":["adservice", "checkoutservice", "shippingservice", "currencyservice", "productcatalogservice", "recommendationservice", "cartservice"], 
     "paymentservice":[], 
     "productcatalogservice":[], 
     "recommendationservice":["productcatalogservice"], 
@@ -24,8 +27,6 @@ extra_names = {
 }
 
 finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
-finals2 = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
-# finals2 = ["adservice"]
 collect = "frontend"
 
 eval_metric_map = {
