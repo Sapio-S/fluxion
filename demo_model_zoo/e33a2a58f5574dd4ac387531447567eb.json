@@ -1,0 +1,16 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 250,
+    "normalize_y": false,
+    "input_names": [
+        "cartservice:CPU_LIMIT",
+        "cartservice:MEMORY_LIMIT",
+        "cartservice:IPV4_RMEM",
+        "cartservice:IPV4_WMEM",
+        "cartservice:rps",
+        "get:0.90",
+        "set:0.90"
+    ]
+}

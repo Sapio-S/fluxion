@@ -1,0 +1,15 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 250,
+    "normalize_y": false,
+    "input_names": [
+        "adservice:MAX_ADS_TO_SERVE",
+        "adservice:CPU_LIMIT",
+        "adservice:MEMORY_LIMIT",
+        "adservice:IPV4_RMEM",
+        "adservice:IPV4_WMEM",
+        "adservice:rps"
+    ]
+}

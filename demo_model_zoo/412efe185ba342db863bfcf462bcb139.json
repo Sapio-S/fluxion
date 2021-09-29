@@ -1,0 +1,14 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 250,
+    "normalize_y": false,
+    "input_names": [
+        "paymentservice:CPU_LIMIT",
+        "paymentservice:MEMORY_LIMIT",
+        "paymentservice:IPV4_RMEM",
+        "paymentservice:IPV4_WMEM",
+        "paymentservice:rps"
+    ]
+}
