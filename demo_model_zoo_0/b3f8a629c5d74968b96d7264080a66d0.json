@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "checkoutservice:0.90|checkoutservice:0.90|0"
+    ],
+    "operation": "avg"
+}

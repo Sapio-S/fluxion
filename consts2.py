@@ -10,11 +10,12 @@ perf = ["rps", "avg", "0.50", '0.90', '0.95', '0.99']
 # record service dependencies
 extra_names = {
     "adservice":[],
-    "cartservice":["get", "set"], 
-    # "checkoutservice":["paymentservice"],
+    # "cartservice":["get", "set"], 
+    "cartservice":["get"],
+    "checkoutservice":["paymentservice"],
     # "checkoutservice":[],
     # "checkoutservice":["emailservice","shippingservice", "productcatalogservice"], 
-    "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
+    # "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
     "currencyservice":[], 
     "emailservice":[], 
     # "frontend":["checkoutservice"],
@@ -29,9 +30,8 @@ extra_names = {
     "set":[]
 }
 
-finals = ["adservice", "currencyservice", "emailservice", "paymentservice", "productcatalogservice","shippingservice", "get", "set", "cartservice", "checkoutservice","frontend", "recommendationservice", ]
+finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set"]
 collect = "frontend"
-finals_test = ["adservice","productcatalogservice","recommendationservice","emailservice","paymentservice","shippingservice", "currencyservice", "get", "set","cartservice","checkoutservice","frontend"]
 
 eval_metric_map = {
     '1':["0.90"],
@@ -41,7 +41,7 @@ eval_metric_map = {
     }
 
 # metrics = os.getenv("METRIC_NUM")
-metrics = "4"
+metrics = "1"
 eval_metric = eval_metric_map[metrics]
 # eval_metric = ["0.90", "0.50", "0.95", "0.99"]
 

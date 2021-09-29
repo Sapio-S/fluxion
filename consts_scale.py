@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-route = "res_whole_data2/"
+route = "res_clean_rps_scale/"
 services = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "redis"]
 quantile = ["0.50", '0.90', '0.95', '0.99']
 headers = ["service", "rps","avg", "0.50", '0.90', '0.95', '0.99']
@@ -15,6 +15,8 @@ extra_names = {
     # "checkoutservice":[],
     # "checkoutservice":["emailservice","shippingservice", "productcatalogservice"], 
     "checkoutservice":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
+    "checkout_pod0":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
+    "checkout_pod1":["emailservice", "paymentservice", "shippingservice", "currencyservice", "productcatalogservice", "cartservice"], 
     "currencyservice":[], 
     "emailservice":[], 
     # "frontend":["checkoutservice"],
@@ -29,9 +31,9 @@ extra_names = {
     "set":[]
 }
 
-finals = ["adservice", "currencyservice", "emailservice", "paymentservice", "productcatalogservice","shippingservice", "get", "set", "cartservice", "checkoutservice","frontend", "recommendationservice", ]
+finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "emailservice", "frontend", "paymentservice", "productcatalogservice", "recommendationservice", "shippingservice", "get", "set", "checkout_pod0","checkout_pod1"]
+# finals_test = ["adservice","productcatalogservice","recommendationservice","emailservice","paymentservice","shippingservice", "currencyservice", "get", "set","cartservice","checkoutservice","frontend"]
 collect = "frontend"
-finals_test = ["adservice","productcatalogservice","recommendationservice","emailservice","paymentservice","shippingservice", "currencyservice", "get", "set","cartservice","checkoutservice","frontend"]
 
 eval_metric_map = {
     '1':["0.90"],
@@ -41,7 +43,7 @@ eval_metric_map = {
     }
 
 # metrics = os.getenv("METRIC_NUM")
-metrics = "4"
+metrics = "1"
 eval_metric = eval_metric_map[metrics]
 # eval_metric = ["0.90", "0.50", "0.95", "0.99"]
 

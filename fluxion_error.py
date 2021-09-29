@@ -11,9 +11,12 @@ from consts import *
 from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
 
+valid_size = 50
+test_size = 133
+
 def combine_list(list1, list2):
     for i in range(train_size):
-        list1[i].append(list2[i+test_size])
+        list1[i].append(list2[i+test_size+valid_size])
 
 def combine_data(extra_names, perf_data, x_slice):
     for name in extra_names:
@@ -25,6 +28,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
     zoo = Model_Zoo()
     fluxion = Fluxion(zoo)
 
+    # create learning assignments
     la_map = {} # {"service":{"perf":la, ...}, ...}
     for f in finals:
         la_map[f] = {}
@@ -35,48 +39,41 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
             la.create_and_add_model(f_input[:train_size], sample_y[p][f][:train_size], GaussianProcess)
             la_map[f][p] = la
 
+    # add all models into fluxion
     add_list = []
     for f in finals:
         names = [n for n in extra_names[f] for i in range(len(eval_metric))]
-        try:
-            for p in eval_metric:
-                fluxion.add_service(f, p, la_map[f][p], [None]*len(x_names[f])+names, [None]*len(x_names[f])+eval_metric*len(extra_names[f]))
-        except:
-            add_list.append(f)
-            continue
-    while(len(add_list) > 0):
-        new_add_list = []
-        for f in add_list:
-            names = [n for n in extra_names[f] for i in range(len(eval_metric))]
-            try:
-                for p in eval_metric:
-                    fluxion.add_service(f, p, la_map[f][p], [None]*len(x_names[f])+names, [None]*len(x_names[f])+eval_metric*len(extra_names[f]))
-            except:
-                new_add_list.append(f)
-                continue
-        add_list = new_add_list
+        for p in eval_metric:
+            fluxion.add_service(f, p, la_map[f][p], [None]*len(x_names[f]+names), [None]*len(x_names[f]+eval_metric*len(extra_names[f])))
 
-
-    # fluxion.visualize_graph_engine_diagrams("frontend", "0.90", output_filename="frontend_mine", is_draw_edges=True)
-    # get whole train error
+    # compute model error distributions
+    errors = {}
+    hist_num = {}
+    hist_val = {}
     for f in finals:
-        errs = []
-        for i in range(train_size):
-            prediction = fluxion.predict(f, "0.90", train_data[i])
+        errors[f] = []
+        hist_num[f] = []
+        hist_val[f] = []
+        for i in range(valid_size):
+            prediction = fluxion.predict(f, "0.90", valid_data[i])
             v1 = prediction[f]["0.90"]["val"]
             v2 = perf_data[f+":0.90"][i+test_size]
-            v1 = std_scaler(v1, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
-            v2 = std_scaler(v2, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
-            errs.append(abs(v1-v2))
-        train_err = np.mean(errs)
+            errors[f].append(v1-v2)
+        hist_num[f], hist_val[f] = np.histogram(errors[f])
 
-    # get test error
+    # compute test error
     test_err = {}
     for f in finals:
         errs = []
+        pred = []
         for i in range(test_size):
+            data_piece = test_data[i].copy()
+            pred.append(fluxion.predict(f, "0.90", test_data[i])[f]["0.90"]["val"])
+            for down in extra_names[f]:
+                # generate a set of input points
+                pass
             prediction = fluxion.predict(f, "0.90", test_data[i])
-            v1 = prediction[f]["0.90"]["val"]
+            v1 = np.mean(pred)
             v2 = perf_data[f+":0.90"][i]
             v1 = std_scaler(v1, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
             v2 = std_scaler(v2, scale[f+":0.90:AVG"], scale[f+":0.90:STD"])
@@ -87,24 +84,19 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
 
 if __name__ == "__main__":
     train_list = [10, 25, 50, 100, 150, 200, 300, 400, 550, 700, 850]
-    for train_sub in range(0,10):
-        f = open("log/0925/log"+str(train_list[train_sub]),"w")
-        sys.stdout = f
+    for train_sub in range(0,1):
+        # f = open("log/0929scale/error_"+str(train_list[train_sub]),"w")
+        # sys.stdout = f
         train_errs = []
         test_errs = {}
         for f in finals:
             test_errs[f] = []
 
         train_size = train_list[train_sub]
-        test_size = 133
+        
         print("train size is", train_size)
-        print("test size is", test_size)
+        # print("test size is", test_size)
         for i in range(10):
-            # samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], sample_x_names, sample_y_name)
-            # training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
-            # training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
-            # testing_samples_x = [samples_x[idx] for idx in selected_testing_idxs]
-            # testing_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_testing_idxs]
             samples_x, samples_y, x_names, perf_data, test_data, train_data, valid_data, scale = get_input_std(i)
             train_err, test_err = multimodel(samples_x, samples_y, x_names, perf_data, test_data, train_data, train_size, test_size)
             train_errs.append(train_err)
@@ -116,4 +108,3 @@ if __name__ == "__main__":
         print("avg test err for 10 times", np.mean(test_errs["frontend"]))
         for f in finals:
             print(np.mean(test_errs[f]))
-        print("")
