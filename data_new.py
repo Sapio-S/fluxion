@@ -110,7 +110,7 @@ def la_input(para, csv_onedic, train_size, test_size, valid_size, sub_map):
     for p in eval_metric:
         output[p] = {}
         for f in finals:
-            output[p][f] = csv_onedic[f+":"+p][test_size:test_size+train_size]
+            output[p][f] = csv_onedic[f+":"+p][test_size+valid_size:test_size+valid_size+train_size]
     input_names = {}
     for f in finals:
         input[f] = []
