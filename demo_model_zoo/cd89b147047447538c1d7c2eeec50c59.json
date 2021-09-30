@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "frontend:0.90|frontend:0.90|0"
+    ],
+    "operation": "avg"
+}

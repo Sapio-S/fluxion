@@ -44,18 +44,18 @@ scale_sample_x_names["checkoutservice:0.90"] = ['checkout_pod0:0.90','checkout_p
 # real version
 dump_directory = "demo_model_zoo"
 model_name = {
-    'adservice:0.90':"",
-    'productcatalogservice:0.90':"",
-    'recommendationservice:0.90':"",
-    'emailservice:0.90':"",
-    'paymentservice:0.90':"",
-    'shippingservice:0.90':"",
-    'currencyservice:0.90':"",
-    'get:0.90':"",
-    'set:0.90':"",
-    'cartservice:0.90':"",
-    'checkoutservice:0.90':"",
-    'frontend:0.90':"",
+    'adservice:0.90':"66f9864e3ec24396b9c9b2f8cafe68d6",
+    'productcatalogservice:0.90':"812158ffbda740ebab6bfbed9c62653f",
+    'recommendationservice:0.90':"4326848094a5414684a0883e75d1b45a",
+    'emailservice:0.90':"5625918688c54f059fcd1ba68e0991e6",
+    'paymentservice:0.90':"412efe185ba342db863bfcf462bcb139",
+    'shippingservice:0.90':"ed0ac78de159432ba9d48c6bdb545199",
+    'currencyservice:0.90':"e50ef3be7ce24ff191216550ae3d32cc",
+    'get:0.90':"29cae95190fd4552b51cee9de0c57998",
+    'set:0.90':"a7f00f6b6ae546caa6d1786c259c93be",
+    'cartservice:0.90':"e33a2a58f5574dd4ac387531447567eb",
+    'checkoutservice:0.90':"553c3c3ac6294967857a44ae40b331ad",
+    'frontend:0.90':"9025b65872174a1f8f349029a3cb5287",
 }
 
 # # for test only
@@ -85,12 +85,6 @@ def expand_sample_x_name(service_name):
     
     return tmp_sample_x_names
 
-small_models_preds = []
-small_models_abs_errs = []
-small_models_raw_errs = []
-fluxion_abs_errs = []
-big_gp_abs_errs = []
-experiment_ids_completed = []
 
 zoo = Model_Zoo()
 zoo.load(dump_directory)
@@ -144,6 +138,13 @@ fluxion.scale_service_horizontal("checkoutservice:0.90", 2)
 
 train_sizes = [10,25,50,100,200,300,450,600]
 for train_size in train_sizes:
+    small_models_preds = []
+    small_models_abs_errs = []
+    small_models_raw_errs = []
+    fluxion_abs_errs = []
+    big_gp_abs_errs = []
+    experiment_ids_completed = []
+
     f = open("log/0929scale/merge_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):

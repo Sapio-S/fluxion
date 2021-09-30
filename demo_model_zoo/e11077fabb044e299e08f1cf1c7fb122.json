@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "currencyservice:0.90|currencyservice:0.90|0"
+    ],
+    "operation": "avg"
+}
