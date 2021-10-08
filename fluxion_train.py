@@ -20,8 +20,8 @@ num_experiments = 10
 
 all_sample_x_names = {}
 
-dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-scale-standardized.csv"
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/single-standardized.csv"
+dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/2checkout-standardized.csv"
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
 all_sample_x_names['recommendationservice:0.90'] = ["recommendationservice:CPU_LIMIT", "recommendationservice:MEMORY_LIMIT", "recommendationservice:MAX_WORKERS", "recommendationservice:MAX_RESPONSE", "recommendationservice:IPV4_RMEM", "recommendationservice:IPV4_WMEM", "recommendationservice:rps",
@@ -144,8 +144,12 @@ for train_size in train_sizes:
     fluxion_abs_errs = []
     big_gp_abs_errs = []
     experiment_ids_completed = []
+    each_model_errs = {}
 
-    f = open("log/0929scale/merge_"+str(train_size),"w")
+    for t in model_name.keys():
+        each_model_errs[t] = []
+
+    f = open("log/1008scale/merge_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
@@ -159,6 +163,9 @@ for train_size in train_sizes:
         fluxion_abs_errs.append([])
         big_gp_abs_errs.append([])
 
+        for t in model_name.keys():
+            each_model_errs[t].append([])
+
         # train scaled service
         samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename2], ['checkout_pod0:0.90','checkout_pod1:0.90'], "checkoutservice:0.90")
         selected_testing_idxs = random.sample(range(0, len(samples_x)), k=test_size)
@@ -170,46 +177,52 @@ for train_size in train_sizes:
         fluxion.train_service("checkoutservice:0.90", "checkoutservice:0.90", training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
 
         # STEP 2: Compute Fluxion's testing MAE
-        samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename2], inputs_name+["checkout_pod0:rps", "checkout_pod1:rps"], target_service_name)
-        for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x)), samples_x, samples_y_aggregation):
-            if sample_idx not in selected_testing_idxs:
-                continue
-            
-            fluxion_input = {}
-            for val, input_name in zip(sample_x, inputs_name):
-                service_name = None
-                for tmp_name in all_sample_x_names.keys():
-                    if input_name in all_sample_x_names[tmp_name]:
-                        service_name = tmp_name
-                        
-                        if service_name not in fluxion_input.keys():
-                            fluxion_input[service_name] = {}
-                        if service_name not in fluxion_input[service_name].keys():
-                            fluxion_input[service_name][service_name] = [{}]
-                        if input_name not in fluxion_input[service_name].keys():
-                            fluxion_input[service_name][service_name][0][input_name] = val
-            
-            # special for scaled out services
-            
-            fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"].append(fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][0].copy())
-            fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][0]["checkoutservice:rps"] = sample_x[-2] # checkout_pod0
-            fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][1]["checkoutservice:rps"] = sample_x[-1] # checkout_pod0
-            pred = fluxion.predict(target_service_name, target_service_name, fluxion_input)[target_service_name][target_service_name]['val']
-            fluxion_abs_errs[-1].append(abs(pred - sample_y_aggregation))
+        for t in model_name.keys():
+            target_service_name = t
+            samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename2], inputs_name+["checkout_pod0:rps", "checkout_pod1:rps"], target_service_name)
+            for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x)), samples_x, samples_y_aggregation):
+                if sample_idx not in selected_testing_idxs:
+                    continue
+                
+                fluxion_input = {}
+                for val, input_name in zip(sample_x, inputs_name):
+                    service_name = None
+                    for tmp_name in all_sample_x_names.keys():
+                        if input_name in all_sample_x_names[tmp_name]:
+                            service_name = tmp_name
+                            
+                            if service_name not in fluxion_input.keys():
+                                fluxion_input[service_name] = {}
+                            if service_name not in fluxion_input[service_name].keys():
+                                fluxion_input[service_name][service_name] = [{}]
+                            if input_name not in fluxion_input[service_name].keys():
+                                fluxion_input[service_name][service_name][0][input_name] = val
+                
+                # special for scaled out services
+                fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"].append(fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][0].copy())
+                fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][0]["checkoutservice:rps"] = sample_x[-2] # checkout_pod0
+                fluxion_input["checkoutservice:0.90"]["checkoutservice:0.90"][1]["checkoutservice:rps"] = sample_x[-1] # checkout_pod0
+                pred = fluxion.predict(target_service_name, target_service_name, fluxion_input)[target_service_name][target_service_name]['val']
+                each_model_errs[t][-1].append(abs(pred - sample_y_aggregation))
 
-        print("==================================================")
-        print("| num_training_data:", train_size)
-        print("| num_testing_data:", test_size)
-        print("| target_deployment_name:", target_deployment_name)
-        print("| target_service_name:", target_service_name)
-        print("| num_experiments:", num_experiments)
-        print("| experiment_ids_completed:", experiment_ids_completed)
-        print("| dataset_filename:", dataset_filename)
+        # print("==================================================")
+        # print("| num_training_data:", train_size)
+        # print("| num_testing_data:", test_size)
+        # print("| target_deployment_name:", target_deployment_name)
+        # print("| target_service_name:", target_service_name)
+        # print("| num_experiments:", num_experiments)
+        # print("| experiment_ids_completed:", experiment_ids_completed)
+        # print("| dataset_filename:", dataset_filename)
 
-        print("==========")
-        print("| fluxion_abs_errs:")
-        print([round(statistics.mean(errs), 8) for errs in fluxion_abs_errs])
+        # print("==========")
+        # print("| fluxion_abs_errs:")
+        
+        # print([round(statistics.mean(errs), 8) for errs in fluxion_abs_errs])
 
     # for data collection
-    for errs in fluxion_abs_errs:
-        print(round(statistics.mean(errs), 8))
+    for t in model_name.keys():
+        print(t)
+        for errs in each_model_errs[t]:
+            print(round(statistics.mean(errs), 8))
+    # for errs in fluxion_abs_errs:
+    #     print(round(statistics.mean(errs), 8))
