@@ -2,7 +2,7 @@ import os, sys
 import random
 sys.path.insert(1, "../")
 from fluxion import Fluxion
-from GraphEngine.learning_assignment import LearningAssignment
+from GraphEngine.learning_assignment_normal import LearningAssignment
 from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
@@ -15,7 +15,7 @@ valid_size= 50
 test_size = 133
 
 def combine_list(list1, list2):
-    for i in range(train_size):
+    for i in range(train_size+50):
         list1[i].append(list2[i+test_size+valid_size])
 
 def combine_data(extra_names, perf_data, x_slice):
@@ -36,6 +36,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         for p in eval_metric:
             la = LearningAssignment(zoo, x_names[f]+names)
             la.create_and_add_model(f_input[:train_size], sample_y[p][f][:train_size], GaussianProcess)
+            la.set_err_dist(f_input[train_size:train_size+50], sample_y[p][f][train_size:train_size+50])
             la_map[f][p] = la
 
     for f in finals:
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     np.random.seed(0)
     train_list = [10, 25, 50, 100, 150, 200, 300, 400, 550, 700, 850]
     for train_sub in range(9):
-        f = open("log/0929scale/normal_"+str(train_list[train_sub]),"w")
+        f = open("log/1012scale/error_"+str(train_list[train_sub]),"w")
         sys.stdout = f
         train_errs = []
         test_errs = {}

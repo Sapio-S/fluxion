@@ -6,7 +6,7 @@ from GraphEngine.learning_assignment import LearningAssignment
 from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 # from IngestionEngine_CSV import ingestionEngipythonne
-
+import itertools
 from consts import *
 from data_new import get_input, get_input_norm, get_input_std, norm_scaler, std_scaler
 import numpy as np
@@ -14,7 +14,7 @@ import numpy as np
 valid_size = 50
 test_size = 133
 bin_num = 10
-sample_size = 100
+sample_size = 5
 def combine_list(list1, list2):
     for i in range(train_size):
         list1[i].append(list2[i+test_size+valid_size])
@@ -37,6 +37,19 @@ def sample_error(num, points):
             break
     return np.random.uniform(points[start-1], points[start], 1)
     # return 0
+
+def get_permutation():
+    permutation = []
+    for i1 in range(sample_size):
+        for i2 in range(sample_size):
+            for i3 in range(sample_size):
+                for i4 in range(sample_size):
+                    for i5 in range(sample_size):
+                        for i6 in range(sample_size):
+                            for i7 in range(sample_size):
+                                for i8 in range(sample_size):
+                                    permutation.append([i8,i7,i6,i5,i4,i3,i2,i1])
+    return permutation
 
 def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, train_size, test_size):
     zoo = Model_Zoo()
@@ -75,6 +88,7 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         hist_num[f], hist_val[f] = np.histogram(errors[f],bins=bin_num)
 
     # compute test error
+    permutation = get_permutation()
     prediction = {}
     test_err = {}
     for f in finals:
@@ -83,10 +97,11 @@ def multimodel(sample_x, sample_y, x_names, perf_data, test_data, train_data, tr
         for i in range(test_size):
             pred = []
             # generate a set of input points
-            for k in range(sample_size):
+            for k in range(sample_size ** (len(extra_names[f])+1)):
                 data_piece = test_data[i].copy()
-                for down in extra_names[f]:
-                    data_piece[f]["0.90"][0][down+":0.90"] = prediction[down][i]-sample_error(hist_num[down], hist_val[down])
+                for seq, down in enumerate(extra_names[f]):
+                    # data_piece[f]["0.90"][0][down+":0.90"] = prediction[down][i]-sample_error(hist_num[down], hist_val[down])
+                    data_piece[f]["0.90"][0][down+":0.90"] = prediction[down][permutation[k][seq]]-sample_error(hist_num[down], hist_val[down])
                 pred.append(fluxion.predict(f, "0.90", data_piece)[f]["0.90"]["val"])
             
             v1 = np.mean(pred)
@@ -105,7 +120,7 @@ if __name__ == "__main__":
     np.random.seed(0)
     train_list = [10, 25, 50, 100, 150, 200, 300, 400, 550, 700, 850]
     for train_sub in range(9):
-        f = open("log/0929scale/valid_"+str(train_list[train_sub]),"w")
+        f = open("log/1004/valid_"+str(train_list[train_sub]),"w")
         sys.stdout = f
         train_errs = []
         test_errs = {}
