@@ -70,15 +70,17 @@ import GraphEngine.lib_learning_assignment as lib_learning_assignment
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLayerPerceptron
-for i in range(1):
-    dic = np.load("/home/yuqingxie/autosys/code/fluxion/tmp_data_0929valid/"+str(i)+"_csv_scale.npy", allow_pickle=True).item()
-    print(dic["frontend:0.90:AVG"], dic["frontend:0.90:STD"])
-# dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/single.csv"
-# dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/2checkout.csv"
-# dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole.csv"
-# samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], ['checkoutservice:rps'], "frontend:0.90")
+# for i in range(1):
+#     dic = np.load("/home/yuqingxie/autosys/code/fluxion/tmp_data_0929valid/"+str(i)+"_csv_scale.npy", allow_pickle=True).item()
+#     print(dic["frontend:0.90:AVG"], dic["frontend:0.90:STD"])
+# # dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/single.csv"
+# # dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/2checkout.csv"
+# # dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole.csv"
+# # samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], ['checkoutservice:rps'], "frontend:0.90")
+# # # print(np.max(samples_y_aggregation), np.min(samples_y_aggregation))
+# # print(np.std(samples_y_aggregation))
+# # # samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename2], ['checkoutservice:rps'], "checkoutservice:rps")
 # # print(np.max(samples_y_aggregation), np.min(samples_y_aggregation))
-# print(np.std(samples_y_aggregation))
-# # samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename2], ['checkoutservice:rps'], "checkoutservice:rps")
-# print(np.max(samples_y_aggregation), np.min(samples_y_aggregation))
-print('adservice:0.90'[:-5])
+# print('adservice:0.90'[:-5])
+l = np.load("saved_model/dic10_0.npy", allow_pickle = True)
+print(l)
