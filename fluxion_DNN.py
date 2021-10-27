@@ -113,6 +113,9 @@ for num_training_data in train_size:
             pred = all_lrn_asgmts['big_gp_model'].predict(testing_sample_x)['val']
             big_gp_abs_errs[-1].append(abs(pred - testing_sample_y_aggregation))
         
+        numpy.save("saved_model/DNN_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far),zoo.get_models_name())
+        zoo.dump("saved_model/DNN_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far))
+        
         print("==================================================")
         print("| num_training_data:", num_training_data)
         print("| num_testing_data:", num_testing_data)

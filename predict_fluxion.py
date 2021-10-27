@@ -13,13 +13,14 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import pandas as pd
 
 train_size = [10, 25, 50, 100, 150, 200, 300, 450, 550, 650, 800]
+# train_size = [550, 650]
 pretrain_size = 10
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
 num_experiments = 10
 
 dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv"
-dataset_filename2 = "dataset-standardized.csv"
+dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
@@ -81,8 +82,8 @@ samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dat
 
 for pretrain_size in train_size:
     for num in range(num_experiments):
-        f = open("log/1020single/fluxion_"+str(pretrain_size)+"_"+str(num),"w")
-        sys.stdout = f
+        # f = open("log/1021single/fluxion_"+str(pretrain_size)+"_"+str(num),"w")
+        # sys.stdout = f
         path = "saved_model/dic"+str(pretrain_size)+"_"+str(num)
         name_list = np.load(path+".npy", allow_pickle = True)
 
@@ -95,13 +96,13 @@ for pretrain_size in train_size:
 
         for sample_y_name in all_sample_x_names.keys():
             sample_x_names = all_sample_x_names[sample_y_name]
-            samples_x0, samples_y0, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], sample_x_names, sample_y_name)
+            # samples_x0, samples_y0, samples_y_aggregation0, err_msg = lib_data.readCSVFile([dataset_filename], sample_x_names, sample_y_name)
 
-            selected_training_idxs = range(pretrain_size)
+            # selected_training_idxs = range(pretrain_size)
 
-            # STEP 1: Split dataset into training and testing
-            training_samples_x = [samples_x0[idx] for idx in selected_training_idxs]
-            training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
+            # # STEP 1: Split dataset into training and testing
+            # training_samples_x = [samples_x0[idx] for idx in selected_training_idxs]
+            # training_samples_y_aggregation = [samples_y_aggregation0[idx] for idx in selected_training_idxs]
             
             # STEP 2: Load models
             all_lrn_asgmts[sample_y_name] = LearningAssignment(zoo, sample_x_names)
@@ -193,6 +194,8 @@ for pretrain_size in train_size:
         # output the best result & its parameter setting
         best = min(preds)
         best_index = preds.index(best)
+        print(len(preds))
+        print(preds)
         print(best_index)
         print(best)
         print(samples_x[best_index])
@@ -210,6 +213,6 @@ for pretrain_size in train_size:
             real_para[k] = samples_x[best_index][cnt] * std + avg
             cnt += 1
         print(real_para)
-        np.save("log/1020single/res_fluxion_"+str(pretrain_size)+"_"+str(num), real_para)
+        np.save("log/1021single/res_fluxion_"+str(pretrain_size)+"_"+str(num), real_para)
         print(best * scaler["frontend:0.90:STD"] + scaler["frontend:0.90:AVG"])
 

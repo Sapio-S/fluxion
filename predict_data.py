@@ -16,7 +16,7 @@ def combine_csv(size, route):
     csv_onedic = []
     minidic = {}
     data = pd.read_csv(route)
-    for row in range(14):
+    for row in range(16):
         # data.loc[row]用来取出一个service对应的行
         r = data.loc[row]
         if r["service"] == "redis" or r["service"] == "total":
@@ -102,14 +102,14 @@ def read_para(num_samples):
                     "IPV4_RMEM":para[s][i]["IPV4_RMEM"],
                     "IPV4_WMEM":para[s][i]["IPV4_WMEM"],
                 })
-        # elif s == "checkoutservice":
-        #     para2[s] = []
-        #     para2["checkout_pod0"] = []
-        #     para2["checkout_pod1"] = []
-        #     for i in range(length):
-        #         para2[s].append(para[s][i])
-        #         para2["checkout_pod0"].append(para[s][i])
-        #         para2["checkout_pod1"].append(para[s][i])
+        elif s == "checkoutservice":
+            para2[s] = []
+            para2["checkout_pod0"] = []
+            para2["checkout_pod1"] = []
+            for i in range(length):
+                para2[s].append(para[s][i])
+                para2["checkout_pod0"].append(para[s][i])
+                para2["checkout_pod1"].append(para[s][i])
         # elif s == "recommendationservice":
         #     para2[s] = []
         #     para2["recommendation_pod0"] = []
@@ -138,8 +138,8 @@ def standardize(csv, k):
     dic = np.load("std_scaler_dataset_whole.npy", allow_pickle = True).item()
     # if k[:19] == "recommendation_pod0" or k[:19] == "recommendation_pod1":
     #     k = "recommendationservice"+k[19:]
-    # if k[:13] == "checkout_pod0" or k[:13] == "checkout_pod1":
-    #     k = "checkoutservice"+k[13:]
+    if k[:13] == "checkout_pod0" or k[:13] == "checkout_pod1":
+        k = "checkoutservice"+k[13:]
     std = dic[k+":STD"]
     avg = dic[k+":AVG"]
     if std == 0:
@@ -160,7 +160,7 @@ def restruct(from_route, to_name, size=10000):
     
     data = {}
     para_dic = {}
-    with open("dataset.csv") as csvfile:
+    with open("dataset-short.csv") as csvfile:
         reader = csv.DictReader(csvfile)
         
         for name in reader.fieldnames:
@@ -172,7 +172,7 @@ def restruct(from_route, to_name, size=10000):
             data[name], scale = standardize(data[name], name)
             para_dic.update(scale)
 
-        with open("dataset-standardized.csv", "w") as f:
+        with open("dataset-short-standardized.csv", "w") as f:
             writer = csv.DictWriter(f, reader.fieldnames)
             writer.writeheader()
             for i in range(size):
@@ -180,4 +180,6 @@ def restruct(from_route, to_name, size=10000):
     
 
 if __name__ == "__main__":
-    restruct("res/data0.csv", "dataset.csv", 10000)
+    np.random.seed(0)
+    random.seed(0)
+    restruct("data-2checkout.csv", "dataset-short.csv", 10)
