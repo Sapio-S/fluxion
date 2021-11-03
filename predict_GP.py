@@ -105,7 +105,6 @@ for pretrain_size in train_size:
         
         # STEP 4: Compute Big-GP's testing MAE
         all_lrn_asgmts['big_gp_model'] = LearningAssignment(zoo, expanded_sample_x_names)
-        print(name_list)
         for name in name_list:
             created_model_name = all_lrn_asgmts['big_gp_model'].add_model(name)
             name_list.remove(name)

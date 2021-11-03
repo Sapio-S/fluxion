@@ -55,9 +55,9 @@ all_sample_x_names['get:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4
 all_sample_x_names['set:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps']
 all_sample_x_names['cartservice:0.90'] = ["cartservice:CPU_LIMIT", "cartservice:MEMORY_LIMIT", "cartservice:IPV4_RMEM", "cartservice:IPV4_WMEM", "cartservice:rps",
                                             "get:0.90", "set:0.90"]
-all_sample_x_names['checkout_pod0:0.90'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
+all_sample_x_names['checkout_pod0:0.90'] = ["checkout_pod0:CPU_LIMIT", "checkout_pod0:MEMORY_LIMIT", "checkout_pod0:IPV4_RMEM", "checkout_pod0:IPV4_WMEM", "checkout_pod0:rps",
                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-all_sample_x_names['checkout_pod1:0.90'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
+all_sample_x_names['checkout_pod1:0.90'] = ["checkout_pod1:CPU_LIMIT", "checkout_pod1:MEMORY_LIMIT", "checkout_pod1:IPV4_RMEM", "checkout_pod1:IPV4_WMEM", "checkout_pod1:rps",
                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
 # all_sample_x_names['checkoutservice:0.90'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
 #                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
@@ -92,8 +92,8 @@ for num_training_data in train_size:
     big_gp_abs_errs = []
     experiment_ids_completed = []
 
-    for num_experiments_so_far in range(num_experiments):
-        f = open("log/1028/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
+    for num_experiments_so_far in range(5,10):
+        f = open("log/1030_4/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
         sys.stdout = f
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
         experiment_ids_completed.append(num_experiments_so_far)
@@ -150,7 +150,7 @@ for num_training_data in train_size:
         print(len(preds))
         print(best_index)
         print(best)
-        print(samples_x[best_index])
+        print(samples_x0[best_index])
 
         # use scaler to convert it back to original form
         print("")
@@ -158,14 +158,16 @@ for num_training_data in train_size:
         real_para = {}
         for k in inputs_name:
             # real_para[k] = samples_x_real[best_index]
+            if k[:13] == "checkout_pod0" or k[:13] == "checkout_pod1":
+                k = "checkoutservice"+k[13:]
             std = scaler[k+":STD"]
             avg = scaler[k+":AVG"]
             if std == 0:
                 std = 1
-            real_para[k] = samples_x[best_index][cnt] * std + avg
+            real_para[k] = samples_x0[best_index][cnt] * std + avg
             cnt += 1
         print(real_para)
-        np.save("log/1028/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
+        np.save("log/1030_4/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
         print(best * scaler["frontend:0.90:STD"] + scaler["frontend:0.90:AVG"])
     #     print("==================================================")
     #     print("| num_training_data:", num_training_data)

@@ -7,6 +7,10 @@ from const_dic import const_dic
 import csv
 import random
 
+finals = ["adservice", "currencyservice", "emailservice", 
+"paymentservice", "productcatalogservice","shippingservice", "get", 
+"set", "recommendation_pod0","recommendation_pod1", "cartservice", "checkout_pod0","checkout_pod1","frontend" ]
+
 '''
 将所有csv数据拼成大表读出
 csvs = {"service": {"perf": [...], ...}, ...}
@@ -16,7 +20,7 @@ def combine_csv(size, route):
     csv_onedic = []
     minidic = {}
     data = pd.read_csv(route)
-    for row in range(16):
+    for row in range(18):
         # data.loc[row]用来取出一个service对应的行
         r = data.loc[row]
         if r["service"] == "redis" or r["service"] == "total":
@@ -110,14 +114,14 @@ def read_para(num_samples):
                 para2[s].append(para[s][i])
                 para2["checkout_pod0"].append(para[s][i])
                 para2["checkout_pod1"].append(para[s][i])
-        # elif s == "recommendationservice":
-        #     para2[s] = []
-        #     para2["recommendation_pod0"] = []
-        #     para2["recommendation_pod1"] = []
-        #     for i in range(length):
-        #         para2[s].append(para[s][i])
-        #         para2["recommendation_pod0"].append(para[s][i])
-        #         para2["recommendation_pod1"].append(para[s][i])
+        elif s == "recommendationservice":
+            para2[s] = []
+            para2["recommendation_pod0"] = []
+            para2["recommendation_pod1"] = []
+            for i in range(length):
+                para2[s].append(para[s][i])
+                para2["recommendation_pod0"].append(para[s][i])
+                para2["recommendation_pod1"].append(para[s][i])
         else:
             para2[s] = []
             for i in range(length):
@@ -136,8 +140,8 @@ def read_para(num_samples):
 def standardize(csv, k):
     # load scalers
     dic = np.load("std_scaler_dataset_whole.npy", allow_pickle = True).item()
-    # if k[:19] == "recommendation_pod0" or k[:19] == "recommendation_pod1":
-    #     k = "recommendationservice"+k[19:]
+    if k[:19] == "recommendation_pod0" or k[:19] == "recommendation_pod1":
+        k = "recommendationservice"+k[19:]
     if k[:13] == "checkout_pod0" or k[:13] == "checkout_pod1":
         k = "checkoutservice"+k[13:]
     std = dic[k+":STD"]
@@ -150,6 +154,8 @@ def standardize(csv, k):
 def restruct(from_route, to_name, size=10000):
     csvs = combine_csv(size, from_route)
     para = read_para(size)
+    # print(para)
+
     for i in range(size):
         csvs[i].update(para[i])
     # print(csvs)
@@ -160,7 +166,7 @@ def restruct(from_route, to_name, size=10000):
     
     data = {}
     para_dic = {}
-    with open("dataset-short.csv") as csvfile:
+    with open("dataset-scale.csv") as csvfile:
         reader = csv.DictReader(csvfile)
         
         for name in reader.fieldnames:
@@ -172,7 +178,7 @@ def restruct(from_route, to_name, size=10000):
             data[name], scale = standardize(data[name], name)
             para_dic.update(scale)
 
-        with open("dataset-short-standardized.csv", "w") as f:
+        with open("dataset-scale-standardized.csv", "w") as f:
             writer = csv.DictWriter(f, reader.fieldnames)
             writer.writeheader()
             for i in range(size):
@@ -182,4 +188,4 @@ def restruct(from_route, to_name, size=10000):
 if __name__ == "__main__":
     np.random.seed(0)
     random.seed(0)
-    restruct("data-2checkout.csv", "dataset-short.csv", 10)
+    restruct("data-2scale.csv", "dataset-scale.csv", 100000)

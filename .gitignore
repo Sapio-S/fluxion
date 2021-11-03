@@ -7,3 +7,5 @@ tmp_data/
 tmp_data*/
 __pycache__/
 saved_*/
+data*
+*.csv
