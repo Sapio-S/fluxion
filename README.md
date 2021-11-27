@@ -26,3 +26,5 @@ run p90 only:
 
 run multipercentile:
 `METRIC_NUM=4 python3 multimodel.py`
+
+nnictl create --config /home/yuqingxie/autosys/code/fluxion/nni/config.yaml -p 8080

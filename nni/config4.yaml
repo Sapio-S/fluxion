@@ -1,12 +1,12 @@
 experimentName: BOUTIQUE
 useAnnotation: False
-searchSpaceFile: params.yaml
-trialCommand: METRIC_NUM=1 python3 nni_test.py
-trialCodeDirectory: ../
+searchSpaceFile: params4.yaml
+trialCommand: python3 nni_test4.py
+trialCodeDirectory: ./
 trialGpuNumber: 0
 trialConcurrency: 2
-maxExperimentDuration: 12h
-maxTrialNumber: 100
+maxExperimentDuration: 24h
+maxTrialNumber: 200
 tuner:
   name: TPE
   classArgs:
