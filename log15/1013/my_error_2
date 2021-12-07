@@ -1,0 +1,61 @@
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+training dataset has 179 data points
+______res______
+adservice:0.90
+0.81690652
+avg: 0.8169065189605393
+std: 0.6152149272778991
+productcatalogservice:0.90
+0.0
+avg: 0.0
+std: 0.0
+recommendationservice:0.90
+0.35982747
+avg: 0.3598274696773073
+std: 0.3423745521967799
+emailservice:0.90
+0.63983041
+avg: 0.639830414925427
+std: 0.4998176001095637
+paymentservice:0.90
+0.74910994
+avg: 0.7491099389878845
+std: 0.7006918358325428
+shippingservice:0.90
+0.7566521
+avg: 0.7566520990530209
+std: 0.5987231608238784
+currencyservice:0.90
+0.67920313
+avg: 0.6792031274776761
+std: 0.6016808083015703
+get:0.90
+0.75489074
+avg: 0.7548907429793583
+std: 0.7135656296021038
+set:0.90
+0.68248286
+avg: 0.6824828608059337
+std: 0.6207119333533588
+cartservice:0.90
+0.93307859
+avg: 0.9330785949756258
+std: 0.6619029286895436
+checkoutservice:0.90
+0.57318977
+avg: 0.5731897686494916
+std: 0.5921697488010674
+frontend:0.90
+0.46735402
+avg: 0.46735402172329044
+std: 0.6120762932544492

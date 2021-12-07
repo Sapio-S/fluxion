@@ -1,0 +1,25 @@
+========== Experiments finished so far: 8 ==========
+==================================================
+| num_training_data: 800
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [8]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.33838258]
+========== Experiments finished so far: 9 ==========
+==================================================
+| num_training_data: 800
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [8, 9]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.33838258, 0.29037903]
+0.3263816925

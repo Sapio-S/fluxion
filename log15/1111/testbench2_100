@@ -1,0 +1,150 @@
+========== Experiments finished so far: 0 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.86476894
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.60478637
+emailservice:0.90 0.6579779
+paymentservice:0.90 1.17934448
+shippingservice:0.90 1.08132555
+currencyservice:0.90 1.0246666
+get:0.90 0.83993914
+set:0.90 0.81054011
+cartservice:0.90 0.27534799
+checkoutservice:0.90 0.16737086
+frontend:0.90 0.37434745
+========== Experiments finished so far: 1 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.87479085
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.59883354
+emailservice:0.90 0.665891495
+paymentservice:0.90 1.159622175
+shippingservice:0.90 1.049035955
+currencyservice:0.90 1.03783564
+get:0.90 0.8179189099999999
+set:0.90 0.811502115
+cartservice:0.90 0.26494447499999996
+checkoutservice:0.90 0.161196825
+frontend:0.90 0.381323625
+========== Experiments finished so far: 2 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.88785539
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5686487100000001
+emailservice:0.90 0.6684447766666667
+paymentservice:0.90 1.2028032499999999
+shippingservice:0.90 1.06125483
+currencyservice:0.90 1.03049738
+get:0.90 0.8210780833333332
+set:0.90 0.7941105066666667
+cartservice:0.90 0.27772490333333333
+checkoutservice:0.90 0.16188093333333334
+frontend:0.90 0.4562034566666666
+========== Experiments finished so far: 3 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.9031080625000001
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5580864425000001
+emailservice:0.90 0.6648887000000001
+paymentservice:0.90 1.1963042775
+shippingservice:0.90 1.0677384374999999
+currencyservice:0.90 1.0208447775
+get:0.90 0.8209802875
+set:0.90 0.8017222850000001
+cartservice:0.90 0.2793875425
+checkoutservice:0.90 0.16171738
+frontend:0.90 0.44800549749999996
+========== Experiments finished so far: 4 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.8836088380000001
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.550885414
+emailservice:0.90 0.6696683960000002
+paymentservice:0.90 1.187128722
+shippingservice:0.90 1.0710878999999998
+currencyservice:0.90 1.020320904
+get:0.90 0.808529002
+set:0.90 0.787901618
+cartservice:0.90 0.280746252
+checkoutservice:0.90 0.15803389399999998
+frontend:0.90 0.438435416
+========== Experiments finished so far: 5 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.8990449866666669
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5548321416666667
+emailservice:0.90 0.6678095416666667
+paymentservice:0.90 1.1997139116666666
+shippingservice:0.90 1.0644087766666666
+currencyservice:0.90 1.0116224
+get:0.90 0.8014088566666667
+set:0.90 0.7771803966666667
+cartservice:0.90 0.2818806133333333
+checkoutservice:0.90 0.15399205666666665
+frontend:0.90 0.43173513
+========== Experiments finished so far: 6 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.9061635528571431
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5525360271428571
+emailservice:0.90 0.6627245428571429
+paymentservice:0.90 1.2293993157142857
+shippingservice:0.90 1.0748143928571428
+currencyservice:0.90 1.0084329057142858
+get:0.90 0.8016685600000001
+set:0.90 0.7834043157142858
+cartservice:0.90 0.28023498999999996
+checkoutservice:0.90 0.15687635428571428
+frontend:0.90 0.4279747328571428
+========== Experiments finished so far: 7 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.894497655
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5507418287499999
+emailservice:0.90 0.6680437925
+paymentservice:0.90 1.22176881625
+shippingservice:0.90 1.07186061875
+currencyservice:0.90 1.01451150375
+get:0.90 0.8116075700000001
+set:0.90 0.784200585
+cartservice:0.90 0.27760697749999996
+checkoutservice:0.90 0.15489877375
+frontend:0.90 0.42364603624999997
+========== Experiments finished so far: 8 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.8908018422222221
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5558362966666666
+emailservice:0.90 0.6698132411111111
+paymentservice:0.90 1.231234812222222
+shippingservice:0.90 1.0655398733333332
+currencyservice:0.90 1.0112548844444447
+get:0.90 0.81469674
+set:0.90 0.7822149377777777
+cartservice:0.90 0.28245217333333333
+checkoutservice:0.90 0.15588056
+frontend:0.90 0.41947901555555556
+========== Experiments finished so far: 9 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.898211021
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5507164539999999
+emailservice:0.90 0.6644950009999999
+paymentservice:0.90 1.211714806
+shippingservice:0.90 1.060977484
+currencyservice:0.90 1.0012809100000002
+get:0.90 0.81644433
+set:0.90 0.7784224569999999
+cartservice:0.90 0.283868703
+checkoutservice:0.90 0.1541164
+frontend:0.90 0.412589416

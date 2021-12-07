@@ -1,0 +1,97 @@
+training dataset has 179 data points
+adservice:0.90
+avg: 0.009302887140000028
+std: 0.9006644112416908
+training dataset has 179 data points
+productcatalogservice:0.90
+avg: 0.0
+std: 0.0
+training dataset has 179 data points
+recommendationservice:0.90
+avg: 0.035446862700000005
+std: 0.6756146288706331
+training dataset has 179 data points
+emailservice:0.90
+avg: 0.07675196794000003
+std: 0.9781861050284073
+training dataset has 179 data points
+paymentservice:0.90
+avg: -0.04316098552000001
+std: 0.8553039756955205
+training dataset has 179 data points
+shippingservice:0.90
+avg: -0.01227975547999998
+std: 0.8340954017822275
+training dataset has 179 data points
+currencyservice:0.90
+avg: 0.06975737241999999
+std: 0.785510634415725
+training dataset has 179 data points
+get:0.90
+avg: 0.09117522447999996
+std: 0.9318703025520921
+training dataset has 179 data points
+set:0.90
+avg: -0.025041071439999993
+std: 0.8815559143854225
+training dataset has 179 data points
+cartservice:0.90
+avg: 0.03780237551999997
+std: 0.905061962702225
+training dataset has 179 data points
+checkoutservice:0.90
+avg: 0.018177769399999995
+std: 0.845442779158251
+training dataset has 179 data points
+frontend:0.90
+avg: -0.18939513498
+std: 0.3922783860993687
+______res______
+adservice:0.90
+0.81290576
+avg: 0.8129057612227729
+std: 0.5839330047667972
+productcatalogservice:0.90
+0.0
+avg: 0.0
+std: 0.0
+recommendationservice:0.90
+0.43680137
+avg: 0.43680137171056904
+std: 0.3425008869373665
+emailservice:0.90
+0.69909267
+avg: 0.6990926747059942
+std: 0.5128194292130885
+paymentservice:0.90
+0.77541248
+avg: 0.7754124841153998
+std: 0.7143334779999663
+shippingservice:0.90
+0.79856531
+avg: 0.7985653148855685
+std: 0.6101800452261131
+currencyservice:0.90
+0.75211425
+avg: 0.7521142502540966
+std: 0.6212693439790745
+get:0.90
+0.7974746
+avg: 0.7974745998135927
+std: 0.7163887148789914
+set:0.90
+0.71590758
+avg: 0.7159075845658504
+std: 0.6009424028321991
+cartservice:0.90
+0.89039465
+avg: 0.8903946497262882
+std: 0.7454921064831985
+checkoutservice:0.90
+0.41614458
+avg: 0.4161445807487591
+std: 0.5250992522273544
+frontend:0.90
+0.48373134
+avg: 0.4837313392162196
+std: 0.574044338114021

@@ -1,0 +1,15 @@
+========== Experiments finished so far: 0 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.76738728
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.33136877
+emailservice:0.90 0.62022329
+paymentservice:0.90 0.70737187
+shippingservice:0.90 0.6471114
+currencyservice:0.90 0.72950535
+get:0.90 0.7610369
+set:0.90 0.65196274
+cartservice:0.90 0.22391386
+checkoutservice:0.90 0.14127499
+frontend:0.90 0.23762007

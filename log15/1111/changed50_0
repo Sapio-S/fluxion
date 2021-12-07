@@ -1,0 +1,26 @@
+========== Experiments finished so far: 0 ==========
+test MAE is 1.6326626714463386
+adservice:0.90
+0.95162916
+productcatalogservice:0.90
+0.0
+recommendationservice:0.90
+0.75791435
+emailservice:0.90
+1.15732304
+paymentservice:0.90
+1.4286904
+shippingservice:0.90
+1.17897025
+currencyservice:0.90
+1.2295783
+get:0.90
+1.08735615
+set:0.90
+1.10845543
+cartservice:0.90
+1.00369495
+checkoutservice:0.90
+0.29188917
+frontend:0.90
+1.63266267

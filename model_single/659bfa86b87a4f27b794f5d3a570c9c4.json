@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "emailservice:0.90|emailservice:0.90|0"
+    ],
+    "operation": "avg"
+}

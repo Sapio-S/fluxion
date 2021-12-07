@@ -1,0 +1,150 @@
+========== Experiments finished so far: 0 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468]
+========== Experiments finished so far: 1 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032]
+========== Experiments finished so far: 2 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043]
+========== Experiments finished so far: 3 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252]
+========== Experiments finished so far: 4 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602]
+========== Experiments finished so far: 5 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602, 0.91305867]
+========== Experiments finished so far: 6 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602, 0.91305867, 0.70174689]
+========== Experiments finished so far: 7 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602, 0.91305867, 0.70174689, 0.64356037]
+========== Experiments finished so far: 8 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602, 0.91305867, 0.70174689, 0.64356037, 0.65286902]
+========== Experiments finished so far: 9 ==========
+Big-* models have 70 inputs
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv has 520 data points
+==================================================
+| num_training_data: 50
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2recom-standardized.csv
+==========
+| big_gp_abs_errs:
+[0.77791468, 0.60718032, 0.59420043, 0.64410252, 0.6711602, 0.91305867, 0.70174689, 0.64356037, 0.65286902, 0.80649853]
+0.77791468
+0.60718032
+0.59420043
+0.64410252
+0.6711602
+0.91305867
+0.70174689
+0.64356037
+0.65286902
+0.80649853

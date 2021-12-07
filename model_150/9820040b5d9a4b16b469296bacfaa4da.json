@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "paymentservice:0.90|paymentservice:0.90|0"
+    ],
+    "operation": "avg"
+}

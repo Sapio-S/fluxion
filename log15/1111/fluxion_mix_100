@@ -1,0 +1,13 @@
+========== Experiments finished so far: 0 ==========
+==================================================
+| num_training_data: 100
+| num_testing_data: 90
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-mix-standardized.csv
+==========
+| fluxion_abs_errs:
+[2.00802465]
+========== Experiments finished so far: 1 ==========

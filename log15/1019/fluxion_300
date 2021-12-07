@@ -1,0 +1,121 @@
+========== Experiments finished so far: 0 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753]
+========== Experiments finished so far: 1 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854]
+========== Experiments finished so far: 2 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491]
+========== Experiments finished so far: 3 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751]
+========== Experiments finished so far: 4 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775]
+========== Experiments finished so far: 5 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775, 0.28436721]
+========== Experiments finished so far: 6 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775, 0.28436721, 0.33407323]
+========== Experiments finished so far: 7 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775, 0.28436721, 0.33407323, 0.26391598]
+========== Experiments finished so far: 8 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775, 0.28436721, 0.33407323, 0.26391598, 0.37558923]
+========== Experiments finished so far: 9 ==========
+==================================================
+| num_training_data: 300
+| num_testing_data: 133
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.31869753, 0.27315854, 0.31956491, 0.32827751, 0.2330775, 0.28436721, 0.33407323, 0.26391598, 0.37558923, 0.32285684]
+0.3017677697924602

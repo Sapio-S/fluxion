@@ -1,0 +1,75 @@
+========== Experiments finished so far: 0 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.95265963
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.70086492
+emailservice:0.90 0.98045485
+paymentservice:0.90 1.50429545
+shippingservice:0.90 1.24975399
+currencyservice:0.90 1.15312425
+get:0.90 1.08766588
+set:0.90 1.04374701
+cartservice:0.90 0.31216452
+checkoutservice:0.90 0.39926446
+frontend:0.90 0.72321792
+========== Experiments finished so far: 1 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.9390672449999999
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.665524
+emailservice:0.90 0.96822344
+paymentservice:0.90 1.48888336
+shippingservice:0.90 1.193872135
+currencyservice:0.90 1.1156625
+get:0.90 1.02934589
+set:0.90 1.069150385
+cartservice:0.90 0.305295015
+checkoutservice:0.90 0.398930085
+frontend:0.90 0.68934381
+========== Experiments finished so far: 2 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.97434627
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.6145600066666667
+emailservice:0.90 0.9641054733333334
+paymentservice:0.90 1.50773238
+shippingservice:0.90 1.25444709
+currencyservice:0.90 1.10523167
+get:0.90 1.0441768266666667
+set:0.90 1.0761560333333333
+cartservice:0.90 0.29003214
+checkoutservice:0.90 0.4065732633333334
+frontend:0.90 0.6951073500000001
+========== Experiments finished so far: 3 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.9831723975
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.5857483425
+emailservice:0.90 0.9369938725
+paymentservice:0.90 1.49786238
+shippingservice:0.90 1.28014761
+currencyservice:0.90 1.0841090224999999
+get:0.90 1.0216623425
+set:0.90 1.0956192
+cartservice:0.90 0.29672672
+checkoutservice:0.90 0.410837445
+frontend:0.90 0.7157011025000001
+========== Experiments finished so far: 4 ==========
+==========
+| small_models_abs_errs:
+adservice:0.90 0.971158544
+productcatalogservice:0.90 0.0
+recommendationservice:0.90 0.589498228
+emailservice:0.90 0.9365320739999999
+paymentservice:0.90 1.512179804
+shippingservice:0.90 1.26567068
+currencyservice:0.90 1.0863443959999999
+get:0.90 1.0162746200000001
+set:0.90 1.104474164
+cartservice:0.90 0.290599754
+checkoutservice:0.90 0.42477440400000005
+frontend:0.90 0.7020905040000001
