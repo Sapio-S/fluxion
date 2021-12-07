@@ -1,0 +1,41 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.3746209930139152
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.2915841689900634
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.3676271913607434
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.24845445106158937
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.2520056973039937
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.24812553597186893
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.20726505450101734
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.2547451147215213
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.35947669807947286
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150-standardized.csv has 471 data points
+test MAE is 0.24955456825748507
+[0.3746209930139152, 0.2915841689900634, 0.3676271913607434, 0.24845445106158937, 0.2520056973039937, 0.24812553597186893, 0.20726505450101734, 0.2547451147215213, 0.35947669807947286, 0.24955456825748507]
+0.3746209930139152
+0.2915841689900634
+0.3676271913607434
+0.24845445106158937
+0.2520056973039937
+0.24812553597186893
+0.20726505450101734
+0.2547451147215213
+0.35947669807947286
+0.24955456825748507

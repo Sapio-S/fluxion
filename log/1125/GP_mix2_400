@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.4167655861061185
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.430597848142738
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.38615459609841707
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.414281690682831
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.37883100850597945
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.3865329932591113
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.38918668921485683
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.3991429303106223
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.40122732838964537
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-mix2-standardized.csv has 1450 data points
+test MAE is 0.37416691837508653
+[0.4167655861061185, 0.430597848142738, 0.38615459609841707, 0.414281690682831, 0.37883100850597945, 0.3865329932591113, 0.38918668921485683, 0.3991429303106223, 0.40122732838964537, 0.37416691837508653]
+overall MAE is 0.3976887589085406

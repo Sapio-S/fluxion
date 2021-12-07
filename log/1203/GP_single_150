@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.2565151543016602
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.2661612591193474
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.22426675123448386
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.24061344946965388
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.24367112297417967
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.23823478961189806
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.23586818531355136
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.24481763965901554
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.227470342846743
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv has 582 data points
+test MAE is 0.22677792607385555
+[0.2565151543016602, 0.2661612591193474, 0.22426675123448386, 0.24061344946965388, 0.24367112297417967, 0.23823478961189806, 0.23586818531355136, 0.24481763965901554, 0.227470342846743, 0.22677792607385555]
+total mae 0.24043966206043885

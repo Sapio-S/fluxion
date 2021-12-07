@@ -1,0 +1,130 @@
+========== Experiments finished so far: 0 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346]
+========== Experiments finished so far: 1 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609]
+========== Experiments finished so far: 2 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648]
+========== Experiments finished so far: 3 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711]
+========== Experiments finished so far: 4 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095]
+========== Experiments finished so far: 5 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095, 1.04592914]
+========== Experiments finished so far: 6 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095, 1.04592914, 0.93207159]
+========== Experiments finished so far: 7 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095, 1.04592914, 0.93207159, 1.11115005]
+========== Experiments finished so far: 8 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095, 1.04592914, 0.93207159, 1.11115005, 0.84445594]
+========== Experiments finished so far: 9 ==========
+==================================================
+| num_training_data: 1
+| num_testing_data: 135
+| target_deployment_name: boutique_p90_p90
+| target_service_name: frontend:0.90
+| num_experiments: 10
+| experiment_ids_completed: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+| dataset_filename: /home/yuqingxie/autosys/code/PlayGround/OSDI22/GoogleBoutique/dataset-whole-standardized.csv
+==========
+| fluxion_abs_errs:
+[0.9068346, 1.01206609, 0.92544648, 0.99383711, 0.91351095, 1.04592914, 0.93207159, 1.11115005, 0.84445594, 0.95062019]
+0.9068346
+1.01206609
+0.92544648
+0.99383711
+0.91351095
+1.04592914
+0.93207159
+1.11115005
+0.84445594
+0.95062019

@@ -14,85 +14,86 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import numpy as np
 
 num_testing_data = 100
-target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
-target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
+target_deployment_name = "boutique_p95_p95"  # "boutique_p95_p95", "boutique_p95_p95", "hotel_p95_p95", "hotel_p95_p95", "hotel_p95_p50p85p95p95"
+target_service_name = "frontend:0.95"  # "frontend:0.95", "frontend:0.95", "wrk|frontend|overall|lat-95", "wrk|frontend|overall|lat-95"
 num_experiments = 10
 
 # dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2scale-standardized.csv"
 all_sample_x_names={}
-# all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
-# all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
-# all_sample_x_names['recommendation_pod0:0.90'] = ["recommendation_pod0:CPU_LIMIT", "recommendation_pod0:MEMORY_LIMIT", "recommendation_pod0:MAX_WORKERS", "recommendation_pod0:MAX_RESPONSE", "recommendation_pod0:IPV4_RMEM", "recommendation_pod0:IPV4_WMEM", "recommendation_pod0:rps",
-#                                                     "productcatalogservice:0.90"]
-# all_sample_x_names['recommendation_pod1:0.90'] = ["recommendation_pod1:CPU_LIMIT", "recommendation_pod1:MEMORY_LIMIT", "recommendation_pod1:MAX_WORKERS", "recommendation_pod1:MAX_RESPONSE", "recommendation_pod1:IPV4_RMEM", "recommendation_pod1:IPV4_WMEM", "recommendation_pod1:rps",
-#                                                     "productcatalogservice:0.90"]
-# all_sample_x_names['emailservice:0.90'] = ["emailservice:CPU_LIMIT", "emailservice:MEMORY_LIMIT", "emailservice:MAX_WORKERS", "emailservice:IPV4_RMEM", "emailservice:IPV4_WMEM", "emailservice:rps"]
-# all_sample_x_names['paymentservice:0.90'] = ["paymentservice:CPU_LIMIT", "paymentservice:MEMORY_LIMIT", "paymentservice:IPV4_RMEM", "paymentservice:IPV4_WMEM", "paymentservice:rps"]
-# all_sample_x_names['shippingservice:0.90'] = ["shippingservice:CPU_LIMIT", "shippingservice:MEMORY_LIMIT", "shippingservice:IPV4_RMEM", "shippingservice:IPV4_WMEM", "shippingservice:rps"]
-# all_sample_x_names['currencyservice:0.90'] = ["currencyservice:CPU_LIMIT", "currencyservice:MEMORY_LIMIT", "currencyservice:IPV4_RMEM", "currencyservice:IPV4_WMEM", "currencyservice:rps"]
-# all_sample_x_names['get:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'get:rps']
-# all_sample_x_names['set:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps']
-# all_sample_x_names['cartservice:0.90'] = ["cartservice:CPU_LIMIT", "cartservice:MEMORY_LIMIT", "cartservice:IPV4_RMEM", "cartservice:IPV4_WMEM", "cartservice:rps",
-#                                             "get:0.90", "set:0.90"]
-# all_sample_x_names['checkout_pod0:0.90'] = ["checkout_pod0:CPU_LIMIT", "checkout_pod0:MEMORY_LIMIT", "checkout_pod0:IPV4_RMEM", "checkout_pod0:IPV4_WMEM", "checkout_pod0:rps",
-#                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-# all_sample_x_names['checkout_pod1:0.90'] = ["checkout_pod1:CPU_LIMIT", "checkout_pod1:MEMORY_LIMIT", "checkout_pod1:IPV4_RMEM", "checkout_pod1:IPV4_WMEM", "checkout_pod1:rps",
-#                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-# # all_sample_x_names['checkoutservice:0.90'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
-# #                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-# all_sample_x_names['frontend:0.90'] = ["frontend:CPU_LIMIT", "frontend:MEMORY_LIMIT", "frontend:IPV4_RMEM", "frontend:IPV4_WMEM", "frontend:rps",
-#                                         "adservice:0.90", "checkoutservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "recommendationservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv"
-all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
-all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
-all_sample_x_names['recommendationservice:0.90'] = ["recommendationservice:CPU_LIMIT", "recommendationservice:MEMORY_LIMIT", "recommendationservice:MAX_WORKERS", "recommendationservice:MAX_RESPONSE", "recommendationservice:IPV4_RMEM", "recommendationservice:IPV4_WMEM", "recommendationservice:rps",
-                                                    "productcatalogservice:0.90"]
-all_sample_x_names['emailservice:0.90'] = ["emailservice:CPU_LIMIT", "emailservice:MEMORY_LIMIT", "emailservice:MAX_WORKERS", "emailservice:IPV4_RMEM", "emailservice:IPV4_WMEM", "emailservice:rps"]
-all_sample_x_names['paymentservice:0.90'] = ["paymentservice:CPU_LIMIT", "paymentservice:MEMORY_LIMIT", "paymentservice:IPV4_RMEM", "paymentservice:IPV4_WMEM", "paymentservice:rps"]
-all_sample_x_names['shippingservice:0.90'] = ["shippingservice:CPU_LIMIT", "shippingservice:MEMORY_LIMIT", "shippingservice:IPV4_RMEM", "shippingservice:IPV4_WMEM", "shippingservice:rps"]
-all_sample_x_names['currencyservice:0.90'] = ["currencyservice:CPU_LIMIT", "currencyservice:MEMORY_LIMIT", "currencyservice:IPV4_RMEM", "currencyservice:IPV4_WMEM", "currencyservice:rps"]
-all_sample_x_names['get:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'get:rps']
-all_sample_x_names['set:0.90'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps']
-all_sample_x_names['cartservice:0.90'] = ["cartservice:CPU_LIMIT", "cartservice:MEMORY_LIMIT", "cartservice:IPV4_RMEM", "cartservice:IPV4_WMEM", "cartservice:rps",
-                                            "get:0.90", "set:0.90"]
-# all_sample_x_names['checkout_pod0:0.90'] = ["checkout_pod0:CPU_LIMIT", "checkout_pod0:MEMORY_LIMIT", "checkout_pod0:IPV4_RMEM", "checkout_pod0:IPV4_WMEM", "checkout_pod0:rps",
-#                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-# all_sample_x_names['checkout_pod1:0.90'] = ["checkout_pod1:CPU_LIMIT", "checkout_pod1:MEMORY_LIMIT", "checkout_pod1:IPV4_RMEM", "checkout_pod1:IPV4_WMEM", "checkout_pod1:rps",
-#                                                 "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-all_sample_x_names['checkoutservice:0.90'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
-                                                "emailservice:0.90", "paymentservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-all_sample_x_names['frontend:0.90'] = ["frontend:CPU_LIMIT", "frontend:MEMORY_LIMIT", "frontend:IPV4_RMEM", "frontend:IPV4_WMEM", "frontend:rps",
-                                        "adservice:0.90", "checkoutservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "recommendationservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
-scaler = np.load("std_scaler_dataset_whole.npy", allow_pickle = True).item()
+# all_sample_x_names['adservice:0.95'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
+# all_sample_x_names['productcatalogservice:0.95'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
+# all_sample_x_names['recommendation_pod0:0.95'] = ["recommendation_pod0:CPU_LIMIT", "recommendation_pod0:MEMORY_LIMIT", "recommendation_pod0:MAX_WORKERS", "recommendation_pod0:MAX_RESPONSE", "recommendation_pod0:IPV4_RMEM", "recommendation_pod0:IPV4_WMEM", "recommendation_pod0:rps",
+#                                                     "productcatalogservice:0.95"]
+# all_sample_x_names['recommendation_pod1:0.95'] = ["recommendation_pod1:CPU_LIMIT", "recommendation_pod1:MEMORY_LIMIT", "recommendation_pod1:MAX_WORKERS", "recommendation_pod1:MAX_RESPONSE", "recommendation_pod1:IPV4_RMEM", "recommendation_pod1:IPV4_WMEM", "recommendation_pod1:rps",
+#                                                     "productcatalogservice:0.95"]
+# all_sample_x_names['emailservice:0.95'] = ["emailservice:CPU_LIMIT", "emailservice:MEMORY_LIMIT", "emailservice:MAX_WORKERS", "emailservice:IPV4_RMEM", "emailservice:IPV4_WMEM", "emailservice:rps"]
+# all_sample_x_names['paymentservice:0.95'] = ["paymentservice:CPU_LIMIT", "paymentservice:MEMORY_LIMIT", "paymentservice:IPV4_RMEM", "paymentservice:IPV4_WMEM", "paymentservice:rps"]
+# all_sample_x_names['shippingservice:0.95'] = ["shippingservice:CPU_LIMIT", "shippingservice:MEMORY_LIMIT", "shippingservice:IPV4_RMEM", "shippingservice:IPV4_WMEM", "shippingservice:rps"]
+# all_sample_x_names['currencyservice:0.95'] = ["currencyservice:CPU_LIMIT", "currencyservice:MEMORY_LIMIT", "currencyservice:IPV4_RMEM", "currencyservice:IPV4_WMEM", "currencyservice:rps"]
+# all_sample_x_names['get:0.95'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'get:rps']
+# all_sample_x_names['set:0.95'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps']
+# all_sample_x_names['cartservice:0.95'] = ["cartservice:CPU_LIMIT", "cartservice:MEMORY_LIMIT", "cartservice:IPV4_RMEM", "cartservice:IPV4_WMEM", "cartservice:rps",
+#                                             "get:0.95", "set:0.95"]
+# all_sample_x_names['checkout_pod0:0.95'] = ["checkout_pod0:CPU_LIMIT", "checkout_pod0:MEMORY_LIMIT", "checkout_pod0:IPV4_RMEM", "checkout_pod0:IPV4_WMEM", "checkout_pod0:rps",
+#                                                 "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+# all_sample_x_names['checkout_pod1:0.95'] = ["checkout_pod1:CPU_LIMIT", "checkout_pod1:MEMORY_LIMIT", "checkout_pod1:IPV4_RMEM", "checkout_pod1:IPV4_WMEM", "checkout_pod1:rps",
+#                                                 "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+# # all_sample_x_names['checkoutservice:0.95'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
+# #                                                 "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+# all_sample_x_names['frontend:0.95'] = ["frontend:CPU_LIMIT", "frontend:MEMORY_LIMIT", "frontend:IPV4_RMEM", "frontend:IPV4_WMEM", "frontend:rps",
+#                                         "adservice:0.95", "checkoutservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "recommendationservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-single-whole-standardized.csv"
+all_sample_x_names['adservice:0.95'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
+all_sample_x_names['productcatalogservice:0.95'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
+all_sample_x_names['recommendationservice:0.95'] = ["recommendationservice:CPU_LIMIT", "recommendationservice:MEMORY_LIMIT", "recommendationservice:MAX_WORKERS", "recommendationservice:MAX_RESPONSE", "recommendationservice:IPV4_RMEM", "recommendationservice:IPV4_WMEM", "recommendationservice:rps",
+                                                    "productcatalogservice:0.95"]
+all_sample_x_names['emailservice:0.95'] = ["emailservice:CPU_LIMIT", "emailservice:MEMORY_LIMIT", "emailservice:MAX_WORKERS", "emailservice:IPV4_RMEM", "emailservice:IPV4_WMEM", "emailservice:rps"]
+all_sample_x_names['paymentservice:0.95'] = ["paymentservice:CPU_LIMIT", "paymentservice:MEMORY_LIMIT", "paymentservice:IPV4_RMEM", "paymentservice:IPV4_WMEM", "paymentservice:rps"]
+all_sample_x_names['shippingservice:0.95'] = ["shippingservice:CPU_LIMIT", "shippingservice:MEMORY_LIMIT", "shippingservice:IPV4_RMEM", "shippingservice:IPV4_WMEM", "shippingservice:rps"]
+all_sample_x_names['currencyservice:0.95'] = ["currencyservice:CPU_LIMIT", "currencyservice:MEMORY_LIMIT", "currencyservice:IPV4_RMEM", "currencyservice:IPV4_WMEM", "currencyservice:rps"]
+all_sample_x_names['get:0.95'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'get:rps']
+all_sample_x_names['set:0.95'] = ['get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps']
+all_sample_x_names['cartservice:0.95'] = ["cartservice:CPU_LIMIT", "cartservice:MEMORY_LIMIT", "cartservice:IPV4_RMEM", "cartservice:IPV4_WMEM", "cartservice:rps",
+                                            "get:0.95", "set:0.95"]
+# all_sample_x_names['checkout_pod0:0.95'] = ["checkout_pod0:CPU_LIMIT", "checkout_pod0:MEMORY_LIMIT", "checkout_pod0:IPV4_RMEM", "checkout_pod0:IPV4_WMEM", "checkout_pod0:rps",
+#                                                 "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+# all_sample_x_names['checkout_pod1:0.95'] = ["checkout_pod1:CPU_LIMIT", "checkout_pod1:MEMORY_LIMIT", "checkout_pod1:IPV4_RMEM", "checkout_pod1:IPV4_WMEM", "checkout_pod1:rps",
+#                                                 "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+all_sample_x_names['checkoutservice:0.95'] = ["checkoutservice:CPU_LIMIT", "checkoutservice:MEMORY_LIMIT", "checkoutservice:IPV4_RMEM", "checkoutservice:IPV4_WMEM", "checkoutservice:rps",
+                                                "emailservice:0.95", "paymentservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+all_sample_x_names['frontend:0.95'] = ["frontend:CPU_LIMIT", "frontend:MEMORY_LIMIT", "frontend:IPV4_RMEM", "frontend:IPV4_WMEM", "frontend:rps",
+                                        "adservice:0.95", "checkoutservice:0.95", "shippingservice:0.95", "currencyservice:0.95", "recommendationservice:0.95", "cartservice:0.95", "productcatalogservice:0.95"]
+scaler = np.load("/home/yuqingxie/autosys/code/PlayGround/yuqingxie/150-single-whole-std-scaler.npy", allow_pickle = True).item()
 
 def expand_sample_x_name(service_name):
     tmp_sample_x_names = []
     for sample_x_name_idx, sample_x_name in zip(range(len(all_sample_x_names[service_name])), all_sample_x_names[service_name]):
-        # if sample_x_name == "recommendationservice:0.90":
-        #     tmp_sample_x_names += expand_sample_x_name("recommendation_pod0:0.90")
-        #     tmp_sample_x_names += expand_sample_x_name("recommendation_pod1:0.90")
-        # if sample_x_name == "checkoutservice:0.90":
-        #     tmp_sample_x_names += expand_sample_x_name("checkout_pod0:0.90")
-        #     tmp_sample_x_names += expand_sample_x_name("checkout_pod1:0.90")
+        # if sample_x_name == "recommendationservice:0.95":
+        #     tmp_sample_x_names += expand_sample_x_name("recommendation_pod0:0.95")
+        #     tmp_sample_x_names += expand_sample_x_name("recommendation_pod1:0.95")
+        # if sample_x_name == "checkoutservice:0.95":
+        #     tmp_sample_x_names += expand_sample_x_name("checkout_pod0:0.95")
+        #     tmp_sample_x_names += expand_sample_x_name("checkout_pod1:0.95")
         if sample_x_name in all_sample_x_names.keys():
             tmp_sample_x_names += expand_sample_x_name(sample_x_name)
         else:
             tmp_sample_x_names.append(sample_x_name)
     return tmp_sample_x_names
 
-train_size=[10, 400, 600, 800]
+train_size=[10,25,50,100,150,200,300,400]
 expanded_sample_x_names = expand_sample_x_name(target_service_name)
 expanded_sample_x_names = list(set(expanded_sample_x_names))
-dataset_filename2 = "dataset-single-standardized.csv"
+dataset_filename2 = "dataset-p95-standardized.csv"
 inputs_name = expanded_sample_x_names
 samples_x0, samples_y0, samples_y_aggregation0, err_msg0 = lib_data.readCSVFile([dataset_filename2], expanded_sample_x_names, target_service_name)
 for num_training_data in train_size:
     
     big_gp_abs_errs = []
     experiment_ids_completed = []
+    all_errs = []
 
     for num_experiments_so_far in range(10):
-        f = open("log/1120/GP_single_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
+        f = open("log/1204_4/GP_single_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
         sys.stdout = f
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
         experiment_ids_completed.append(num_experiments_so_far)
@@ -131,6 +132,7 @@ for num_training_data in train_size:
             pred = all_lrn_asgmts['big_gp_model'].predict(testing_sample_x)['val']
             errs.append(abs(pred - testing_sample_y_aggregation))
         print("test MAE is", np.mean(errs))
+        all_errs.append(np.mean(errs))
         # np.save("saved_model/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far),zoo.get_models_name())
         # zoo.dump("saved_model/GP_2checkout_"+str(num_training_data)+"_"+str(num_experiments_so_far))
         
@@ -163,5 +165,7 @@ for num_training_data in train_size:
             real_para[k] = samples_x0[best_index][cnt] * std + avg
             cnt += 1
         print(real_para)
-        np.save("log/1120/GP_single_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
-        print(best * scaler["frontend:0.90:STD"] + scaler["frontend:0.90:AVG"])
+        np.save("log/1204_4/GP_single_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
+        print(best * scaler["frontend:0.95:STD"] + scaler["frontend:0.95:AVG"])
+        print(all_errs)
+        print(np.mean(all_errs))

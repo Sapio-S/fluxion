@@ -1,11 +1,7 @@
 res/
 res*/
 /*.png
-*log
-wrk_*/
 tmp_data/
 tmp_data*/
 __pycache__/
-saved_*/
-data*
-*.csv
+dataset-*

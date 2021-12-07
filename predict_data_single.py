@@ -139,7 +139,7 @@ def read_para(num_samples):
 
 def standardize(csv, k):
     # load scalers
-    dic = np.load("std_scaler_dataset_whole.npy", allow_pickle = True).item()
+    dic = np.load("/home/yuqingxie/autosys/code/PlayGround/yuqingxie/150-single-whole-std-scaler.npy", allow_pickle = True).item()
     # if k[:19] == "recommendation_pod0" or k[:19] == "recommendation_pod1":
     #     k = "recommendationservice"+k[19:]
     # if k[:13] == "checkout_pod0" or k[:13] == "checkout_pod1":
@@ -178,7 +178,7 @@ def restruct(from_route, to_name, size=100000):
             data[name], scale = standardize(data[name], name)
             para_dic.update(scale)
 
-        with open("dataset-single-standardized.csv", "w") as f:
+        with open("dataset-p95-standardized.csv", "w") as f:
             writer = csv.DictWriter(f, reader.fieldnames)
             writer.writeheader()
             for i in range(size):
@@ -188,4 +188,4 @@ def restruct(from_route, to_name, size=100000):
 if __name__ == "__main__":
     np.random.seed(0)
     random.seed(0)
-    restruct("data.csv", "dataset-single.csv", 100000)
+    restruct("data-p95.csv", "dataset-p95.csv", 100000)
