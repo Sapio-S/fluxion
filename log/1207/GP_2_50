@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4993471257076652
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5333717351209067
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4863555220162633
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.554955597201133
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.47617974741364827
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5150375261031168
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.42621866832750327
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4788087553990527
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5264890892827033
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4866409745479694
+[0.4993471257076652, 0.5333717351209067, 0.4863555220162633, 0.554955597201133, 0.47617974741364827, 0.5150375261031168, 0.42621866832750327, 0.4788087553990527, 0.5264890892827033, 0.4866409745479694]
+0.4983404741119962

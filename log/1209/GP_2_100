@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.4891895868737272
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5086624132893983
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.46415174177913443
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.47536476836020786
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.6038175065107485
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.4949451565775838
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5601344959766892
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5159119349755393
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.49629964449523817
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.4974869701313741
+[0.4891895868737272, 0.5086624132893983, 0.46415174177913443, 0.47536476836020786, 0.6038175065107485, 0.4949451565775838, 0.5601344959766892, 0.5159119349755393, 0.49629964449523817, 0.4974869701313741]
+0.5105964218969641

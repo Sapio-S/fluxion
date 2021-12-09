@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.568878348508821
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 1.1906037781820005
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5847574598892971
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5532778718986114
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.6966473726947887
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5366616240600801
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.7789757251989999
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.6073528774754258
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5025395324871009
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv has 495 data points
+test MAE is 0.5585833148898616
+[0.568878348508821, 1.1906037781820005, 0.5847574598892971, 0.5532778718986114, 0.6966473726947887, 0.5366616240600801, 0.7789757251989999, 0.6073528774754258, 0.5025395324871009, 0.5585833148898616]
+0.6578277905284987

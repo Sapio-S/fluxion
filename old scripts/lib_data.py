@@ -23,12 +23,12 @@ def readCSVFile(inputFileNames:list, sample_x_names:list, samples_y_name:str, sa
                         
                         samples_y_value = float(row[samples_y_name])
                         
-                        # try:
-                        #     idx = samples_x.index(samples_x_values)  # Checks whether we have x already
-                        #     samples_y[idx].append(samples_y_value)
-                        # except ValueError:
-                        samples_x.append(samples_x_values)
-                        samples_y.append([samples_y_value])
+                        try:
+                            idx = samples_x.index(samples_x_values)  # Checks whether we have x already
+                            samples_y[idx].append(samples_y_value)
+                        except ValueError:
+                            samples_x.append(samples_x_values)
+                            samples_y.append([samples_y_value])
             
             # Aggregate multiple observation of the sample sampling points
             samples_y_aggregation = [samples_y_aggregator(sample_y) for sample_y in samples_y]

@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.22008249979013672
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.2131049925720823
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.21269771430256884
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.2437294485013325
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.21674891598091436
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.21888017642500635
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.2027314722431416
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.23439628478167374
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.23453597522566239
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.21849821321229682
+[0.22008249979013672, 0.2131049925720823, 0.21269771430256884, 0.2437294485013325, 0.21674891598091436, 0.21888017642500635, 0.2027314722431416, 0.23439628478167374, 0.23453597522566239, 0.21849821321229682]
+0.2215405693034816

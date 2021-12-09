@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5483861060077653
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.6365315328133309
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 1.3335461015995858
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5709162981128698
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.6510952779738806
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.7567455236846937
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.9532613613783711
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 1.4637220697308508
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.5894695437271555
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.8544621055427267
+[0.5483861060077653, 0.6365315328133309, 1.3335461015995858, 0.5709162981128698, 0.6510952779738806, 0.7567455236846937, 0.9532613613783711, 1.4637220697308508, 0.5894695437271555, 0.8544621055427267]
+0.835813592057123

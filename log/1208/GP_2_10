@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.5925160875531075
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.6522921624456747
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.78234974065417
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.7017113235035524
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.8545604129723182
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.6113953549847709
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.616589532054233
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.8479474018331148
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.8126626729370706
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.7578250636236077
+[0.5925160875531075, 0.6522921624456747, 0.78234974065417, 0.7017113235035524, 0.8545604129723182, 0.6113953549847709, 0.616589532054233, 0.8479474018331148, 0.8126626729370706, 0.7578250636236077]
+0.722984975256162

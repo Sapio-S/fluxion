@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.41311314214354944
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.46270019089155023
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4484832227771411
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.49445147053358257
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.45713445970842614
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4522554165206292
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.3028483755191582
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.48508531519980336
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.43937931824532217
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4644400791807358
+[0.41311314214354944, 0.46270019089155023, 0.4484832227771411, 0.49445147053358257, 0.45713445970842614, 0.4522554165206292, 0.3028483755191582, 0.48508531519980336, 0.43937931824532217, 0.4644400791807358]
+0.4419890990719898

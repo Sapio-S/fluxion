@@ -1,0 +1,22 @@
+========== Experiments finished so far: 0 ==========
+test MAE 0.2813505479337976
+========== Experiments finished so far: 1 ==========
+test MAE 0.29529064368542984
+========== Experiments finished so far: 2 ==========
+test MAE 0.3182749290785838
+========== Experiments finished so far: 3 ==========
+test MAE 0.3300294880416038
+========== Experiments finished so far: 4 ==========
+test MAE 0.33674002592463786
+========== Experiments finished so far: 5 ==========
+test MAE 0.32234084211281844
+========== Experiments finished so far: 6 ==========
+test MAE 0.3022479194834848
+========== Experiments finished so far: 7 ==========
+test MAE 0.29209526486980897
+========== Experiments finished so far: 8 ==========
+test MAE 0.32395383254183435
+========== Experiments finished so far: 9 ==========
+test MAE 0.27428804342515767
+[0.2813505479337976, 0.29529064368542984, 0.3182749290785838, 0.3300294880416038, 0.33674002592463786, 0.32234084211281844, 0.3022479194834848, 0.29209526486980897, 0.32395383254183435, 0.27428804342515767]
+0.3076611537097157

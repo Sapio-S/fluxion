@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.3785234509426363
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.40154700741661775
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.4109670522394612
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.40562954381472704
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.5114726534868894
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.4631021841299956
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.39714827266139596
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.6812953998400811
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.365692184763175
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-standardized.csv has 283 data points
+test MAE is 0.5170394388020296
+[0.3785234509426363, 0.40154700741661775, 0.4109670522394612, 0.40562954381472704, 0.5114726534868894, 0.4631021841299956, 0.39714827266139596, 0.6812953998400811, 0.365692184763175, 0.5170394388020296]
+0.453241718809701

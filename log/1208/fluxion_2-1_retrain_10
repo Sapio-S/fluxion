@@ -1,0 +1,35 @@
+========== Experiments finished so far: 0 ==========
+test MAE 0.5025844953959788
+========== Experiments finished so far: 1 ==========
+test MAE 0.4498190560347868
+========== Experiments finished so far: 2 ==========
+test MAE 0.8038540402686597
+========== Experiments finished so far: 3 ==========
+test MAE 0.4878940841306843
+========== Experiments finished so far: 4 ==========
+test MAE 0.5796749478649623
+========== Experiments finished so far: 5 ==========
+test MAE 0.5979340032725152
+========== Experiments finished so far: 6 ==========
+test MAE 0.7495925336690644
+========== Experiments finished so far: 7 ==========
+test MAE 0.7148609892139667
+========== Experiments finished so far: 8 ==========
+test MAE 0.4790560017176412
+========== Experiments finished so far: 9 ==========
+test MAE 0.6460287775914053
+[0.5025844953959788, 0.4498190560347868, 0.8038540402686597, 0.4878940841306843, 0.5796749478649623, 0.5979340032725152, 0.7495925336690644, 0.7148609892139667, 0.4790560017176412, 0.6460287775914053]
+0.6011298929159665
+| small_models_abs_errs:
+adservice:0.90 [0.85264722]
+productcatalogservice:0.90 [0.68521614]
+recommendationservice:0.90 [0.52136197]
+emailservice:0.90 [0.72432747]
+paymentservice:0.90 [0.79568546]
+shippingservice:0.90 [0.84572699]
+currencyservice:0.90 [0.94136795]
+get:0.90 [0.68059745]
+set:0.90 [0.77997441]
+cartservice:0.90 [0.62170279]
+checkoutservice:0.90 [0.32143382]
+frontend:0.90 [0.69059213]

@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.2998714498997136
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.31511568805377066
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.27877161342510764
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.2917608009527585
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.3706039914925072
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.30818742032705715
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.3449747190930582
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.3318515362816504
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.34163334500663634
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv has 495 data points
+test MAE is 0.33137902626788607
+[0.2998714498997136, 0.31511568805377066, 0.27877161342510764, 0.2917608009527585, 0.3706039914925072, 0.30818742032705715, 0.3449747190930582, 0.3318515362816504, 0.34163334500663634, 0.33137902626788607]
+0.3214149590800146

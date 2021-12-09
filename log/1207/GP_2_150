@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.3808483480943126
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.3952471913544053
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.392735203322976
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4085562033207168
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4209670719813107
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.42554704796480247
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.30182480340724327
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.4307665820122478
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.37378236925133
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv has 283 data points
+test MAE is 0.3954188733934943
+[0.3808483480943126, 0.3952471913544053, 0.392735203322976, 0.4085562033207168, 0.4209670719813107, 0.42554704796480247, 0.30182480340724327, 0.4307665820122478, 0.37378236925133, 0.3954188733934943]
+0.392569369410284

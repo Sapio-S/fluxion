@@ -1,0 +1,32 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.6438262492834665
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.5703059719962786
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.6736803305039736
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 1.7406022125951726
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 1.8395018691824263
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.346577868117739
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.6644068488093144
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 0.5481104928107337
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 1.4015884907516412
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-0-standardized.csv has 8 data points
+test MAE is 1.7300158637104814
+[0.6438262492834665, 0.5703059719962786, 0.6736803305039736, 1.7406022125951726, 1.8395018691824263, 0.346577868117739, 0.6644068488093144, 0.5481104928107337, 1.4015884907516412, 1.7300158637104814]
+1.0158616197761225
