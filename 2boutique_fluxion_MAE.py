@@ -14,17 +14,17 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import numpy as np
 # num_training_data = 983
 retrain_list = []
-total_data = 495
-num_testing_data = 95
-test_size=95
-pretrain_size=900
+total_data = 415
+num_testing_data = 120
+test_size=120
+pretrain_size=10
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
 num_experiments = 10
 # dump_base_directory = "demo_model_zoo"
 
-new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-1-whole-standardized.csv"
-pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv"
+new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-screen-standardized.csv"
+pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-screen-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
@@ -88,20 +88,20 @@ for service in x_names:
 #     'checkoutservice:0.90':"4f3cf87acf694c69821a7c778c961287",
 #     'frontend:0.90':"036582b44ac34f5cbf356c88a5698819",
 # }
-dump_directory = "demo_model_zoo"
+dump_directory = "single_model_0.90"
 model_name = {
-    'adservice:0.90':"66f9864e3ec24396b9c9b2f8cafe68d6",
-    'productcatalogservice:0.90':"812158ffbda740ebab6bfbed9c62653f",
-    'recommendationservice:0.90':"4326848094a5414684a0883e75d1b45a",
-    'emailservice:0.90':"5625918688c54f059fcd1ba68e0991e6",
-    'paymentservice:0.90':"412efe185ba342db863bfcf462bcb139",
-    'shippingservice:0.90':"ed0ac78de159432ba9d48c6bdb545199",
-    'currencyservice:0.90':"e50ef3be7ce24ff191216550ae3d32cc",
-    'get:0.90':"29cae95190fd4552b51cee9de0c57998",
-    'set:0.90':"a7f00f6b6ae546caa6d1786c259c93be",
-    'cartservice:0.90':"e33a2a58f5574dd4ac387531447567eb",
-    'checkoutservice:0.90':"553c3c3ac6294967857a44ae40b331ad",
-    'frontend:0.90':"9025b65872174a1f8f349029a3cb5287",
+    'adservice:0.90':"912f5029bc8149d682d8da7ccb26cbb2",
+    'productcatalogservice:0.90':"8f6b32209d7746f28f000ce015eef6f4",
+    'recommendationservice:0.90':"ffe5395fc57e4f0f817dd61f2789d4ac",
+    'emailservice:0.90':"580cc4ab534d4972b73392c87d32ca42",
+    'paymentservice:0.90':"897fc4da2c3342eaab4696b3e50297e0",
+    'shippingservice:0.90':"6e3dca117ec541e2a9194e70ea8d399e",
+    'currencyservice:0.90':"a13081619354461aa4ed0cabf36ef0c0",
+    'get:0.90':"4cbdfb1ab0d54826bd12579ed6a7d47e",
+    'set:0.90':"88321e1d78e44dfdb8c3da7fdc50ba75",
+    'cartservice:0.90':"0eadb0f5f79b4e14b8aec00f6c8c771e",
+    'checkoutservice:0.90':"bfc77cb1d93b42d985256f34920e38d3",
+    'frontend:0.90':"d196dbc5f9754fb492bbcfeb846d5ff9",
 }
 def expand_sample_x_name(service_name):
     tmp_sample_x_names = []
@@ -161,11 +161,11 @@ inputs_name = _build_fluxion(target_service_name)
 for service in x_names:
     fluxion.scale_service_horizontal(service, 2)
 
-train_sizes = [10,25,50,100,150,200,300,400]
+train_sizes = [200,300]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1209/fluxion_2-1-whole_"+str(train_size),"w")
+    f = open("log/1211/fluxion_2_screen_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
 

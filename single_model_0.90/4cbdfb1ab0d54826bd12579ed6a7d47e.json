@@ -1,0 +1,17 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 250,
+    "normalize_y": false,
+    "input_names": [
+        "get:CPU_LIMIT",
+        "get:MEMORY_LIMIT",
+        "get:IPV4_RMEM",
+        "get:IPV4_WMEM",
+        "get:hash_max_ziplist_entries",
+        "get:maxmemory_samples",
+        "get:maxmemory",
+        "get:rps"
+    ]
+}
