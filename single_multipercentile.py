@@ -52,7 +52,7 @@ def expand_sample_x_name(service_name):
     
     return tmp_sample_x_names
 
-train_size = [200,300]
+train_size = [300]
 for num_training_data in train_size:
     small_models_preds = []
     # small_models_abs_errs = []

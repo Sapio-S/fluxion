@@ -1,0 +1,8 @@
+{
+    "framework": "Rule_Framework",
+    "type": "Merge",
+    "input_names": [
+        "cartservice:0.90|cartservice:0.90|0"
+    ],
+    "operation": "avg"
+}
