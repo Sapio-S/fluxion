@@ -5,3 +5,5 @@ tmp_data/
 tmp_data*/
 __pycache__/
 dataset-*
+log/
+single_model_*/
