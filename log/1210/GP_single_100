@@ -1,32 +1,42 @@
 ========== Experiments finished so far: 0 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.24923554758623104
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5746680991932346
+prediction 0.025323797570975352 0.9005053727354896
 ========== Experiments finished so far: 1 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2237037685086342
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.42877727212173267
+prediction 0.07328048405573065 0.8444279180385941
 ========== Experiments finished so far: 2 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2267005023253435
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5004643864270141
+prediction 0.006249844356007893 0.7353259538559541
 ========== Experiments finished so far: 3 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.20654904567643106
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4910806917168928
+prediction -0.07383464189219549 0.614295093163816
 ========== Experiments finished so far: 4 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2105678300514613
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5034766368911514
+prediction -0.09687350717536132 0.804882068735755
 ========== Experiments finished so far: 5 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.22993309246010393
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.49412023592479754
+prediction -0.01782705205653271 0.8290194202429
 ========== Experiments finished so far: 6 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.23650063870473076
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.544303688199803
+prediction -0.011636852310082277 0.7072894872764744
 ========== Experiments finished so far: 7 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.22987880688578075
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4967969242785235
+prediction -0.05941941577253818 0.6514308015850555
 ========== Experiments finished so far: 8 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.23339900557678117
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.6208002549140516
+prediction 0.04605513171156962 0.6531189461249177
 ========== Experiments finished so far: 9 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2208885243105891
-[0.24923554758623104, 0.2237037685086342, 0.2267005023253435, 0.20654904567643106, 0.2105678300514613, 0.22993309246010393, 0.23650063870473076, 0.22987880688578075, 0.23339900557678117, 0.2208885243105891]
-0.2267356762086087
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5732148283770061
+prediction -0.0019527561658820385 0.6274874318134837
+[0.5746680991932346, 0.42877727212173267, 0.5004643864270141, 0.4910806917168928, 0.5034766368911514, 0.49412023592479754, 0.544303688199803, 0.4967969242785235, 0.6208002549140516, 0.5732148283770061]
+0.5227703018044207

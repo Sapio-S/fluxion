@@ -16,10 +16,10 @@ import numpy as np
 num_testing_data = 150
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p90_p90", "hotel_p90_p90", "hotel_p90_p90", "hotel_p90_p50p85p90p90"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.90", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-90"
-num_experiments = 10
+num_experiments = 1
 
 all_sample_x_names={}
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv"
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
 all_sample_x_names['recommendationservice:0.90'] = ["recommendationservice:CPU_LIMIT", "recommendationservice:MEMORY_LIMIT", "recommendationservice:MAX_WORKERS", "recommendationservice:MAX_RESPONSE", "recommendationservice:IPV4_RMEM", "recommendationservice:IPV4_WMEM", "recommendationservice:rps",
@@ -46,7 +46,7 @@ def expand_sample_x_name(service_name):
             tmp_sample_x_names.append(sample_x_name)
     return tmp_sample_x_names
 
-train_size=[10,25,50,100,150,200,300,400]
+train_size=[200,300]
 expanded_sample_x_names = expand_sample_x_name(target_service_name)
 expanded_sample_x_names = list(set(expanded_sample_x_names))
 # dataset_filename2 = "dataset-p90-standardized.csv"
@@ -74,6 +74,7 @@ for num_training_data in train_size:
         
         big_gp_abs_errs.append([])
         errs = []
+        preds = []
         # ========== Compute Big models' errors ==========
         # STEP 1: Prepare target services' input names
         samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], expanded_sample_x_names, target_service_name)
@@ -96,7 +97,9 @@ for num_training_data in train_size:
         for testing_sample_x, testing_sample_y_aggregation in zip(testing_samples_x, testing_samples_y_aggregation):
             pred = all_lrn_asgmts['big_gp_model'].predict(testing_sample_x)['val']
             errs.append(abs(pred - testing_sample_y_aggregation))
+            preds.append(pred)
         print("test MAE is", np.mean(errs))
+        print("prediction", np.mean(preds), np.std(preds))
         all_errs.append(np.mean(errs))
     print(all_errs)
     print(np.mean(all_errs))

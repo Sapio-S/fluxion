@@ -13,7 +13,7 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLayerPerceptron
 import numpy as np
 # num_training_data = 983
-total_data = 480
+total_data = 600
 num_testing_data = 150
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
@@ -22,7 +22,7 @@ num_experiments = 10
 all_sample_x_names = {}
 # perf = ["0.50", "0.90"]
 perf = ["0.50", "0.90", "0.95", "0.85"]
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-85-standardized.csv"
 # all_sample_x_names['productcatalogservice:'] = ["productcatalogservice:CPU_LIMIT"]
 # all_sample_x_names['recommendationservice:'] = ["recommendationservice:CPU_LIMIT","productcatalogservice:"]
 all_sample_x_names['adservice:'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
@@ -52,7 +52,7 @@ def expand_sample_x_name(service_name):
     
     return tmp_sample_x_names
 
-train_size = [200,300]
+train_size = [50]
 for num_training_data in train_size:
     small_models_preds = []
     # small_models_abs_errs = []
@@ -60,14 +60,15 @@ for num_training_data in train_size:
     # fluxion_abs_errs = []
     all_errs = []
     experiment_ids_completed = []
-    for num_experiments_so_far in range(num_experiments):
-        f = open("log/1210/fluxion_single_multi_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
-        sys.stdout = f
+    for num_experiments_so_far in range(1):
+        # f = open("log/1210/fluxion_single_multi_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
+        # sys.stdout = f
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
         experiment_ids_completed.append(num_experiments_so_far)
         random.seed(42 + num_experiments_so_far)
         np.random.seed(42 + num_experiments_so_far)
         errs = []
+        preds = []
         zoo = Model_Zoo()
         fluxion = Fluxion(zoo)
         all_lrn_asgmts = {}
@@ -141,30 +142,42 @@ for num_training_data in train_size:
 
         samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([dataset_filename], inputs_name, target_service_name)
         # STEP 2: Compute Fluxion's testing MAE
-        for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x)), samples_x, samples_y_aggregation):
-            if sample_idx not in selected_testing_idxs:
-                continue
-            
-            fluxion_input = {}
-            for val, input_name in zip(sample_x, inputs_name):
-                service_name = None
-                for tmp_name in all_sample_x_names.keys(): 
-                    if input_name in all_sample_x_names[tmp_name]:
-                        service_name = tmp_name                            
-                        if service_name not in fluxion_input.keys():
-                            fluxion_input[service_name] = {}
-                        for p in perf:
-                            service_name2=tmp_name+p
-                            if service_name2 not in fluxion_input[service_name].keys():
-                                fluxion_input[service_name][service_name2] = [{}]
-                            if input_name not in fluxion_input[service_name].keys():
-                                fluxion_input[service_name][service_name2][0][input_name] = val
-
-            # print(fluxion_input)
-            pred = fluxion.predict(target_service_name[:-4], target_service_name, fluxion_input)[target_service_name[:-4]][target_service_name]['val']
-            errs.append(abs(pred - sample_y_aggregation))
         
-        print(np.mean(errs))
+        for service in all_sample_x_names.keys():
+            for p in perf:
+                
+                target_service_name = service+p
+                print(target_service_name)
+                if target_service_name == "frontend:0.50" or target_service_name == "frontend:0.85" or target_service_name == "frontend:0.95":
+                    continue
+                errs = []
+                preds = []
+                for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x)), samples_x, samples_y_aggregation):
+                    if sample_idx not in selected_testing_idxs:
+                        continue
+                    
+                    fluxion_input = {}
+                    for val, input_name in zip(sample_x, inputs_name):
+                        service_name = None
+                        for tmp_name in all_sample_x_names.keys(): 
+                            if input_name in all_sample_x_names[tmp_name]:
+                                service_name = tmp_name                            
+                                if service_name not in fluxion_input.keys():
+                                    fluxion_input[service_name] = {}
+                                for p in perf:
+                                    service_name2=tmp_name+p
+                                    if service_name2 not in fluxion_input[service_name].keys():
+                                        fluxion_input[service_name][service_name2] = [{}]
+                                    if input_name not in fluxion_input[service_name].keys():
+                                        fluxion_input[service_name][service_name2][0][input_name] = val
+
+                    # print(fluxion_input)
+                    pred = fluxion.predict(target_service_name[:-4], target_service_name, fluxion_input)[target_service_name[:-4]][target_service_name]['val']
+                    errs.append(abs(pred - sample_y_aggregation))
+                    preds.append(pred)
+                
+                print(np.mean(errs))
+                print("prediction avg",np.mean(preds), "std", np.std(preds))
         all_errs.append(np.mean(errs))
     print(all_errs)
     print(np.mean(all_errs))
