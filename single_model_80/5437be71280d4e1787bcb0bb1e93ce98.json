@@ -1,0 +1,21 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 290,
+    "normalize_y": false,
+    "input_names": [
+        "frontend:CPU_LIMIT",
+        "frontend:MEMORY_LIMIT",
+        "frontend:IPV4_RMEM",
+        "frontend:IPV4_WMEM",
+        "frontend:rps",
+        "adservice:0.90",
+        "checkoutservice:0.90",
+        "shippingservice:0.90",
+        "currencyservice:0.90",
+        "recommendationservice:0.90",
+        "cartservice:0.90",
+        "productcatalogservice:0.90"
+    ]
+}

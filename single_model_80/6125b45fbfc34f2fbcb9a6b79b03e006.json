@@ -1,0 +1,15 @@
+{
+    "framework": "Sklearn_Framework",
+    "type": "GaussianProcess",
+    "is_whiteKernel": true,
+    "num_restarts_optimizer": 290,
+    "normalize_y": false,
+    "input_names": [
+        "emailservice:CPU_LIMIT",
+        "emailservice:MEMORY_LIMIT",
+        "emailservice:MAX_WORKERS",
+        "emailservice:IPV4_RMEM",
+        "emailservice:IPV4_WMEM",
+        "emailservice:rps"
+    ]
+}

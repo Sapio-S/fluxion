@@ -13,7 +13,7 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLayerPerceptron
 import numpy as np
 
-num_testing_data = 120
+num_testing_data = 115
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
 num_experiments = 10
