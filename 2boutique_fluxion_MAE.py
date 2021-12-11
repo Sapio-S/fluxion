@@ -161,7 +161,7 @@ inputs_name = _build_fluxion(target_service_name)
 for service in x_names:
     fluxion.scale_service_horizontal(service, 2)
 
-train_sizes = [200,300]
+train_sizes = [10,25,50,100,150]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []

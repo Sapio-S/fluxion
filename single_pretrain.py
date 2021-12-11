@@ -64,7 +64,7 @@ for num_experiments_so_far in range(num_experiments):
     zoo = Model_Zoo()
     fluxion = Fluxion(zoo)
     all_lrn_asgmts = {}
-    selected_training_idxs = range(600)
+    selected_training_idxs = range(num_training_data)
     # selected_testing_idxs = None
     
     # ========== Compute small models' errors ==========
@@ -76,7 +76,7 @@ for num_experiments_so_far in range(num_experiments):
         # selected_testing_idxs = random.sample(range(0, len(samples_x)), k=num_testing_data)
         # selected_training_idxs = set(range(0, len(samples_x))) - set(selected_testing_idxs)
         # selected_training_idxs = random.sample(selected_training_idxs, k=num_training_data)
-
+        # print(sample_y_name)
         # STEP 1: Split dataset into training and testing
         training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
         training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]

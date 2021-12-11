@@ -1,0 +1,42 @@
+========== Experiments finished so far: 0 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4215293752967201
+prediction 0.07561926441528322 0.8948040771444312
+========== Experiments finished so far: 1 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.42569639910325596
+prediction 0.05613283280723977 0.8532846365558139
+========== Experiments finished so far: 2 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.40425559342272843
+prediction 0.020346478044149338 0.8516291608839011
+========== Experiments finished so far: 3 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.38423465043017907
+prediction -0.12632736099406686 0.6571838436799775
+========== Experiments finished so far: 4 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4147359615798541
+prediction -0.036903717997926105 0.8793533128918026
+========== Experiments finished so far: 5 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4018089686245715
+prediction -0.03570060264817298 0.85585978619787
+========== Experiments finished so far: 6 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4976177429871594
+prediction -0.004043795184002582 0.9896488635379058
+========== Experiments finished so far: 7 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.38064938035807094
+prediction -0.03458100877360371 0.8992467905671097
+========== Experiments finished so far: 8 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4230124912472436
+prediction 0.15140632769009346 0.9887468783359484
+========== Experiments finished so far: 9 ==========
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.4448124337206165
+prediction 0.0997866683722242 0.7723773417516967
+[0.4215293752967201, 0.42569639910325596, 0.40425559342272843, 0.38423465043017907, 0.4147359615798541, 0.4018089686245715, 0.4976177429871594, 0.38064938035807094, 0.4230124912472436, 0.4448124337206165]
+0.4198352996770399
