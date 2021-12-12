@@ -14,7 +14,7 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import numpy as np
 # num_training_data = 983
 retrain_list = []
-total_data = 519
+total_data = 582
 num_testing_data = 150
 test_size=150
 pretrain_size=10
@@ -23,8 +23,8 @@ target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|
 num_experiments = 10
 # dump_base_directory = "demo_model_zoo"
 
-new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv"
-pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-screen-standardized.csv"
+new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-3-standardized.csv"
+pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
@@ -48,46 +48,15 @@ scale_podname = []
 for service in x_names:
     podname = service[:-5]
     # pods = [podname+"_pod0",podname+"_pod1"]
-    train_name[service] = [podname+"_pod0:0.90",podname+"_pod1:0.90"]
+    train_name[service] = [podname+"_pod0:0.90",podname+"_pod1:0.90",podname+"_pod2:0.90"]
     scale_podname.append(podname+"_pod0:rps")
     scale_podname.append(podname+"_pod1:rps")
+    scale_podname.append(podname+"_pod2:rps")
 # print(train_name)
 '''
 {'adservice:0.90': ['adservice_pod0:0.90', 'adservice_pod1:0.90'], 'productcatalogservice:0.90': ['productcatalogservice_pod0:0.90', 'productcatalogservice_pod1:0.90'], 'recommendationservice:0.90': ['recommendationservice_pod0:0.90', 'recommendationservice_pod1:0.90'], 'emailservice:0.90': ['emailservice_pod0:0.90', 'emailservice_pod1:0.90'], 'paymentservice:0.90': ['paymentservice_pod0:0.90', 'paymentservice_pod1:0.90'], 'shippingservice:0.90': ['shippingservice_pod0:0.90', 'shippingservice_pod1:0.90'], 'currencyservice:0.90': ['currencyservice_pod0:0.90', 'currencyservice_pod1:0.90'], 'get:0.90': ['get_pod0:0.90', 'get_pod1:0.90'], 'set:0.90': ['set_pod0:0.90', 'set_pod1:0.90'], 'cartservice:0.90': ['cartservice_pod0:0.90', 'cartservice_pod1:0.90'], 'checkoutservice:0.90': ['checkoutservice_pod0:0.90', 'checkoutservice_pod1:0.90'], 'frontend:0.90': ['frontend_pod0:0.90', 'frontend_pod1:0.90']}
 '''
 
-
-
-# dump_directory = "model_150"
-# model_name = {
-#     'adservice:0.90':"957814e6f7ef4e0081412c153bd3b2e3",
-#     'productcatalogservice:0.90':"f7a3e65b6cdf445da9715524f84abec7",
-#     'recommendationservice:0.90':"a7fde617b7a1426e9332b5d477ccce54",
-#     'emailservice:0.90':"5c0edd6bbd484602ac4ad6cae83bdfeb",
-#     'paymentservice:0.90':"5ca977e68ac94224a575fe858de1b497",
-#     'shippingservice:0.90':"a6e959c59ad04f348c4e0b962b0a87ff",
-#     'currencyservice:0.90':"147e847c67f54d34a3312dc15f5a98b4",
-#     'get:0.90':"67cb457260464cb89fdd7f0f8414ab62",
-#     'set:0.90':"18613adf032f4bad9c52f2d9d46b6090",
-#     'cartservice:0.90':"bf30e47eb2154155b4b9d9de62126dca",
-#     'checkoutservice:0.90':"c17f0956daf5482bb40a0051092c9e80",
-#     'frontend:0.90':"6154251e64484a4696cc660edafca0b8",
-# }
-# dump_directory = "model_single"
-# model_name = {
-#     'adservice:0.90':"cf9fe0901b4a460a813707b6d00f7b83",
-#     'productcatalogservice:0.90':"1becb3643a2848bcafbb38e567203086",
-#     'recommendationservice:0.90':"4de76bc450e944a798757ecc1b9ff07f",
-#     'emailservice:0.90':"6d3eb0ba189747a19dd578169507a04e",
-#     'paymentservice:0.90':"ddffcdcb6d1541199f1de72dd99123d8",
-#     'shippingservice:0.90':"f2e4551f3a634523812cc2b38439c04f",
-#     'currencyservice:0.90':"135c06f9afff4b06bf85e74a1fa03a52",
-#     'get:0.90':"4e1bcd1913874fecac2e827b9229fd92",
-#     'set:0.90':"addd9f2656bf41ce8ec982fd398063e6",
-#     'cartservice:0.90':"c2178c851c7248269f5b03eccc41afa6",
-#     'checkoutservice:0.90':"4f3cf87acf694c69821a7c778c961287",
-#     'frontend:0.90':"036582b44ac34f5cbf356c88a5698819",
-# }
 dump_directory = "single_model_0.90"
 model_name = {
     'adservice:0.90':"912f5029bc8149d682d8da7ccb26cbb2",
@@ -122,13 +91,6 @@ selected_testing_idxs = None
 # ========== Compute small models' errors ==========
 for sample_y_name in all_sample_x_names.keys():
     sample_x_names = all_sample_x_names[sample_y_name]
-    samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([pretrain_dataset], sample_x_names, sample_y_name)
-    # print(len(samples_x))
-    selected_training_idxs = range(len(samples_x))
-
-    # STEP 1: Split dataset into training and testing
-    training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
-    training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
     
     # STEP 2: Train
     all_lrn_asgmts[sample_y_name] = LearningAssignment(zoo, sample_x_names)
@@ -159,13 +121,13 @@ def _build_fluxion(tmp_service_name, visited_services=[]):
 # add services
 inputs_name = _build_fluxion(target_service_name)
 for service in x_names:
-    fluxion.scale_service_horizontal(service, 2)
+    fluxion.scale_service_horizontal(service, 3)
 
-train_sizes = [10,25,50,100,150]
+train_sizes = [10,25,50,100,150,200,300]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1211/fluxion_2_100+100_"+str(train_size),"w")
+    f = open("log/1212_3/fluxion_3_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
 
@@ -207,10 +169,13 @@ for train_size in train_sizes:
             for service in train_name.keys():
                 service_name = service[:-5]
                 fluxion_input[service][service].append(fluxion_input[service][service][0].copy())
+                fluxion_input[service][service].append(fluxion_input[service][service][0].copy())
                 pod0_sub = total_name.index(train_name[service][0][:-5]+":rps")
                 pod1_sub = total_name.index(train_name[service][1][:-5]+":rps")
+                pod2_sub = total_name.index(train_name[service][2][:-5]+":rps")
                 fluxion_input[service][service][0][service_name+":rps"] = sample_x[pod0_sub]
                 fluxion_input[service][service][1][service_name+":rps"] = sample_x[pod1_sub]
+                fluxion_input[service][service][2][service_name+":rps"] = sample_x[pod2_sub]
             pred = fluxion.predict(target_service_name, target_service_name, fluxion_input)[target_service_name][target_service_name]['val']
             errs.append(abs(pred - sample_y_aggregation))
         print("test MAE",np.mean(errs))
