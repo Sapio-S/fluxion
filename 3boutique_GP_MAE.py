@@ -19,7 +19,7 @@ target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|
 num_experiments = 10
 
 all_sample_x_names={}
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-3-standardized.csv"
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM"]
 all_sample_x_names['recommendationservice:0.90'] = ["recommendationservice:CPU_LIMIT", "recommendationservice:MEMORY_LIMIT", "recommendationservice:MAX_WORKERS", "recommendationservice:MAX_RESPONSE", "recommendationservice:IPV4_RMEM", "recommendationservice:IPV4_WMEM",
@@ -47,19 +47,20 @@ def expand_sample_x_name(service_name):
     return tmp_sample_x_names
 
 # train_size = [10, 25, 50, 100, 150, 200, 300, 450, 550, 650, 800]
-train_size=[25, 50, 100, 150, 200, 300]
+train_size=[10, 25, 50, 100, 150, 200, 300]
 # train_size=[5]
 expanded_sample_x_names = expand_sample_x_name(target_service_name)
-expanded_sample_x_names = list(set(expanded_sample_x_names))*2
+expanded_sample_x_names = list(set(expanded_sample_x_names))*3
 for service in all_sample_x_names.keys():
     expanded_sample_x_names.append(service[:-5]+"_pod0:rps")
     expanded_sample_x_names.append(service[:-5]+"_pod1:rps")
+    expanded_sample_x_names.append(service[:-5]+"_pod2:rps")
 print(len(expanded_sample_x_names))
 # dataset_filename2 = "dataset-checkout2-standardized.csv"
 # inputs_name = expanded_sample_x_names
 # samples_x0, samples_y0, samples_y_aggregation0, err_msg0 = lib_data.readCSVFile([dataset_filename2], expanded_sample_x_names, target_service_name)
 for num_training_data in train_size:
-    f = open("log/1211/GP_2_test_"+str(num_training_data),"w")
+    f = open("log/1212_3/GP_3_"+str(num_training_data),"w")
     sys.stdout = f 
 
     all_errs = []

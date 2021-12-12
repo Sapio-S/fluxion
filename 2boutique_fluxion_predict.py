@@ -1,6 +1,7 @@
 # python3 fluxion_vs_monolith.py
 
 import json, numpy, sys, random, statistics
+from os import pread
 
 sys.path.insert(1, "../")
 # sys.path.insert(1, "../../Dem/o")
@@ -22,7 +23,8 @@ target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
 num_experiments = 10
 # dump_base_directory = "demo_model_zoo"
-
+scaler = np.load("/home/yuqingxie/autosys/code/PlayGround/yuqingxie/100-std-scaler.npy", allow_pickle = True).item()
+pred_dataset = "dataset-2-standardized.csv"
 new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv"
 pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-screen-standardized.csv"
 all_sample_x_names={}
@@ -51,43 +53,7 @@ for service in x_names:
     train_name[service] = [podname+"_pod0:0.90",podname+"_pod1:0.90"]
     scale_podname.append(podname+"_pod0:rps")
     scale_podname.append(podname+"_pod1:rps")
-# print(train_name)
-'''
-{'adservice:0.90': ['adservice_pod0:0.90', 'adservice_pod1:0.90'], 'productcatalogservice:0.90': ['productcatalogservice_pod0:0.90', 'productcatalogservice_pod1:0.90'], 'recommendationservice:0.90': ['recommendationservice_pod0:0.90', 'recommendationservice_pod1:0.90'], 'emailservice:0.90': ['emailservice_pod0:0.90', 'emailservice_pod1:0.90'], 'paymentservice:0.90': ['paymentservice_pod0:0.90', 'paymentservice_pod1:0.90'], 'shippingservice:0.90': ['shippingservice_pod0:0.90', 'shippingservice_pod1:0.90'], 'currencyservice:0.90': ['currencyservice_pod0:0.90', 'currencyservice_pod1:0.90'], 'get:0.90': ['get_pod0:0.90', 'get_pod1:0.90'], 'set:0.90': ['set_pod0:0.90', 'set_pod1:0.90'], 'cartservice:0.90': ['cartservice_pod0:0.90', 'cartservice_pod1:0.90'], 'checkoutservice:0.90': ['checkoutservice_pod0:0.90', 'checkoutservice_pod1:0.90'], 'frontend:0.90': ['frontend_pod0:0.90', 'frontend_pod1:0.90']}
-'''
 
-
-
-# dump_directory = "model_150"
-# model_name = {
-#     'adservice:0.90':"957814e6f7ef4e0081412c153bd3b2e3",
-#     'productcatalogservice:0.90':"f7a3e65b6cdf445da9715524f84abec7",
-#     'recommendationservice:0.90':"a7fde617b7a1426e9332b5d477ccce54",
-#     'emailservice:0.90':"5c0edd6bbd484602ac4ad6cae83bdfeb",
-#     'paymentservice:0.90':"5ca977e68ac94224a575fe858de1b497",
-#     'shippingservice:0.90':"a6e959c59ad04f348c4e0b962b0a87ff",
-#     'currencyservice:0.90':"147e847c67f54d34a3312dc15f5a98b4",
-#     'get:0.90':"67cb457260464cb89fdd7f0f8414ab62",
-#     'set:0.90':"18613adf032f4bad9c52f2d9d46b6090",
-#     'cartservice:0.90':"bf30e47eb2154155b4b9d9de62126dca",
-#     'checkoutservice:0.90':"c17f0956daf5482bb40a0051092c9e80",
-#     'frontend:0.90':"6154251e64484a4696cc660edafca0b8",
-# }
-# dump_directory = "model_single"
-# model_name = {
-#     'adservice:0.90':"cf9fe0901b4a460a813707b6d00f7b83",
-#     'productcatalogservice:0.90':"1becb3643a2848bcafbb38e567203086",
-#     'recommendationservice:0.90':"4de76bc450e944a798757ecc1b9ff07f",
-#     'emailservice:0.90':"6d3eb0ba189747a19dd578169507a04e",
-#     'paymentservice:0.90':"ddffcdcb6d1541199f1de72dd99123d8",
-#     'shippingservice:0.90':"f2e4551f3a634523812cc2b38439c04f",
-#     'currencyservice:0.90':"135c06f9afff4b06bf85e74a1fa03a52",
-#     'get:0.90':"4e1bcd1913874fecac2e827b9229fd92",
-#     'set:0.90':"addd9f2656bf41ce8ec982fd398063e6",
-#     'cartservice:0.90':"c2178c851c7248269f5b03eccc41afa6",
-#     'checkoutservice:0.90':"4f3cf87acf694c69821a7c778c961287",
-#     'frontend:0.90':"036582b44ac34f5cbf356c88a5698819",
-# }
 dump_directory = "single_model_0.90"
 model_name = {
     'adservice:0.90':"912f5029bc8149d682d8da7ccb26cbb2",
@@ -160,15 +126,23 @@ def _build_fluxion(tmp_service_name, visited_services=[]):
 inputs_name = _build_fluxion(target_service_name)
 for service in x_names:
     fluxion.scale_service_horizontal(service, 2)
+    
+total_name = inputs_name+scale_podname
+samples_x0, samples_y0, samples_y_aggregation0, err_msg = lib_data.readCSVFile([pred_dataset], total_name, "frontend:0.90")
+        
+# dataset_filename2 = "dataset-2-standardized.csv" 
+# inputs_name=['frontend:CPU_LIMIT', 'frontend:MEMORY_LIMIT', 'frontend:IPV4_RMEM', 'frontend:IPV4_WMEM', 'frontend:rps', 'adservice:MAX_ADS_TO_SERVE', 'adservice:CPU_LIMIT', 'adservice:MEMORY_LIMIT', 'adservice:IPV4_RMEM', 'adservice:IPV4_WMEM', 'adservice:rps', 'checkoutservice:CPU_LIMIT', 'checkoutservice:MEMORY_LIMIT', 'checkoutservice:IPV4_RMEM', 'checkoutservice:IPV4_WMEM', 'checkoutservice:rps', 'emailservice:CPU_LIMIT', 'emailservice:MEMORY_LIMIT', 'emailservice:MAX_WORKERS', 'emailservice:IPV4_RMEM', 'emailservice:IPV4_WMEM', 'emailservice:rps', 'paymentservice:CPU_LIMIT', 'paymentservice:MEMORY_LIMIT', 'paymentservice:IPV4_RMEM', 'paymentservice:IPV4_WMEM', 'paymentservice:rps', 'shippingservice:CPU_LIMIT', 'shippingservice:MEMORY_LIMIT', 'shippingservice:IPV4_RMEM', 'shippingservice:IPV4_WMEM', 'shippingservice:rps', 'currencyservice:CPU_LIMIT', 'currencyservice:MEMORY_LIMIT', 'currencyservice:IPV4_RMEM', 'currencyservice:IPV4_WMEM', 'currencyservice:rps', 'cartservice:CPU_LIMIT', 'cartservice:MEMORY_LIMIT', 'cartservice:IPV4_RMEM', 'cartservice:IPV4_WMEM', 'cartservice:rps', 'get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'get:rps', 'get:CPU_LIMIT', 'get:MEMORY_LIMIT', 'get:IPV4_RMEM', 'get:IPV4_WMEM', 'get:hash_max_ziplist_entries', 'get:maxmemory_samples', 'get:maxmemory', 'set:rps', 'productcatalogservice:CPU_LIMIT', 'productcatalogservice:MEMORY_LIMIT', 'productcatalogservice:IPV4_RMEM', 'productcatalogservice:IPV4_WMEM', 'productcatalogservice:rps', 'recommendationservice:CPU_LIMIT', 'recommendationservice:MEMORY_LIMIT', 'recommendationservice:MAX_WORKERS', 'recommendationservice:MAX_RESPONSE', 'recommendationservice:IPV4_RMEM', 'recommendationservice:IPV4_WMEM', 'recommendationservice:rps']
+# samples_x0, samples_y0, samples_y_aggregation0, err_msg = lib_data.readCSVFile([dataset_filename2], inputs_name, target_service_name)
 
-train_sizes = [10,25,50,100,150]
+train_sizes = [50]
 # train_sizes=[5]
+
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1211/fluxion_2_100+100_"+str(train_size),"w")
-    sys.stdout = f
-    for num_experiments_so_far in range(num_experiments):
 
+    for num_experiments_so_far in range(num_experiments):
+        f = open("log/1222/fluxion_2_pred_"+str(train_size)+"_"+str(num_experiments_so_far),"w")
+        sys.stdout = f
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
         random.seed(42 + num_experiments_so_far)
         np.random.seed(42 + num_experiments_so_far)
@@ -184,12 +158,9 @@ for train_size in train_sizes:
             training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
             fluxion.train_service(service, service, training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
 
-        # STEP 2: Compute Fluxion's testing MAE
-        total_name = inputs_name+scale_podname
-        samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], total_name, "frontend:0.90")
-        for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x)), samples_x, samples_y_aggregation):
-            if sample_idx not in selected_testing_idxs:
-                continue
+        
+        preds = []
+        for sample_idx, sample_x, sample_y_aggregation in zip(range(len(samples_x0)), samples_x0, samples_y_aggregation0):
             fluxion_input = {}
             for val, input_name in zip(sample_x, inputs_name):
                 service_name = None
@@ -212,9 +183,30 @@ for train_size in train_sizes:
                 fluxion_input[service][service][0][service_name+":rps"] = sample_x[pod0_sub]
                 fluxion_input[service][service][1][service_name+":rps"] = sample_x[pod1_sub]
             pred = fluxion.predict(target_service_name, target_service_name, fluxion_input)[target_service_name][target_service_name]['val']
-            errs.append(abs(pred - sample_y_aggregation))
-        print("test MAE",np.mean(errs))
-        all_errs.append(np.mean(errs))
-    print(all_errs)
-    print(np.mean(all_errs))
+            preds.append(pred)
+        best = min(preds)
+        best_index = preds.index(best)
+        print(len(preds))
+        print(best_index)
+        print(best)
+        # print(samples_x0[best_index])
 
+        # use scaler to convert it back to original form
+        print("")
+        cnt = 0
+        real_para = {}
+        for k in inputs_name:
+            name = k.split("_pod")
+            if len(name) == 2:
+                perf = name[1].split(":")[1]
+                k = name[0]+":"+perf
+            # real_para[k] = samples_x_real[best_index]
+            std = scaler[k+":STD"]
+            avg = scaler[k+":AVG"]
+            if std == 0:
+                std = 1
+            real_para[k] = samples_x0[best_index][cnt] * std + avg
+            cnt += 1
+        print(real_para)
+        np.save("log/1222/fluxion_2boutique_"+str(train_size)+"_"+str(num_experiments_so_far), real_para)
+        print(best * scaler["frontend:0.90:STD"] + scaler["frontend:0.90:AVG"])
