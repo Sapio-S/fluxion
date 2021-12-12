@@ -15,8 +15,8 @@ import numpy as np
 # num_training_data = 983
 retrain_list = []
 total_data = 415
-num_testing_data = 120
-test_size=120
+num_testing_data = 115
+test_size=115
 pretrain_size=10
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
@@ -161,11 +161,11 @@ inputs_name = _build_fluxion(target_service_name)
 for service in x_names:
     fluxion.scale_service_horizontal(service, 2)
 
-train_sizes = [10,25,50,100,150]
+train_sizes = [200,300]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1211/fluxion_2_screen_"+str(train_size),"w")
+    f = open("log/1211/fluxion_2_100+80_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
 

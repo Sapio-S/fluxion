@@ -10,8 +10,8 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLayerPerceptron
 from GraphEngine.ModelZoo.model_zoo import Model_Zoo
 
-from consts import *
-from data import get_input
+# from consts import *
+# from data import get_input
 import numpy as np
 import nni
 import lib_data
