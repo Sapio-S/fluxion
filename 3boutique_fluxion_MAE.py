@@ -127,8 +127,8 @@ train_sizes = [10,25,50,100,150,200,300]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1212_3/fluxion_3_90_"+str(train_size),"w")
-    sys.stdout = f
+    # f = open("log/1212_3/fluxion_3_90_"+str(train_size),"w")
+    # sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
 
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
@@ -144,8 +144,8 @@ for train_size in train_sizes:
             samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], train_name[service], service)
             training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
             training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
-            fluxion.train_service(service, service, training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
-
+            fluxion.train_service(service, service, training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False], is_delete_prev_models=True)
+        
         # STEP 2: Compute Fluxion's testing MAE
         total_name = inputs_name+scale_podname
         samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], total_name, "frontend:0.90")
