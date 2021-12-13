@@ -14,7 +14,7 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import numpy as np
 # num_training_data = 983
 retrain_list = []
-total_data = 582
+total_data = 523
 num_testing_data = 150
 test_size=150
 pretrain_size=10
@@ -23,7 +23,7 @@ target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|
 num_experiments = 10
 # dump_base_directory = "demo_model_zoo"
 
-new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-3-standardized.csv"
+new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-3-90-standardized.csv"
 pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
@@ -127,7 +127,7 @@ train_sizes = [10,25,50,100,150,200,300]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
-    f = open("log/1212_3/fluxion_3_"+str(train_size),"w")
+    f = open("log/1212_3/fluxion_3_90_"+str(train_size),"w")
     sys.stdout = f
     for num_experiments_so_far in range(num_experiments):
 
