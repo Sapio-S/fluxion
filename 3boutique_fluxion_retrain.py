@@ -24,6 +24,7 @@ num_experiments = 10
 # dump_base_directory = "demo_model_zoo"
 
 new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-3-90-standardized.csv"
+single_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]
 all_sample_x_names['productcatalogservice:0.90'] = ["productcatalogservice:CPU_LIMIT", "productcatalogservice:MEMORY_LIMIT", "productcatalogservice:IPV4_RMEM", "productcatalogservice:IPV4_WMEM", "productcatalogservice:rps"]
@@ -61,7 +62,7 @@ all_sample_x_names2['frontend_pod0:0.90'] = ["frontend:CPU_LIMIT", "frontend:MEM
                                         "adservice:0.90", "checkoutservice:0.90", "shippingservice:0.90", "currencyservice:0.90", "recommendationservice:0.90", "cartservice:0.90", "productcatalogservice:0.90"]
 
 # retrain_list = ["productcatalogservice:0.90", "recommendationservice:0.90",'checkoutservice:0.90', "frontend:0.90"]
-retrain_list = ["currencyservice:0.90", "get:0.90",'set:0.90', "cartservice:0.90"]
+retrain_list = ["currencyservice_pod0:0.90", "get_pod0:0.90",'set_pod0:0.90', "cartservice_pod0:0.90"]
 
 x_names = all_sample_x_names.keys()
 train_name = {}
@@ -106,7 +107,7 @@ small_models_preds = []
 small_models_abs_errs = []
 small_models_raw_errs = []
 
-train_sizes = [10,25,50,100]
+train_sizes = [100]
 # train_sizes=[5]
 for train_size in train_sizes:
     all_errs = []
@@ -125,26 +126,39 @@ for train_size in train_sizes:
         selected_testing_idxs = random.sample(range(0, total_data), k=test_size)
         selected_training_idxs = set(range(0, total_data)) - set(selected_testing_idxs)
         selected_training_idxs = random.sample(selected_training_idxs, k=train_size)
+        resampled_training_idxs = random.sample(range(0,train_size*2), k=train_size)
         errs = []
 
         # ========== Compute small models' errors ==========
         for sample_y_name in all_sample_x_names2.keys():
-            sample_x_names = all_sample_x_names2[sample_y_name]
-            samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], sample_x_names, sample_y_name)
-            
-            # STEP 1: Split dataset into training and testing
-            training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
-            training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
-            testing_samples_x = [samples_x[idx] for idx in selected_testing_idxs]
-            testing_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_testing_idxs]
-            
             # STEP 2: Train
-            sample_y_name = sample_y_name[:-10]+":0.90"
-            sample_x_names = all_sample_x_names[sample_y_name]
-            all_lrn_asgmts[sample_y_name] = LearningAssignment(zoo, sample_x_names)
-            if sample_y_name in retrain_list:
-                created_model_name = all_lrn_asgmts[sample_y_name].create_and_add_model(training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
+            if sample_y_name in retrain_list:            
+                sample_x_names = all_sample_x_names2[sample_y_name]
+                samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], sample_x_names, sample_y_name)
+                
+                # STEP 1: Split dataset into training and testing
+                training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
+                training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
+                
+                sample_y_name = sample_y_name[:-10]+":0.90"
+                sample_x_names = all_sample_x_names[sample_y_name]
+                samples_x2, samples_y2, samples_y_aggregation2, err_msg = lib_data.readCSVFile([single_dataset], sample_x_names, sample_y_name)
+                
+                training_samples_x2 = [samples_x2[idx] for idx in selected_training_idxs]
+                training_samples_y_aggregation2 = [samples_y_aggregation2[idx] for idx in selected_training_idxs]
+                
+                total_training_samples_x = training_samples_x+training_samples_x2
+                final_training_samples_x = [total_training_samples_x[idx] for idx in resampled_training_idxs]
+                
+                total_training_samples_y_aggregation = training_samples_y_aggregation+training_samples_y_aggregation2
+                final_training_samples_y_aggregation = [total_training_samples_y_aggregation[idx] for idx in resampled_training_idxs]
+                
+                all_lrn_asgmts[sample_y_name] = LearningAssignment(zoo, sample_x_names)
+                created_model_name = all_lrn_asgmts[sample_y_name].create_and_add_model(final_training_samples_x, final_training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
             else:
+                sample_y_name = sample_y_name[:-10]+":0.90"
+                sample_x_names = all_sample_x_names[sample_y_name]
+                all_lrn_asgmts[sample_y_name] = LearningAssignment(zoo, sample_x_names)
                 created_model_name = all_lrn_asgmts[sample_y_name].add_model(model_name[sample_y_name])
             
             # # # STEP 3: Compute MAE with testing dataset
@@ -186,7 +200,7 @@ for train_size in train_sizes:
             samples_x, samples_y, samples_y_aggregation, err_msg = lib_data.readCSVFile([new_dataset], train_name[service], service)
             training_samples_x = [samples_x[idx] for idx in selected_training_idxs]
             training_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_training_idxs]
-            fluxion.train_service(service, service, training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
+            fluxion.train_service(service, service, training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False], is_delete_prev_models=True)
         
         # STEP 2: Compute Fluxion's test MAE
         total_name = inputs_name+scale_podname
