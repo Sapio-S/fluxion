@@ -15,7 +15,7 @@ finals = ["adservice", "cartservice", "checkoutservice", "currencyservice", "ema
 # # for i in range(10):
 # #     dic = np.load("/home/yuqingxie/autosys/code/fluxion/tmp_data_norm0910/"+str(i)+"_csv_scale.npy", allow_pickle=True).item()
 # #     print(dic["frontend:0.90:MAX"], dic["frontend:0.90:MIN"])
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole.csv"
 dataset_filename2 = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole.csv"
 # dataset_filename3="/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2checkout-150.csv"
 # dataset_filename4="/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-150-checkout1.csv"

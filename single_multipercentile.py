@@ -13,7 +13,7 @@ from GraphEngine.Model.framework_sklearn.gaussian_process import GaussianProcess
 from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLayerPerceptron
 import numpy as np
 # num_training_data = 983
-total_data = 600
+total_data = 480
 num_testing_data = 150
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
@@ -22,7 +22,7 @@ num_experiments = 10
 all_sample_x_names = {}
 # perf = ["0.50", "0.90"]
 perf = ["0.50", "0.90", "0.95", "0.85"]
-dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-85-standardized.csv"
+dataset_filename = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv"
 # all_sample_x_names['productcatalogservice:'] = ["productcatalogservice:CPU_LIMIT"]
 # all_sample_x_names['recommendationservice:'] = ["recommendationservice:CPU_LIMIT","productcatalogservice:"]
 all_sample_x_names['adservice:'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]

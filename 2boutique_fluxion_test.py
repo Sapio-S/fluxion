@@ -14,16 +14,16 @@ from GraphEngine.Model.framework_sklearn.multi_layer_perceptron import MultiLaye
 import numpy as np
 # num_training_data = 983
 retrain_list = []
-total_data = 283
-num_testing_data = 83
-test_size=83
+total_data = 500
+num_testing_data = 150
+test_size=150
 pretrain_size=900
 target_deployment_name = "boutique_p90_p90"  # "boutique_p90_p90", "boutique_p95_p95", "hotel_p90_p90", "hotel_p95_p95", "hotel_p90_p50p85p90p95"
 target_service_name = "frontend:0.90"  # "frontend:0.90", "frontend:0.95", "wrk|frontend|overall|lat-90", "wrk|frontend|overall|lat-95"
 num_experiments = 1
 # dump_base_directory = "demo_model_zoo"
 
-new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-standardized.csv"
+new_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-2-whole-standardized.csv"
 pretrain_dataset = "/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-whole-standardized.csv"
 all_sample_x_names={}
 all_sample_x_names['adservice:0.90'] = ["adservice:MAX_ADS_TO_SERVE", "adservice:CPU_LIMIT", "adservice:MEMORY_LIMIT", "adservice:IPV4_RMEM", "adservice:IPV4_WMEM", "adservice:rps"]

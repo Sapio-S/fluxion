@@ -1,32 +1,42 @@
 ========== Experiments finished so far: 0 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.3118010426242709
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.6967535519911776
+prediction 0.07336808472716506 0.3940435360334172
 ========== Experiments finished so far: 1 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.24759448913036256
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5737969562932071
+prediction -0.0725916404294342 0.5357228368818402
 ========== Experiments finished so far: 2 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.28897796313371765
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5947145384542313
+prediction -0.09847854314571275 0.34940130971822553
 ========== Experiments finished so far: 3 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2504238926896876
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5767699498820773
+prediction 0.014421189898510652 0.5795994152886995
 ========== Experiments finished so far: 4 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2508799143949224
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5147362876700083
+prediction -0.059891382412766855 0.6626082497323738
 ========== Experiments finished so far: 5 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2605208574563254
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.6165870287652068
+prediction 0.13595609115127444 0.8305564251846694
 ========== Experiments finished so far: 6 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.23982396379991908
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5883900684138955
+prediction 0.0025636066720880458 0.5543869340659078
 ========== Experiments finished so far: 7 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.3016950016661613
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.6099845527042623
+prediction -0.007984481530211572 0.4744139276156623
 ========== Experiments finished so far: 8 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.28733883457468246
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.7446501512170465
+prediction 0.010748467743576703 0.40908412021828533
 ========== Experiments finished so far: 9 ==========
-/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-standardized.csv has 600 data points
-test MAE is 0.2769796284353527
-[0.3118010426242709, 0.24759448913036256, 0.28897796313371765, 0.2504238926896876, 0.2508799143949224, 0.2605208574563254, 0.23982396379991908, 0.3016950016661613, 0.28733883457468246, 0.2769796284353527]
-0.2716035587905402
+/home/yuqingxie/autosys/code/PlayGround/yuqingxie/dataset-100-screen-standardized.csv has 480 data points
+test MAE is 0.5864430103173504
+prediction -0.056403904413302376 0.5904188681947518
+[0.6967535519911776, 0.5737969562932071, 0.5947145384542313, 0.5767699498820773, 0.5147362876700083, 0.6165870287652068, 0.5883900684138955, 0.6099845527042623, 0.7446501512170465, 0.5864430103173504]
+0.6102826095708462
