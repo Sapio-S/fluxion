@@ -61,7 +61,7 @@ samples_x0, samples_y0, samples_y_aggregation0, err_msg0 = lib_data.readCSVFile(
 for num_training_data in train_size:
     all_errs = []
     for num_experiments_so_far in range(10):    
-        f = open("log/1222/DNN_2boutique_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
+        f = open("log/1222/GP_2boutique_"+str(num_training_data)+"_"+str(num_experiments_so_far),"w")
         sys.stdout = f 
 
         print("========== Experiments finished so far:", num_experiments_so_far, "==========")
@@ -92,21 +92,8 @@ for num_training_data in train_size:
         testing_samples_y_aggregation = [samples_y_aggregation[idx] for idx in selected_testing_idxs]
         
         all_lrn_asgmts['big_gp_model'] = LearningAssignment(zoo, expanded_sample_x_names)
-        created_model_name = all_lrn_asgmts['big_gp_model'].create_and_add_model(
-            training_samples_x, 
-            training_samples_y_aggregation, 
-            MultiLayerPerceptron, 
-            model_class_args=[
-                (693,1436,1964,1710,745,2596), 
-                "tanh", # tanh or logistic
-                "sgd", 
-                1e-4, # alpha
-                0.01, # learning_rate_init
-                "adaptive", 
-                # max_iter
-                ]
-        )
-
+        created_model_name = all_lrn_asgmts['big_gp_model'].create_and_add_model(training_samples_x, training_samples_y_aggregation, GaussianProcess, model_class_args=[True, 250, False])
+        
         preds = []
         for testing_sample_x, testing_sample_y_aggregation in zip(samples_x0, samples_y_aggregation0):
             pred = all_lrn_asgmts['big_gp_model'].predict(testing_sample_x)['val']
@@ -137,5 +124,5 @@ for num_training_data in train_size:
             real_para[k] = samples_x0[best_index][cnt] * std + avg
             cnt += 1
         print(real_para)
-        np.save("log/1222/DNN_2boutique_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
+        np.save("log/1222/GP_2boutique_"+str(num_training_data)+"_"+str(num_experiments_so_far), real_para)
         print(best * scaler["frontend:0.90:STD"] + scaler["frontend:0.90:AVG"])

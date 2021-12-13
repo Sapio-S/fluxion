@@ -179,7 +179,7 @@ def restruct(from_route, to_name, size=10000):
             data[name], scale = standardize(data[name], name)
             para_dic.update(scale)
 
-        with open("dataset-2-short-standardized.csv", "w") as f:
+        with open("dataset-2-standardized.csv", "w") as f:
             writer = csv.DictWriter(f, reader.fieldnames)
             writer.writeheader()
             for i in range(size):
@@ -189,4 +189,4 @@ def restruct(from_route, to_name, size=10000):
 if __name__ == "__main__":
     np.random.seed(0)
     random.seed(0)
-    restruct("data-2.csv", "dataset-2-short.csv", 10)
+    restruct("data-2.csv", "dataset-2.csv", 100000)
